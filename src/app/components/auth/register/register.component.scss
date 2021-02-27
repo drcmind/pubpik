@@ -1,0 +1,47 @@
+@import "../../../../styles";
+
+.register {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 100vh;
+
+  h1 {
+    font-weight: bold;
+  }
+
+  .arrow-back-icon {
+    margin-bottom: 1rem;
+  }
+
+  &-sidePanel {
+    overflow: auto;
+    background: $accent-low-opacity;
+
+    .sidePanel-content {
+      margin-top: 2rem;
+    }
+
+    h3 button {
+      color: $achor-tag-color;
+    }
+  }
+
+  &-form {
+    a {
+      font-weight: bold;
+      text-decoration: none;
+    }
+    button {
+      @extend %button;
+      width: inherit;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 37rem) {
+  h1,
+  h3 {
+    text-align: center;
+  }
+}

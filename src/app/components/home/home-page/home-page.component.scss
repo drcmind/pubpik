@@ -1,0 +1,49 @@
+@import "../../../../styles";
+.main-page {
+  height: 100vh;
+  width: 100%;
+
+  .right-container {
+    height: inherit;
+    border-radius: 0;
+    margin: 0 1rem;
+    min-width: 15rem;
+  }
+
+  .left-container {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    mat-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: $white-color;
+
+      .tootlbar-content-left,
+      .tootlbar-content-right {
+        height: 100%;
+        .mat-display-1 {
+          margin: 0;
+          font-weight: bold;
+        }
+        .mat-elevation-z1 {
+          display: inline-block;
+          margin-right: 1rem;
+        }
+        img {
+          height: 100%;
+          width: inherit;
+        }
+      }
+      .tootlbar-content-left {
+        cursor: pointer;
+      }
+    }
+
+    .right-container-content {
+      padding: 1rem;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<div
+  class="dialog-title"
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <h1 fxFlex="70">Nouveau {{ title }}</h1>
+  <h1>
+    <button
+      class="mat-elevation-z1"
+      mat-icon-button
+      mat-dialog-close
+      matTooltip="Fermez cette fenetre"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </h1>
+</div>
+<div class="image-section" fxLayout="row wrap">
+  <img
+    *ngFor="let imagesUrl of imagesUrls"
+    [src]="imagesUrl"
+    matTooltip="Double clic pour retirer"
+    (dblclick)="removeSelectedImage(imagesUrl)"
+    alt="pubpik image"
+  />
+  <input
+    type="file"
+    #selectImage
+    style="display: none"
+    (change)="selectFiles($event)"
+    multiple
+    accept=".png,.jpg"
+  />
+  <button
+    class="add-image-btn"
+    mat-button
+    (click)="selectImage.click()"
+    matTooltip="Ajouter une image"
+    [disabled]="isImageLoading"
+  >
+    <mat-progress-spinner
+      *ngIf="isImageLoading"
+      mode="indeterminate"
+      diameter="30"
+    ></mat-progress-spinner>
+    <mat-icon *ngIf="!isImageLoading">add_photo_alternate</mat-icon>
+  </button>
+</div>
+<form
+  class="add-pubpik-form"
+  mat-dialog-content
+  [formGroup]="addPubPikForm"
+  (ngSubmit)="onSubmit(data.userData)"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-between center"
+>
+  <mat-form-field fxFlex="100" appearance="outline">
+    <mat-label>Nom de l'album</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="titleFormControl"
+      placeholder="Ex. Nouveauté sur DrcMInd"
+    />
+    <mat-error *ngIf="titleFormControl?.hasError('required')">
+      Le nom est <strong>recommandée</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="100" appearance="outline">
+    <mat-label>Description du PubPik</mat-label>
+    <textarea
+      matInput
+      formControlName="descriptionFormControl"
+      class="desc-form-field"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="48" appearance="outline">
+    <mat-label>Catégorisez ce PubPik</mat-label>
+    <mat-select formControlName="categoryControlName">
+      <mat-option
+        *ngFor="let categorie of data.categoriesData"
+        [value]="categorie"
+      >
+        {{ categorie.categoryName }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="categoryControlName?.hasError('required')"
+      >Séléctionnez une catégorie</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field fxFlex="48" appearance="outline">
+    <mat-label>Visibilité de ce PubPik</mat-label>
+    <mat-select formControlName="visilibityControlName">
+      <mat-option [value]="visilibityControlName?.value"
+        >Visible à tout le monde</mat-option
+      >
+      <mat-option value="privé">Visible qu'à toi uniquement</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    class="submit-btn"
+    mat-flat-button
+    type="submit"
+    [disabled]="isInvalidForm"
+    color="primary"
+    (click)="onSubmit(data.userData)"
+  >
+    PubPiker
+  </button>
+</form>

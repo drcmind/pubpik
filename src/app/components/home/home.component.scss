@@ -1,0 +1,61 @@
+@import "../../../styles";
+
+mat-horizontal-stepper {
+  padding: 4rem 8rem;
+  button {
+    @extend %button;
+    width: inherit;
+    display: inline-block;
+    margin: 0 1rem;
+  }
+
+  mat-button-toggle {
+    margin: 0.3rem;
+    border-radius: 1rem;
+    height: 3rem;
+  }
+
+  .btn-interest-center {
+    margin-top: 1rem;
+  }
+
+  .btn-lancez-vous {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    button {
+      width: initial;
+    }
+  }
+  .categories {
+    border-radius: 1rem;
+    width: 100%;
+    padding: 1rem 0;
+    border: 0.1rem solid $black-color;
+  }
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  width: 4rem;
+  .icons {
+    padding: 1rem 0;
+    overflow: hidden;
+  }
+
+  .active {
+    background: $accent-low-opacity;
+    background-size: 3rem;
+    border-left: 0.4rem solid $black-color;
+  }
+  button {
+    height: 3rem;
+    border-radius: 0;
+    transition: 0.5s;
+  }
+}

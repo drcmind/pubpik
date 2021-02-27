@@ -1,0 +1,47 @@
+@import "../../../../styles";
+
+mat-progress-bar {
+  margin: -1.5rem;
+  width: 548px;
+}
+
+.margin {
+  height: 2.5rem;
+}
+
+.title {
+  margin: 0;
+  .mat-display-1 {
+    margin-bottom: 0;
+    font-weight: bolder;
+  }
+}
+
+.login-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+
+  h2 {
+    margin: 1rem 0;
+  }
+
+  button {
+  @extend %button;
+}
+}
+
+.full-width {
+  width: 100%;
+  overflow: hidden;
+
+  button {
+  @extend %button;
+}
+}
+
+.forgot {
+  margin: 0.5rem 0;
+  color: $achor-tag-color;
+}

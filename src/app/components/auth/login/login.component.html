@@ -1,0 +1,103 @@
+<mat-progress-bar *ngIf="formValid" mode="indeterminate"></mat-progress-bar>
+<div class="margin" *ngIf="formValid"></div>
+<div
+  class="title"
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div fxFlex="50" class="mat-display-1">{{ title }}</div>
+  <button
+    class="mat-elevation-z1"
+    mat-icon-button
+    mat-dialog-close
+    matTooltip="Fermez cette fenetre"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form
+  class="login-form"
+  mat-dialog-content
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>
+    Veillez fournir vos logins pour accèder à votre espace
+    {{ title }}
+    en un clin d'oeil et en temps réel
+  </h2>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      formControlName="emailFormControl"
+      placeholder="Ex. drcmind@example.com"
+    />
+    <mat-error
+      *ngIf="
+        emailFormControl?.hasError('email') &&
+        !emailFormControl?.hasError('required')
+      "
+    >
+      Email invalide
+    </mat-error>
+    <mat-error *ngIf="emailFormControl?.hasError('required')">
+      Email est <strong>recommandée</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Mot de passe</mat-label>
+    <input
+      matInput
+      [type]="isHide ? 'password' : 'text'"
+      formControlName="passwordFormControl"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="isHide = !isHide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="isHide"
+    >
+      <mat-icon>{{ isHide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    <mat-error
+      *ngIf="
+        passwordFormControl?.hasError('pattern') &&
+        !passwordFormControl?.hasError('required')
+      "
+    >
+      Le mot de passe erroné
+    </mat-error>
+    <mat-error *ngIf="passwordFormControl?.hasError('required')">
+      Le mot de passe est <strong>indispensable pour se connecter</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div fxLayout="column" fxLayoutAlign="space-between center">
+    <button class="full-width" mat-flat-button color="primary" type="submit">
+      Connectez-vous
+    </button>
+    <button class="forgot" (click)="openResetPasswordDialog()" mat-button>
+      Mot de passe oublié ?
+    </button>
+  </div>
+</form>
+<mat-divider></mat-divider>
+<div
+  class="full-width"
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <p>Besoin d'un nouveau compte ?</p>
+  <p>
+    <button mat-flat-button color="accent" (click)="goToRegister()">
+      Créez-en un
+    </button>
+  </p>
+</div>

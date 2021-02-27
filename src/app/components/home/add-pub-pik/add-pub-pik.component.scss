@@ -1,0 +1,42 @@
+@import "../../../../styles";
+
+.dialog-title {
+  margin: 0;
+}
+.add-pubpik-form {
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.desc-form-field {
+  min-height: 4rem;
+  height: 4rem;
+  max-height: 4rem;
+  line-height: 1.5;
+}
+
+.submit-btn {
+  @extend %button;
+}
+
+.add-image-btn,
+img {
+  height: 5rem;
+  width: 5rem;
+  margin: 0.2rem;
+  border: 0.2rem dotted $black-color;
+  object-fit: cover;
+}
+
+img {
+  border: 0.1rem solid $black-color;
+  border-radius: 0.5rem;
+}
+
+.image-section {
+  height: 6rem;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}

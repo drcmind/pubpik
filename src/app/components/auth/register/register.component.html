@@ -1,0 +1,206 @@
+<mat-progress-bar *ngIf="isValidForm" mode="indeterminate"></mat-progress-bar>
+<div class="register" fxLayout="row">
+  <div
+    fxHide.xs
+    fxHide.sm
+    class="register-sidePanel"
+    fxFlex="1 2 30"
+    fxLayout="Column"
+    fxLayoutAlign="center start"
+  >
+    <div class="sidePanel-content" fxFlex="80" fxLayout="Column">
+      <button
+        class="arrow-back-icon mat-elevation-z1"
+        mat-icon-button
+        (click)="goToLandingPage()"
+        matTooltip="Retour à la page accueil"
+        matTooltipPosition="after"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>{{ title }}</h1>
+      <h2>{{ desc }}</h2>
+      <h3>
+        Déjà membre ?
+        <button (click)="openLoginDialog()" mat-button>Connectez-vous</button>
+      </h3>
+      <img
+        fxFlex="60"
+        src="../../../assets/undraw_online_connection_6778.svg"
+        alt="img-pic-share"
+      />
+    </div>
+  </div>
+  <div
+    class="register-container"
+    fxFlex="2 1 70"
+    fxFlex.sm="2 1 100"
+    fxFlex.xs="2 1 100"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <div fxFlex="60" fxFlex.xs="80" fxLayout="column">
+      <button
+        fxHide.lg
+        fxHide.md
+        class="arrow-back-icon mat-elevation-z1"
+        mat-icon-button
+        (click)="goToLandingPage()"
+        matTooltip="Retour à la page accueil"
+        matTooltipPosition="after"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 mat-title>Inscription sur {{ title }}</h1>
+      <h3>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, totam!
+        Unde consectetur minus, perspiciatis molestiae molestias mollitia
+        recusandae omnis sequi eius repudiandae aliquid nostrum hic dolorum eos
+        tenetur laborum! Nisi!
+      </h3>
+      <form
+        class="register-form"
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <mat-form-field appearance="outline" fxFlex="48">
+          <mat-label>Nom ou Pre-nom</mat-label>
+          <input
+            type="type"
+            matInput
+            formControlName="firstNameFormControl"
+            placeholder="Entez votre nom ou votre pre-nom"
+          />
+          <mat-error *ngIf="firstNameFormControl?.hasError('required')">
+            Completer votre nom s'il vous plait !
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="48">
+          <mat-label>Post-nom</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="lastNameFormControl"
+            placeholder="Entrez votre post-nom (facultatif)"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="emailFormControl"
+            placeholder="Adresse mail"
+          />
+          <mat-error
+            *ngIf="
+              emailFormControl?.hasError('email') &&
+              !emailFormControl?.hasError('required')
+            "
+          >
+            Email invalide
+          </mat-error>
+          <mat-error *ngIf="emailFormControl?.hasError('required')">
+            Email est <strong>recommandé</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="48">
+          <mat-label>Mot de passe</mat-label>
+          <input
+            matInput
+            [type]="isHide ? 'password' : 'text'"
+            formControlName="passwordFormControl"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="isHide = !isHide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="isHide"
+          >
+            <mat-icon>{{ isHide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="
+              passwordFormControl?.hasError('pattern') &&
+              !passwordFormControl?.hasError('required')
+            "
+          >
+            6 caractères au-minimum
+          </mat-error>
+          <mat-error *ngIf="passwordFormControl?.hasError('required')">
+            Le mot de passe est<strong>indispensable</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="48">
+          <mat-label>Confirmez le mot de passe</mat-label>
+          <input
+            matInput
+            [type]="isHide ? 'password' : 'text'"
+            formControlName="confirmPasswordFormControl"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="isHide = !isHide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="isHide"
+          >
+            <mat-icon>{{ isHide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="
+              confirmPasswordFormControl?.hasError('passwordMismatch') &&
+              !confirmPasswordFormControl?.hasError('required')
+            "
+          >
+            Les mots de passe ne correspondent pas
+          </mat-error>
+          <mat-error *ngIf="confirmPasswordFormControl?.hasError('required')">
+            Veillez confirmez votre mot de passe
+          </mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row">
+          <div fxFlex="2 1 100">
+            En créant un compte, cela signifie que vous acceptez nos
+            <a href="https://#" target="_blank" rel="noreferrer"
+              >Conditions d'Utilisation</a
+            >, notre
+            <a href="https://#" target="_blank" rel="noreferrer"
+              >Politique de Confidentialité</a
+            >
+            et nos
+            <a href="https://#" target="_blank" rel="noreferrer"
+              >Paramètres de Notification</a
+            >
+            par défaut
+          </div>
+        </div>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="isValidForm"
+        >
+          Créer un compte
+        </button>
+        <button
+          fxHide.lg
+          fxHide.md
+          (click)="openLoginDialog()"
+          mat-flat-button
+          color="accent"
+        >
+          Connectez-vous
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

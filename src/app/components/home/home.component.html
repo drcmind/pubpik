@@ -1,0 +1,160 @@
+<mat-horizontal-stepper
+  linear
+  align="center"
+  *ngIf="!isRegisterProcessDone && isInitializing"
+  fxFlex="100"
+>
+  <mat-step
+    label="La vérification de l'adresse mail"
+    [completed]="isEmailVerified"
+  >
+    <mat-progress-bar
+      *ngIf="isProgressBarShown"
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <div>
+      <h1>Pour continuer {{ title }} doit approuver votre adresse email</h1>
+      <h2>
+        {{ title }} a envoyé un email de verification sur
+        <strong>{{ userEmail }}</strong> cliquez sur le lien qui vous a été
+        envoyé dans votre boite mail et votre compte sera approuvé et de ce fait
+        vous serez alors capable de séléctionner vos centres d'interet, si le
+        button <strong>Séléctionnez vos centres d'interet</strong> ne s'active
+        pas automatiquement veillez actualiser la page
+      </h2>
+      <button mat-flat-button color="accent" (click)="onWrongEmail()">
+        Mauvaise addresse mail ?
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        matStepperNext
+        [disabled]="!isEmailVerified"
+      >
+        Séléctionnez vos centres d'interet
+      </button>
+    </div>
+  </mat-step>
+  <mat-step label="Séléction des préférences">
+    <mat-progress-bar
+      *ngIf="isProgressBarShown"
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <h1 *ngIf="selectedItemCount === 0">
+      Veillez séléctionner au minimum 5 centres d'interet, cela permettra à
+      {{ title }} de personaliser votre page d'accueil selon vos préférences
+    </h1>
+    <h1 *ngIf="selectedItemCount > 1">
+      {{ selectedItemCount }} elements ajoutés comme vos centres d'interet
+    </h1>
+    <h2 *ngIf="selectedItemCount === 1">
+      {{ selectedItemCount }} element ajouté comme votre centre d'interet
+    </h2>
+    <div class="categories">
+      <mat-button-toggle
+        *ngFor="let categorie of categoriesData"
+        #toggle
+        [style.background]="
+          toggle.checked ? categorie.categoryColor : 'lightgray'
+        "
+        [value]="categorie"
+        color="primary"
+        (click)="onInterestCenterselected(toggle.value, toggle.checked)"
+        >{{ categorie.categoryName }}</mat-button-toggle
+      >
+    </div>
+    <div class="btn-lancez-vous">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="isNotRecommandedNumber"
+        (click)="onAddInterestCenter()"
+      >
+        Lancez-vous
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<mat-sidenav-container *ngIf="isRegisterProcessDone && isInitializing">
+  <mat-sidenav mode="side" opened>
+    <div
+      class="icons"
+      fxLayout="column"
+      fxFlexFill
+      fxLayoutAlign="space-between center"
+    >
+      <div gdGap="1rem">
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 0 }"
+          (click)="onSwitchPages(0)"
+          matTooltip="Accueil"
+          matTooltipPosition="after"
+        >
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 1 }"
+          (click)="onSwitchPages(1)"
+          matTooltip="Explorer"
+          matTooltipPosition="after"
+        >
+          <mat-icon>explore</mat-icon>
+        </button>
+
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 2 }"
+          (click)="onSwitchPages(2)"
+          matTooltip="Communauté"
+          matTooltipPosition="after"
+        >
+          <mat-icon>group</mat-icon>
+        </button>
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 3 }"
+          (click)="onSwitchPages(3)"
+          matTooltip="Message"
+          matTooltipPosition="after"
+        >
+          <mat-icon>chat</mat-icon>
+        </button>
+      </div>
+      <div gdGap="1rem">
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 4 }"
+          (click)="onSwitchPages(4)"
+          matTooltip="Notification"
+          matTooltipPosition="after"
+        >
+          <mat-icon>notifications_active</mat-icon>
+        </button>
+        <button
+          mat-button
+          [ngClass]="{ active: indexPage == 5 }"
+          (click)="onSwitchPages(5)"
+          matTooltip="Profile"
+          matTooltipPosition="after"
+        >
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-home-page
+      [categories]="categoriesData"
+      [userData]="currentUserData"
+      *ngIf="indexPage == 0"
+    >
+    </app-home-page>
+    <app-explorer *ngIf="indexPage == 1"></app-explorer>
+    <app-users *ngIf="indexPage == 2"></app-users>
+    <app-chat *ngIf="indexPage == 3"></app-chat>
+    <app-notifications *ngIf="indexPage == 4"></app-notifications>
+    <app-profile *ngIf="indexPage == 5"></app-profile>
+  </mat-sidenav-content>
+</mat-sidenav-container>

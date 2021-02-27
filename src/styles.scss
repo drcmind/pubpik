@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+$white-color: white;
+$black-color: black;
+$accent-low-opacity: #f7be1f5e;
+$achor-tag-color: blue;
+$primary: #130634;
+$accent: #ffab00;
+$background-footer: rgb(211, 211, 211);
+$blur-glass: blur(2rem);
+$linear-gradient: linear-gradient(to right top, #743dff, #a47dff);
+$linear-gradient-glass: linear-gradient(
+  to right bottom,
+  rgba(255, 255, 255, 0.8),
+  rgba(255, 255, 255, 0.2)
+);
+
+%button {
+  width: 100%;
+  display: block;
+  border-radius: 0.5rem;
+  transform: scale(1);
+  transition: transform 250ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+%glass-container {
+  background: $linear-gradient-glass;
+  backdrop-filter: $blur-glass;
+  border-radius: 1rem;
+  border: 0.1rem solid $white-color;
+}
