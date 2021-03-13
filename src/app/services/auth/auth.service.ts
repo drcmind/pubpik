@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
@@ -6,7 +7,7 @@ import * as firebase from 'firebase/app';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth) {}
+  constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
   createNewUser(
     email: string,
@@ -25,5 +26,6 @@ export class AuthService {
 
   logOut(): void {
     this.afAuth.signOut();
+    this.router.navigate(['landingPage']);
   }
 }

@@ -1,49 +1,84 @@
 @import "../../../../styles";
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: $white-color;
+  margin: auto;
+  width: calc(100% - 1.2vw);
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  .menu-btn {
+    margin-right: 1em;
+  }
+
+  .toolbar-content {
+    width: 100%;
+
+    img {
+      height: calc(2rem + 1.2vw);
+      background: $primary;
+      border-radius: 50%;
+      border: 0.2em solid $accent;
+    }
+
+    .mat-display-1 {
+      margin: 0;
+      margin-left: calc(-1rem - 0.2vw);
+      font-weight: bold;
+      font-size: calc(1.2rem + 1.2vw);
+      cursor: pointer;
+      color: $primary;
+    }
+    .theme-icon {
+      margin: 0 0.5em;
+    }
+  }
+}
+
 .main-page {
   height: 100vh;
   width: 100%;
 
-  .right-container {
-    height: inherit;
-    border-radius: 0;
-    margin: 0 1rem;
-    min-width: 15rem;
-  }
-
-  .left-container {
+  .main-container {
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    .right-container-invisible {
+      margin: 0 1em;
+      min-width: 15em;
+      opacity: 0;
+    }
+    .right-container {
+      max-height: 87%;
+      border-radius: 1em;
+      margin: 1em;
+      min-width: 15em;
+      overflow-y: auto;
+      position: fixed;
 
-    mat-toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      background: $white-color;
+      &::-webkit-scrollbar {
+        width: 0.4em;
+      }
 
-      .tootlbar-content-left,
-      .tootlbar-content-right {
-        height: 100%;
-        .mat-display-1 {
-          margin: 0;
-          font-weight: bold;
-        }
-        .mat-elevation-z1 {
-          display: inline-block;
-          margin-right: 1rem;
-        }
-        img {
-          height: 100%;
-          width: inherit;
+      &::-webkit-scrollbar-thumb {
+        border-radius: 0.2em;
+      }
+
+      &:hover {
+        &::-webkit-scrollbar-thumb {
+          background: lightgray;
         }
       }
-      .tootlbar-content-left {
-        cursor: pointer;
+
+      button {
+        @extend %button;
+        height: 4em;
+        margin: 0.5rem 0;
       }
     }
 
-    .right-container-content {
-      padding: 1rem;
+    .left-container {
+      padding: 1em;
     }
   }
 }

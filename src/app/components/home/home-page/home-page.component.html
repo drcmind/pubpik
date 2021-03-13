@@ -1,144 +1,121 @@
-<div class="main-page" fxLayout="row" fxLayoutAlign="space-between center">
-  <mat-card fxFlex="1 1 20" class="right-container mat-elevation-z1">
-    <mat-card-title>Accueil</mat-card-title>
-    <mat-card-content> this is content </mat-card-content>
-  </mat-card>
-
-  <div fxFlex="2 2 80" class="left-container mat-elevation-z1">
-    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="tootlbar-content-left" fxLayout="row" (click)="refreshPage()">
-        <img src="../../../../assets/logoo.png" alt="" />
-        <h1 class="mat-display-1" fxFlexAlign="center">{{ title }}</h1>
-      </div>
-      <div class="tootlbar-content-right" fxLayout="row">
-        <button
-          fxFlexAlign="center"
-          mat-icon-button
-          class="mat-elevation-z1"
-          matTooltip="Changer le theme"
+<mat-toolbar class="mat-elevation-z1">
+  <button
+    class="menu-btn"
+    mat-icon-button
+    *ngIf="activeViewPort === 'xs'"
+    (click)="toggleMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div
+    class="toolbar-content"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div fxLayout="row" (click)="refreshPage()">
+      <img src="../../../../assets/logoo.png" alt="" />
+      <h1
+        *ngIf="activeViewPort !== 'xs'"
+        class="mat-display-1"
+        fxFlexAlign="center"
+      >
+        {{ title }}
+      </h1>
+    </div>
+    <div fxLayout="row">
+      <mat-menu #appMenu="matMenu" class="menu">
+        <div
+          class="menu-categories-btn"
+          fxLayout="column"
+          gdGap="0.3rem"
+          style="margin: 0 0.3rem"
         >
-          <mat-icon>dark_mode</mat-icon>
+          <button mat-flat-button color="primary" (click)="refreshPage()">
+            Toutes
+          </button>
+          <button
+            mat-flat-button
+            *ngFor="let interestCenter of interestCenters"
+            [style.background]="interestCenter.categoryColor"
+            (click)="onFilterCategory(interestCenter.categoryName)"
+          >
+            {{ interestCenter.categoryName }}
+          </button>
+        </div>
+      </mat-menu>
+      <button
+        *ngIf="activeViewPort !== 'lg'"
+        fxFlexAlign="center"
+        mat-icon-button
+        class="mat-elevation-z1 theme-icon"
+        matTooltip="Vos Categoteries"
+        [matMenuTriggerFor]="appMenu"
+      >
+        <mat-icon>category</mat-icon>
+      </button>
+      <button
+        fxFlexAlign="center"
+        mat-icon-button
+        class="mat-elevation-z1 theme-icon"
+        matTooltip="Changer le theme"
+      >
+        <mat-icon>dark_mode</mat-icon>
+      </button>
+      <button
+        fxFlexAlign="center"
+        mat-icon-button
+        class="mat-elevation-z1"
+        matTooltip="Ajouter un {{ title }}"
+        (click)="openAddPubPikDialog()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+<div class="main-page">
+  <div
+    class="main-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between start"
+  >
+    <mat-card
+      fxFlex="1 1 20"
+      class="right-container mat-elevation-z1"
+      *ngIf="activeViewPort === 'lg'"
+    >
+      <mat-card-title>Salut {{ userData.nom }}</mat-card-title>
+      <mat-card-content>
+        <h2></h2>
+        <h3>
+          Voici les catégories {{ title }}s qui composent votre page d'accueil
+        </h3>
+        <button mat-flat-button color="primary" (click)="refreshPage()">
+          Toutes
         </button>
         <button
-          fxFlexAlign="center"
-          mat-icon-button
-          class="mat-elevation-z1"
-          matTooltip="Ajouter un {{ title }}"
-          (click)="openAddPubPikDialog()"
+          mat-flat-button
+          *ngFor="let interestCenter of interestCenters"
+          [style.background]="interestCenter.categoryColor"
+          (click)="onFilterCategory(interestCenter.categoryName)"
         >
-          <mat-icon>add</mat-icon>
+          {{ interestCenter.categoryName }}
         </button>
-      </div>
-    </mat-toolbar>
-
-    <div class="right-container-content">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis
-      corrupti, non commodi voluptate aliquam magni, dolorum minima, perferendis
-      quis tempora autem iure vitae temporibus. Accusamus minus possimus, est,
-      quod vero aut nisi, minima vel tempore at nihil hic quae dolorem saepe
-      voluptatum voluptatem sapiente quis mollitia asperiores! Quaerat,
-      possimus, alias blanditiis nemo perferendis quisquam vel iste voluptatem
-      eius ad autem eos facere reiciendis accusantium, harum aut. Ut, culpa
-      repellendus doloremque dignissimos odio quibusdam in, assumenda illum
-      reiciendis delectus, temporibus et laudantium molestiae fugiat sed quis
-      accusamus nobis odit esse quae nulla veniam. Est molestiae tempore
-      eligendi! Praesentium eligendi cumque ullam aspernatur, quibusdam nesciunt
-      voluptate minima quia cupiditate. Magnam, cupiditate pariatur repellat quo
-      minus similique sunt eligendi. Accusantium eos quisquam quidem dolore
-      nesciunt odit fuga esse odio corporis, id ex voluptatem explicabo
-      veritatis nostrum vel tempora ratione dicta nulla! Natus ipsum ullam quos
-      ab ut ipsa eveniet repellat eaque at itaque. Delectus libero, totam magnam
-      omnis repellat alias neque enim fugit placeat quas est harum veritatis
-      minima veniam maxime nobis, quaerat magni. Voluptate neque provident,
-      totam minus aspernatur laborum? Ullam, placeat magnam incidunt dolorem
-      odit dolores cumque quos? Voluptates laborum, debitis exercitationem,
-      quisquam vitae expedita ipsa laboriosam quibusdam ipsam blanditiis
-      voluptatum? Officiis nemo rerum non saepe repellat rem repudiandae,
-      cupiditate, neque, ab dolorum enim modi culpa quae. Sapiente ad quos id
-      reiciendis facilis voluptatibus est, blanditiis dolorem necessitatibus
-      quae molestias rem totam quas vero pariatur aliquid perferendis voluptate
-      possimus, earum laudantium recusandae officiis culpa nulla! Quam inventore
-      natus quisquam corrupti, rerum mollitia consectetur recusandae quas sit
-      earum magnam voluptas sed, ea asperiores maxime hic omnis quis tempora
-      alias fuga? Natus ipsa omnis totam facilis facere, repudiandae expedita,
-      alias iure nihil ipsam consequuntur enim minus libero aperiam quis
-      explicabo soluta! Eaque necessitatibus repudiandae quo quae facere quidem
-      quam porro omnis earum veniam placeat reiciendis, cumque doloremque fuga,
-      eveniet sunt, non et. Minus officiis iure suscipit cumque ex recusandae
-      blanditiis. Eius vitae tenetur doloribus odio. Eveniet possimus, nam eius
-      adipisci commodi, non nesciunt error ipsam officia excepturi recusandae
-      deserunt veritatis nulla laboriosam? Aspernatur at, ut voluptate fugiat
-      iure quasi distinctio veritatis itaque molestias quaerat quod minima culpa
-      quo, laboriosam ad? Assumenda quia reprehenderit consequatur eaque ad
-      animi nobis quod neque rem sequi. Asperiores tempora debitis consectetur
-      cumque possimus numquam perferendis sapiente non consequatur doloremque.
-      Consectetur modi distinctio in suscipit nam earum iusto corrupti excepturi
-      sequi quaerat ratione consequatur asperiores quae nostrum unde atque,
-      animi doloribus qui commodi molestias dolores officiis mollitia. Doloribus
-      ratione iste explicabo minus. Odit, libero! Doloremque molestiae
-      laudantium nam suscipit esse explicabo facilis laborum aspernatur!
-      Expedita harum laboriosam soluta illo unde atque mollitia, hic
-      perspiciatis tenetur? Ipsam, eaque vel at, veritatis velit et corporis
-      deserunt repudiandae tenetur ad architecto sunt voluptatum obcaecati neque
-      labore mollitia minus. Quibusdam, odit iure corrupti, aut nemo labore, ab
-      unde non commodi praesentium doloribus ipsum iusto nesciunt aliquam ipsa
-      voluptatem cum sequi reprehenderit similique ratione facere laudantium et
-      velit. Error tempore aliquid illum, vero ipsam repellendus inventore
-      officiis quae cumque fugiat magnam impedit soluta possimus numquam quo,
-      consequuntur commodi? Ut quasi sit doloribus dignissimos assumenda aut
-      molestiae vitae eum labore omnis tenetur quas ipsam, nihil facilis
-      reiciendis deleniti harum vero possimus iure. Odio, dolorum debitis
-      delectus ab id dolorem ipsa error quo culpa tempore ipsum, repudiandae et
-      quae unde at porro numquam earum hic quod sapiente doloribus molestias
-      cum! Voluptates veritatis impedit blanditiis, ad possimus aspernatur
-      labore quidem nam porro architecto doloremque velit aliquid
-      exercitationem. Rerum, molestias veritatis harum fugiat velit voluptas
-      sunt, blanditiis cupiditate animi quos commodi incidunt dignissimos
-      voluptate temporibus quisquam natus atque magni maiores totam? Temporibus
-      dolor rerum ea architecto omnis libero consequuntur, consectetur
-      reiciendis, quo nobis modi ipsa molestias. Nemo, repudiandae ex! Ea
-      architecto velit dolorem totam nam temporibus odio ex quisquam. Voluptatum
-      eveniet iusto praesentium fugit? Optio, repellendus vero debitis minima
-      distinctio iusto doloremque animi tenetur aspernatur eos porro minus cum
-      aut temporibus ipsa iste magnam! Saepe atque unde sed ullam porro
-      doloribus nisi veniam, eveniet assumenda autem facere molestias vel quas
-      ea quam. Corrupti consequuntur deleniti recusandae, at ea quam expedita
-      sequi aperiam id animi, dignissimos odio totam, a velit eius harum.
-      Impedit enim ad sint mollitia dolorum quo assumenda illo? A quia
-      laboriosam commodi, vero vitae consequatur ducimus quis tenetur voluptatem
-      aliquam nobis sed ad, fuga, accusantium quidem maxime repellat atque
-      voluptas odio debitis. Expedita quisquam similique eum delectus
-      asperiores, inventore iusto eligendi labore tempore doloribus eveniet
-      debitis eos nulla, voluptatum neque dolores ut! Obcaecati consequatur nisi
-      cum maiores velit iure ut asperiores, cumque eum quibusdam est illum?
-      Quaerat, voluptatum hic esse beatae, quisquam omnis ratione ducimus totam
-      iusto blanditiis, labore sapiente autem sed? Unde eum maxime nemo vitae
-      beatae delectus atque laboriosam veritatis necessitatibus explicabo
-      impedit, facere earum porro pariatur corrupti itaque, possimus, alias
-      eveniet totam a quisquam nisi quas! Commodi quam eius nam dolore facere
-      distinctio architecto ullam ducimus at molestiae voluptatem repellat quos,
-      asperiores consequuntur adipisci quis laborum quibusdam temporibus
-      doloribus excepturi minima rerum id. Hic, eaque. Eveniet commodi et,
-      minus, molestiae deserunt voluptatum, possimus aliquid quaerat aut fuga
-      odit doloribus ducimus. Delectus nulla blanditiis corporis ipsa
-      reprehenderit! Sequi impedit modi consectetur. Provident odio dolores
-      ducimus quod nihil! Dolores vero veritatis neque, consequatur beatae unde
-      praesentium esse delectus, fugiat repudiandae quos quae enim corrupti
-      velit adipisci quia temporibus voluptates soluta impedit aspernatur non!
-      Obcaecati voluptas totam laboriosam fugit eligendi fuga reiciendis
-      molestiae amet beatae. Reprehenderit, rem atque. Reiciendis tempora ipsam
-      culpa, itaque sequi adipisci dolorum ratione assumenda voluptatum repellat
-      maxime id omnis corrupti nihil esse eius doloremque nulla earum nesciunt
-      pariatur laudantium possimus. Cum sint in aperiam facere perspiciatis
-      totam veniam, sunt, quibusdam distinctio esse dignissimos optio rem
-      consequuntur ducimus dolorum. Voluptatum libero assumenda atque
-      perspiciatis a velit quos, hic nemo illum nam consectetur repellat modi
-      fugit voluptate, dolores maxime molestias neque. Illum labore eius qui
-      doloribus. Repellat architecto fuga magni nesciunt dicta praesentium
-      voluptates debitis aperiam ipsa quisquam. Sit qui et excepturi perferendis
-      neque sint aliquam nam quia incidunt reiciendis. Autem sit quasi ipsa
-      cupiditate sequi, repellendus earum dolore suscipit repellat dicta
-      nesciunt. Eaque.
+      </mat-card-content>
+    </mat-card>
+    <div
+      fxFlex="1 1 20"
+      *ngIf="activeViewPort === 'lg'"
+      class="right-container-invisible"
+    >
+      contenu invisible juste pour l'adaptation
+    </div>
+    <div fxFlex.lg="1 1 80" fxFlex="100" class="left-container">
+      <app-pubpik-feed
+        [pubpiksResult]="pubpiksResult"
+        [activeViewPort]="activeViewPort"
+        [userID]="userData.id"
+      ></app-pubpik-feed>
     </div>
   </div>
 </div>

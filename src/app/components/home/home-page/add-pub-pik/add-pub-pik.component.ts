@@ -1,7 +1,3 @@
-import { PubpikService } from './../../../services/database/pubpik.service';
-import { PubPik } from './../../../models/pubpik.model';
-import { Category } from './../../../models/category.model';
-import { title } from './../../../../global_variables';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -11,6 +7,11 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Category } from 'src/app/models/category.model';
+import { PubPik } from 'src/app/models/pubpik.model';
+import { PubpikService } from 'src/app/services/database/pubpik.service';
+import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { title } from 'src/global_variables';
 
 @Component({
   selector: 'app-add-pub-pik',
@@ -30,7 +31,8 @@ export class AddPubPikComponent implements OnInit {
     private pubpikService: PubpikService,
     private storage: AngularFireStorage,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private utilitiesService: UtilitiesService
   ) {}
 
   addPubPikForm = this.formBuilder.group({
@@ -68,23 +70,23 @@ export class AddPubPikComponent implements OnInit {
               this.downloadURL = fileRef.getDownloadURL();
               this.downloadURL.subscribe((url) => {
                 this.imagesUrls.push(url);
+                this.imagesUrls.length >= 0
+                  ? (this.isInvalidForm = false)
+                  : (this.isInvalidForm = true);
                 this.isImageLoading = false;
               });
             })
           )
           .subscribe();
-        this.imagesUrls.length > 0
-          ? (this.isInvalidForm = false)
-          : (this.isInvalidForm = true);
       }
     }
   }
 
-  removeSelectedImage(imageToRemove: any): void {
-    const resteImage = this.imagesUrls.filter((image) => {
+  removeSelectedImage(imageToRemove: string): void {
+    const resteImages = this.imagesUrls.filter((image) => {
       return imageToRemove !== image;
     });
-    this.imagesUrls = resteImage;
+    this.imagesUrls = resteImages;
     this.imagesUrls.length > 0
       ? (this.isInvalidForm = false)
       : (this.isInvalidForm = true);
@@ -92,9 +94,8 @@ export class AddPubPikComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(userData: User): void {
+  async onSubmit(userData: User): Promise<void> {
     if (this.addPubPikForm.valid) {
-      this.dialog.closeAll();
       const pubpik: PubPik = {
         pubpikTitle: this.addPubPikForm.get('titleFormControl')?.value,
         pubpikDescription: this.addPubPikForm.get('descriptionFormControl')
@@ -103,15 +104,25 @@ export class AddPubPikComponent implements OnInit {
         pubpikVisibility: this.addPubPikForm.get('visilibityControlName')
           ?.value,
         pubpikUserData: userData,
+        pubpikFavoriteCount: 0,
         pubpikTimestamp: firebase.default.firestore.FieldValue.serverTimestamp(),
         pubpikImages: this.imagesUrls,
       };
       try {
-        this.pubpikService.addPubPik(pubpik);
-        this.snackBar.open(`${title} ajouté avec succès`, '', {
-          duration: 5000,
+        this.dialog.closeAll();
+        await this.pubpikService.addPubPik(pubpik);
+        const snackBarRef = this.snackBar.open(
+          `${title} ajouté avec succès`,
+          'Voir',
+          {
+            duration: 5000,
+          }
+        );
+        snackBarRef.onAction().subscribe(() => {
+          this.utilitiesService.refreshPage('');
         });
       } catch (error) {
+        this.isImageLoading = false;
         this.snackBar.open(`Une erreur s'est produite, ${error}`, 'Réessayer');
       }
     }

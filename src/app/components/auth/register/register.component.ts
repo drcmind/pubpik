@@ -83,6 +83,8 @@ export class RegisterComponent implements OnInit {
 
   goToLandingPage = () => this.router.navigate(['/landingPage']);
 
+  openGmail = () => window.open('https://mail.google.com/', '_blank');
+
   async onSubmit(): Promise<void> {
     if (this.registerForm.valid) {
       this.isValidForm = true;
@@ -101,16 +103,14 @@ export class RegisterComponent implements OnInit {
           dateInscription: firebase.default.firestore.FieldValue.serverTimestamp(),
           imgProfil: '',
         };
-        await this.userService.newUser(user);
         await authResult.user?.sendEmailVerification();
+        await this.userService.newUser(user);
         this.snackBar.open(
           `${title} vous a envoyé un email de vérification à l'adresse ${authResult.user?.email}`,
-          '',
-          {
-            duration: 5000,
-          }
+          'OK'
         );
         this.router.navigate(['']);
+        this.openGmail();
       } catch (error) {
         this.isValidForm = false;
         this.snackBar.open(`Une erreur s'est produite, ${error}`, 'Réessayer');

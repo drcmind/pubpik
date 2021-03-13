@@ -18,10 +18,10 @@
 </div>
 <div class="image-section" fxLayout="row wrap">
   <img
-    *ngFor="let imagesUrl of imagesUrls"
-    [src]="imagesUrl"
+    *ngFor="let imageUrl of imagesUrls"
+    [src]="imageUrl"
     matTooltip="Double clic pour retirer"
-    (dblclick)="removeSelectedImage(imagesUrl)"
+    (dblclick)="removeSelectedImage(imageUrl)"
     alt="pubpik image"
   />
   <input
@@ -30,11 +30,12 @@
     style="display: none"
     (change)="selectFiles($event)"
     multiple
-    accept=".png,.jpg"
+    accept=".png,.jpg,.jpeg"
   />
   <button
     class="add-image-btn"
     mat-button
+    color="primary"
     (click)="selectImage.click()"
     matTooltip="Ajouter une image"
     [disabled]="isImageLoading"
@@ -42,7 +43,8 @@
     <mat-progress-spinner
       *ngIf="isImageLoading"
       mode="indeterminate"
-      diameter="30"
+      strokeWidth="2.5"
+      diameter="40"
     ></mat-progress-spinner>
     <mat-icon *ngIf="!isImageLoading">add_photo_alternate</mat-icon>
   </button>
@@ -56,15 +58,18 @@
   fxLayoutAlign="space-between center"
 >
   <mat-form-field fxFlex="100" appearance="outline">
-    <mat-label>Nom de l'album</mat-label>
+    <mat-label>Titre de l'album</mat-label>
     <input
       type="text"
       matInput
+      maxlength="50"
+      #inputTitle
       formControlName="titleFormControl"
-      placeholder="Ex. Nouveauté sur DrcMInd"
+      placeholder="Ex. Le paysage de la RDC en saison séche"
     />
+    <mat-hint align="end">{{ inputTitle.value.length }} / 50</mat-hint>
     <mat-error *ngIf="titleFormControl?.hasError('required')">
-      Le nom est <strong>recommandée</strong>
+      Le titre est <strong>Obligatoire</strong>
     </mat-error>
   </mat-form-field>
 
@@ -72,9 +77,12 @@
     <mat-label>Description du PubPik</mat-label>
     <textarea
       matInput
+      #inputDescription
+      maxlength="250"
       formControlName="descriptionFormControl"
       class="desc-form-field"
     ></textarea>
+    <mat-hint align="end">{{ inputDescription.value.length }} / 250</mat-hint>
   </mat-form-field>
 
   <mat-form-field fxFlex="48" appearance="outline">
@@ -107,7 +115,6 @@
     type="submit"
     [disabled]="isInvalidForm"
     color="primary"
-    (click)="onSubmit(data.userData)"
   >
     PubPiker
   </button>

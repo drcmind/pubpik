@@ -27,7 +27,6 @@ $linear-gradient-glass: linear-gradient(
   width: 100%;
   display: block;
   border-radius: 0.5rem;
-  transform: scale(1);
   transition: transform 250ms ease-in-out;
 
   &:hover {

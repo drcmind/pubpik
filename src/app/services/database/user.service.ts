@@ -13,8 +13,6 @@ import { User } from '../../models/user.model';
 })
 export class UserService {
   usersCollection: AngularFirestoreCollection<User>;
-  interestCenter: Observable<Category[]> | undefined;
-
   constructor(private afs: AngularFirestore) {
     // collection utilisateur
     this.usersCollection = this.afs.collection('users');
@@ -57,7 +55,12 @@ export class UserService {
     await this.usersCollection
       .doc(`${user.id}`)
       .collection('interestCenter')
-      .add({});
+      .add({
+        categoryName: 'Google Tech',
+        categoryDesc:
+          'Faisons de la nouvelle technologie Google utile et plus accessible dans la francophonie',
+        categoryColor: '#ff91f9',
+      });
     await this.usersCollection.doc(`${user.id}`).set(user);
   }
 }

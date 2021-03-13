@@ -1,4 +1,4 @@
-@import "../../../../styles";
+@import "../../../../../styles";
 
 .dialog-title {
   margin: 0;
@@ -26,13 +26,14 @@ img {
   height: 5rem;
   width: 5rem;
   margin: 0.2rem;
-  border: 0.2rem dotted $black-color;
-  object-fit: cover;
-}
-
-img {
-  border: 0.1rem solid $black-color;
   border-radius: 0.5rem;
+  border: 0.15rem solid $primary;
+  object-fit: cover;
+  transition: transform 250ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 .image-section {

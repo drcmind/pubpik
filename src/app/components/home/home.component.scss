@@ -1,61 +1,39 @@
 @import "../../../styles";
 
-mat-horizontal-stepper {
-  padding: 4rem 8rem;
-  button {
-    @extend %button;
-    width: inherit;
-    display: inline-block;
-    margin: 0 1rem;
-  }
-
-  mat-button-toggle {
-    margin: 0.3rem;
-    border-radius: 1rem;
-    height: 3rem;
-  }
-
-  .btn-interest-center {
-    margin-top: 1rem;
-  }
-
-  .btn-lancez-vous {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 1rem;
-
-    button {
-      width: initial;
-    }
-  }
-  .categories {
-    border-radius: 1rem;
-    width: 100%;
-    padding: 1rem 0;
-    border: 0.1rem solid $black-color;
-  }
-}
-
 mat-sidenav-container {
   height: 100vh;
+  width: 100vw;
 }
 
 mat-sidenav {
   width: 4rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+
   .icons {
-    padding: 1rem 0;
     overflow: hidden;
   }
 
   .active {
     background: $accent-low-opacity;
-    background-size: 3rem;
-    border-left: 0.4rem solid $black-color;
+    border-left: 0.4rem solid $primary;
   }
+
   button {
-    height: 3rem;
+    height: 3.85rem;
     border-radius: 0;
     transition: 0.5s;
+  }
+
+  .profile-img {
+    background: $primary;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    .profile-text {
+      color: $white-color;
+      font-weight: bold;
+      opacity: 0.5;
+    }
   }
 }

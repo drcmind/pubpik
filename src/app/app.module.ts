@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,12 +21,19 @@ import { HomeComponent } from './components/home/home.component';
 import { MaterialUiModule } from './material-ui/material-ui.module';
 import { HomePageComponent } from './components/home/home-page/home-page.component';
 import { ExplorerComponent } from './components/home/explorer/explorer.component';
-import { AddPubPikComponent } from './components/home/add-pub-pik/add-pub-pik.component';
 import { UsersComponent } from './components/home/users/users.component';
 import { ChatComponent } from './components/home/chat/chat.component';
 import { NotificationsComponent } from './components/home/notifications/notifications.component';
 import { ProfileComponent } from './components/home/profile/profile.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+import { DetailPubpikComponent } from './components/home/home-page/detail-pubpik/detail-pubpik.component';
+import { AddPubPikComponent } from './components/home/home-page/add-pub-pik/add-pub-pik.component';
+import { PubpikFeedComponent } from './components/pubpik-feed/pubpik-feed.component';
+import { ProcessRegisterComponent } from './components/auth/register/process-register/process-register.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +51,9 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
     NotificationsComponent,
     ProfileComponent,
     ResetPasswordComponent,
+    DetailPubpikComponent,
+    PubpikFeedComponent,
+    ProcessRegisterComponent,
   ],
   entryComponents: [LoginComponent, ResetPasswordComponent, AddPubPikComponent],
   imports: [
@@ -60,7 +70,7 @@ import { ResetPasswordComponent } from './components/auth/reset-password/reset-p
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

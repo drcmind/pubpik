@@ -1,0 +1,83 @@
+<section
+  class="pubpik-detail-section"
+  fxLayout="row"
+  fxLayoutAlign="space-between"
+>
+  <div class="content-left" fxFlex="1 1 70">
+    <div
+      class="action-icons"
+      fxFlex="100"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <button class="icon" mat-icon-button (click)="returnHome()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <button class="icon" mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+        <button class="icon" mat-icon-button style="margin: 0 1rem">
+          <mat-icon>download</mat-icon>
+        </button>
+        <button class="icon" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div fxFlex="100" class="img-container">
+      <img
+        style="height: 100%; width: 100%; object-fit: contain"
+        [src]="pubpik.pubpikImages[0]"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="content-right" fxFlex="2 2 30">
+    <div class="user-info" fxLayout="row">
+      <div
+        class="pubpik-profil-img"
+        [style.background]="pubpik.pubpikCategory.categoryColor"
+      >
+        <img
+          class="profile-img"
+          *ngIf="pubpik.pubpikUserData?.imgProfil !== ''"
+          [src]="pubpik.pubpikUserData?.imgProfil"
+          alt=""
+        />
+        <div
+          class="profile-img"
+          *ngIf="pubpik.pubpikUserData?.imgProfil === ''"
+          fxLayout="column"
+        >
+          <h1 class="profile-text" fxFlexAlign="center">
+            {{ pubpik.pubpikUserData.nom[0] }}
+          </h1>
+        </div>
+      </div>
+      <div class="nom-email">
+        <h2 style="margin-bottom: 0rem">
+          {{ pubpik.pubpikUserData.nom }} {{ pubpik.pubpikUserData.postNom }}
+        </h2>
+        <h3 style="margin-bottom: 0rem">{{ pubpik.pubpikUserData.email }}</h3>
+      </div>
+    </div>
+    <div style="margin: 0 1em">
+      <h1>{{ pubpik.pubpikTitle }}</h1>
+      <h2>{{ pubpik.pubpikDescription }}</h2>
+      <h3>Ajouté le {{ pubpik.pubpikTimestamp.toDate() | date }}</h3>
+    </div>
+    <div class="pubpik-info"></div>
+  </div>
+</section>
+<section class="related-pubpik-section">
+  <div class="category-heading">
+    <h1 class="mat-display-1">{{ pubpik.pubpikCategory.categoryName }}</h1>
+    <h1>{{ pubpik.pubpikCategory.categoryDesc }}</h1>
+  </div>
+  <app-pubpik-feed
+    [pubpiksResult]="relatedPubpiks"
+    [activeViewPort]="activeViewPort"
+    [userID]="userID"
+  ></app-pubpik-feed>
+</section>

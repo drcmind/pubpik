@@ -1,3 +1,4 @@
+import { DetailPubpikComponent } from './components/home/home-page/detail-pubpik/detail-pubpik.component';
 import { FirebaseUserResolverService } from './services/auth/firebase-user-resolver.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HomeComponent } from './components/home/home.component';
@@ -23,6 +24,12 @@ const routes: Routes = [
     resolve: { user: FirebaseUserResolverService },
   },
   {
+    path: 'pubpik/:pubpikId',
+    component: DetailPubpikComponent,
+    canActivate: [AngularFireAuthGuard],
+    resolve: { user: FirebaseUserResolverService },
+  },
+  {
     path: 'landingPage',
     canActivate: [AuthGuardService],
     component: LandingPageComponent,
@@ -33,13 +40,11 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   { path: 'not-found', component: NotFoundComponent },
-  { path: 'home', redirectTo: '' },
-  { path: 'accueil', redirectTo: '' },
   { path: '**', redirectTo: 'not-found' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
