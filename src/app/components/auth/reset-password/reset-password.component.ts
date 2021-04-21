@@ -1,9 +1,9 @@
-import { title } from './../../../../global_variables';
+import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,16 +17,16 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private uts: UtilitiesService,
     private dialog: MatDialog
   ) {}
 
   resetPasswordForm = this.formBuilder.group({
-    emailFormControl: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
   });
 
-  get emailFormControl(): AbstractControl | null {
-    return this.resetPasswordForm.get('emailFormControl');
+  get email(): AbstractControl | null {
+    return this.resetPasswordForm.get('email');
   }
 
   ngOnInit(): void {}
@@ -34,19 +34,19 @@ export class ResetPasswordComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.resetPasswordForm.valid) {
       this.isValidForm = true;
-      const email = this.resetPasswordForm.get('emailFormControl')?.value;
+      const email = this.resetPasswordForm.get('email')?.value;
       try {
         await this.authService.resetPassword(email);
         this.dialog.closeAll();
-        this.snackBar.open(
+        this.uts.showNotification(
           `Un mail de reinitialisation de mot de passe a été envoyé avec succès sur ${email}`,
-          '',
-          {
-            duration: 5000,
-          }
+          ''
         );
       } catch (error) {
-        this.snackBar.open(`Une erreur s'est produite, ${error}`, 'Réessayer');
+        this.uts.showNotification(
+          `Une erreur s'est produite, ${error}`,
+          'Réessayer'
+        );
       }
     }
   }

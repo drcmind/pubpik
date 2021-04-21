@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-explorer',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explorer.component.scss'],
 })
 export class ExplorerComponent implements OnInit {
+  @Input() activeViewPort?: string;
+  @Input() isDarkTheme?: boolean;
+  @Input() userID = '';
   constructor() {}
 
   ngOnInit(): void {}

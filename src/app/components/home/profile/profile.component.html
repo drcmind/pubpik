@@ -1,1 +1,70 @@
-<p>profile works!</p>
+<app-toolbar
+  [activeViewPort]="activeViewPort"
+  [isDarkTheme]="isDarkTheme"
+  pageName="profile"
+></app-toolbar>
+<div class="profile-container">
+  <div class="cover-container"></div>
+  <div fxLayoutAlign="center center">
+    <div
+      class="profile-content"
+      fxFlex.lg="80"
+      fxFlex.md="90"
+      fxFlex.sm="95"
+      fxFlex.xs="98"
+      fxLayout.xs="column"
+      fxLayoutAlign.xs="center center"
+    >
+      <app-user-profil-img
+        fontSize="4rem"
+        fxLayoutAlign="center center"
+        [isDarkTheme]="isDarkTheme"
+        [currentUserData]="currentUserData"
+      ></app-user-profil-img>
+      <div
+        fxHide.xs
+        class="img-border"
+        [ngClass]="{ borderDark: (isDarkTheme | async) }"
+      ></div>
+      <div class="user-profil-actions" fxLayoutAlign="end">
+        <button mat-flat-button color="primary" (click)="editUserDialog()">
+          Editer le profil
+        </button>
+        <button mat-flat-button color="accent" (click)="deconnexion()">
+          Se déconnecter
+        </button>
+      </div>
+      <div class="user-info">
+        <h1>
+          {{ (currentUserData | async)?.nom }}
+          {{ (currentUserData | async)?.postNom }}
+        </h1>
+        <h2>{{ (currentUserData | async)?.email }}</h2>
+        <h3>
+          Vous avez rejoint {{ title }} le
+          {{ (currentUserData | async)?.dateInscription.toDate() | date }}
+        </h3>
+      </div>
+      <mat-tab-group>
+        <mat-tab label="Pubpiks"
+          ><app-pubpik-feed
+            [activeViewPort]="activeViewPort"
+            [isDarkTheme]="isDarkTheme"
+            [userID]="userID"
+            pageName="profile"
+            userPubpikStatus="isMyPubpiks"
+          ></app-pubpik-feed
+        ></mat-tab>
+        <mat-tab label="Favoris">
+          <app-pubpik-feed
+            [activeViewPort]="activeViewPort"
+            [isDarkTheme]="isDarkTheme"
+            [userID]="userID"
+            pageName="profile"
+            userPubpikStatus="isMyFavorites"
+          ></app-pubpik-feed>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

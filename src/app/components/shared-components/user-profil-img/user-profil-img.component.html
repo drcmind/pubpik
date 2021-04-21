@@ -1,0 +1,19 @@
+<div
+  class="profile-img-container"
+  [ngClass]="{ profileImgDark: (isDarkTheme | async) }"
+  [fxLayoutAlign]="fxLayoutAlign"
+>
+  <img
+    [src]="(currentUserData | async)?.imgProfil"
+    *ngIf="(currentUserData | async)?.imgProfil"
+    alt=""
+  />
+  <h1
+    class="profile-text"
+    [ngClass]="{ profileTextDark: (isDarkTheme | async) }"
+    [style.font-size]="fontSize"
+    *ngIf="!(currentUserData | async)?.imgProfil"
+  >
+    {{ (currentUserData | async)?.nom[0] }}
+  </h1>
+</div>

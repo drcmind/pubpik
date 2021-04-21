@@ -3,9 +3,10 @@
   <div
     fxHide.xs
     fxHide.sm
-    class="register-sidePanel"
     fxFlex="1 2 30"
     fxLayout="Column"
+    class="register-sidePanel"
+    [ngClass]="{ registerSidePanel: (isDarkTheme | async) }"
     fxLayoutAlign="center start"
   >
     <div class="sidePanel-content" fxFlex="80" fxLayout="Column">
@@ -34,8 +35,8 @@
   <div
     class="register-container"
     fxFlex="2 1 70"
-    fxFlex.sm="2 1 100"
-    fxFlex.xs="2 1 100"
+    fxFlex.sm="100"
+    fxFlex.xs="100"
     fxLayout="row"
     fxLayoutAlign="center center"
   >
@@ -70,10 +71,10 @@
           <input
             type="type"
             matInput
-            formControlName="firstNameFormControl"
+            formControlName="firstName"
             placeholder="Entez votre nom ou votre pre-nom"
           />
-          <mat-error *ngIf="firstNameFormControl?.hasError('required')">
+          <mat-error *ngIf="firstName?.hasError('required')">
             Completer votre nom s'il vous plait !
           </mat-error>
         </mat-form-field>
@@ -83,8 +84,8 @@
           <input
             type="email"
             matInput
-            formControlName="lastNameFormControl"
-            placeholder="Entrez votre post-nom (facultatif)"
+            formControlName="lastName"
+            placeholder="Entrez votre post-nom"
           />
         </mat-form-field>
 
@@ -93,18 +94,15 @@
           <input
             type="email"
             matInput
-            formControlName="emailFormControl"
+            formControlName="email"
             placeholder="Adresse mail"
           />
           <mat-error
-            *ngIf="
-              emailFormControl?.hasError('email') &&
-              !emailFormControl?.hasError('required')
-            "
+            *ngIf="email?.hasError('email') && !email?.hasError('required')"
           >
             Email invalide
           </mat-error>
-          <mat-error *ngIf="emailFormControl?.hasError('required')">
+          <mat-error *ngIf="email?.hasError('required')">
             Email est <strong>recommandé</strong>
           </mat-error>
         </mat-form-field>
@@ -114,7 +112,7 @@
           <input
             matInput
             [type]="isHide ? 'password' : 'text'"
-            formControlName="passwordFormControl"
+            formControlName="password"
           />
           <button
             mat-icon-button
@@ -127,13 +125,12 @@
           </button>
           <mat-error
             *ngIf="
-              passwordFormControl?.hasError('pattern') &&
-              !passwordFormControl?.hasError('required')
+              password?.hasError('minlength') && !password?.hasError('required')
             "
           >
             6 caractères au-minimum
           </mat-error>
-          <mat-error *ngIf="passwordFormControl?.hasError('required')">
+          <mat-error *ngIf="password?.hasError('required')">
             Le mot de passe est<strong>indispensable</strong>
           </mat-error>
         </mat-form-field>
@@ -143,7 +140,7 @@
           <input
             matInput
             [type]="isHide ? 'password' : 'text'"
-            formControlName="confirmPasswordFormControl"
+            formControlName="confirmPassword"
           />
           <button
             mat-icon-button
@@ -156,13 +153,13 @@
           </button>
           <mat-error
             *ngIf="
-              confirmPasswordFormControl?.hasError('passwordMismatch') &&
-              !confirmPasswordFormControl?.hasError('required')
+              confirmPassword?.hasError('passwordMismatch') &&
+              !confirmPassword?.hasError('required')
             "
           >
             Les mots de passe ne correspondent pas
           </mat-error>
-          <mat-error *ngIf="confirmPasswordFormControl?.hasError('required')">
+          <mat-error *ngIf="confirmPassword?.hasError('required')">
             Veillez confirmez votre mot de passe
           </mat-error>
         </mat-form-field>
@@ -170,14 +167,26 @@
         <div fxLayout="row">
           <div fxFlex="2 1 100">
             En créant un compte, cela signifie que vous acceptez nos
-            <a href="https://#" target="_blank" rel="noreferrer"
+            <a
+              href="https://#"
+              target="_blank"
+              rel="noreferrer"
+              [ngClass]="{ links: (isDarkTheme | async) }"
               >Conditions d'Utilisation</a
             >, notre
-            <a href="https://#" target="_blank" rel="noreferrer"
+            <a
+              href="https://#"
+              target="_blank"
+              rel="noreferrer"
+              [ngClass]="{ links: (isDarkTheme | async) }"
               >Politique de Confidentialité</a
             >
             et nos
-            <a href="https://#" target="_blank" rel="noreferrer"
+            <a
+              href="https://#"
+              target="_blank"
+              rel="noreferrer"
+              [ngClass]="{ links: (isDarkTheme | async) }"
               >Paramètres de Notification</a
             >
             par défaut

@@ -1,0 +1,80 @@
+<h1 mat-dialog-title>Modifier votre profil</h1>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <input
+    type="file"
+    #selectImage
+    style="display: none"
+    (change)="selectFile($event)"
+    accept=".png,.jpg,.jpeg"
+  />
+  <div
+    *ngIf="isImageLoading"
+    class="imageLoadingProcess"
+    [ngClass]="{ imageLoadingProcessDark: (isDarkTheme | async) }"
+    fxLayoutAlign="center center"
+  >
+    <mat-progress-spinner
+      mode="indeterminate"
+      strokeWidth="2.5"
+      diameter="40"
+    ></mat-progress-spinner>
+  </div>
+  <app-user-profil-img
+    *ngIf="!isImageLoading"
+    [fontSize]="fontSize"
+    [fxLayoutAlign]="fxLayoutAlign"
+    [isDarkTheme]="data.isDarkTheme"
+    [currentUserData]="data.currentUserData"
+    (click)="selectImage.click()"
+  ></app-user-profil-img>
+  <form fxLayout="row wrap" [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" fxFlex="100">
+      <mat-label>Nom ou Pre-nom</mat-label>
+      <input
+        type="type"
+        matInput
+        formControlName="firstName"
+        placeholder="Entez votre nom ou votre pre-nom"
+      />
+      <mat-error *ngIf="firstName?.hasError('required')">
+        Completer votre nom s'il vous plait !
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="100">
+      <mat-label>Post-nom</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="lastName"
+        placeholder="Entrez votre post-nom"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex="100">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        placeholder="Adresse mail"
+      />
+      <mat-error
+        *ngIf="email?.hasError('email') && !email?.hasError('required')"
+      >
+        Email invalide
+      </mat-error>
+      <mat-error *ngIf="email?.hasError('required')">
+        Email est <strong>recommandé</strong>
+      </mat-error>
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-flat-button
+      color="primary"
+      [disabled]="isImageLoading"
+    >
+      Enregister les modifications
+    </button>
+  </form>
+</div>

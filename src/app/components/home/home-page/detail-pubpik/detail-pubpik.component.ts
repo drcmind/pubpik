@@ -1,65 +1,62 @@
+import { PubPik } from './../../../../models/pubpik.model';
+import { DeleteDialogComponent } from './delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { PubpikService } from './../../../../services/database/pubpik.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PubPik } from 'src/app/models/pubpik.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 import { MediaChange } from '@angular/flex-layout';
-import { FavoritePubpikService } from 'src/app/services/database/favorite-pubpik.service';
+import { title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-detail-pubpik',
   templateUrl: './detail-pubpik.component.html',
   styleUrls: ['./detail-pubpik.component.scss'],
 })
-export class DetailPubpikComponent implements OnInit, OnDestroy {
-  pubpik: any = {};
-  relatedPubpiks?: PubPik[];
-  activeViewPort?: string;
-  mediaSubscription?: Subscription;
+export class DetailPubpikComponent implements OnInit {
+  title = title;
   userID?: string;
+  positinoImage = 0;
+  imageIndex = 0;
+  pubpikIdFromRoute?: string;
+  pubpik?: Observable<PubPik | undefined>;
+  relatedPubpik$?: Observable<PubPik[]>;
+  mqObsever?: Observable<MediaChange>;
+  isOnline$?: Observable<boolean>;
+  isDarkTheme?: BehaviorSubject<boolean>;
   constructor(
     private route: ActivatedRoute,
-    private pubpikService: PubpikService,
-    private us: UtilitiesService,
-    private fps: FavoritePubpikService,
-    private router: Router
+    private router: Router,
+    private ps: PubpikService,
+    private uts: UtilitiesService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    // First get the product id from the current route.
     this.userID = this.route.snapshot.data.user.uid;
 
+    this.isDarkTheme = this.uts.observeDarkMode;
+
     const routeParams = this.route.snapshot.paramMap;
-    const pubpikIdFromRoute = routeParams.get('pubpikId');
+    this.pubpikIdFromRoute = String(routeParams.get('pubpikId'));
 
-    this.pubpikService
-      .getSinglePubpik(pubpikIdFromRoute)
-      .subscribe((singlePubpik) => {
-        this.pubpik = singlePubpik;
-        this.pubpikService
-          .getFilterPubPiks(singlePubpik?.pubpikCategory.categoryName)
-          .subscribe((pubpiks) => {
-            this.relatedPubpiks = pubpiks;
-            this.relatedPubpiks.forEach((favoritePubpik) => {
-              this.fps
-                .favoritePubpikDoc(favoritePubpik.pubpikId, this.userID)
-                .subscribe((doc) =>
-                  doc.exists
-                    ? (favoritePubpik.isFavoriteCount = true)
-                    : (favoritePubpik.isFavoriteCount = false)
-                );
-            });
-          });
-      });
+    this.pubpik = this.ps.getSinglePubpik(this.pubpikIdFromRoute);
 
-    this.mediaSubscription = this.us
-      .mediaQueryObserver()
-      .subscribe(
-        (change: MediaChange) => (this.activeViewPort = change.mqAlias)
-      );
+    this.mqObsever = this.uts.mediaQueryObserver();
+
+    this.isOnline$ = this.uts.createOnline$();
   }
 
-  returnHome = () => this.router.navigate([{ outlets: { popup: null } }]);
-  ngOnDestroy = () => this.mediaSubscription?.unsubscribe();
+  showDialog(): void {
+    this.dialog.open(DeleteDialogComponent, {
+      width: '20rem',
+      data: { pubpikID: this.pubpikIdFromRoute },
+    });
+  }
+
+  prevImg = () => (this.imageIndex -= 1);
+  nextImg = () => (this.imageIndex += 1);
+
+  returnHome = () => this.router.navigate(['']);
 }

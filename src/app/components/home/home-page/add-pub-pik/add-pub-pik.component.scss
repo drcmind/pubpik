@@ -27,13 +27,20 @@ img {
   width: 5rem;
   margin: 0.2rem;
   border-radius: 0.5rem;
-  border: 0.15rem solid $primary;
   object-fit: cover;
   transition: transform 250ms ease-in-out;
 
   &:hover {
     transform: scale(1.02);
   }
+}
+
+.add-image-btn {
+  border: 0.15rem solid $primary;
+}
+
+.addImageBtnDark {
+  border: 0.15rem solid $accent;
 }
 
 .image-section {

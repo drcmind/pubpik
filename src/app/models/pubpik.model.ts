@@ -4,11 +4,10 @@ export interface PubPik {
   pubpikId?: string;
   pubpikTitle: string;
   pubpikDescription?: string;
-  pubpikVisibility: string;
   pubpikCategory: Category;
   pubpikUserData: User;
   pubpikFavoriteCount: number;
-  isFavoriteCount?: boolean;
+  isMyFavorite?: boolean;
   pubpikTimestamp: firebase.default.firestore.FieldValue;
   pubpikImages: string[];
 }

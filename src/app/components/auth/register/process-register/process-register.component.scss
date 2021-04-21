@@ -1,7 +1,7 @@
 @import "../../../../../styles";
 
 mat-horizontal-stepper {
-  padding: 4rem 8rem;
+  padding: 4rem;
   button {
     @extend %button;
     width: inherit;
@@ -15,10 +15,20 @@ mat-horizontal-stepper {
     height: 3rem;
   }
 
+  img {
+    width: 20%;
+    margin: 1rem;
+  }
+
   .reload {
     text-decoration: underline;
     cursor: pointer;
     color: $achor-tag-color;
+  }
+
+  // fix all dark theme issues
+  .darkLink {
+    color: $achor-tag-darkTheme;
   }
 
   .btn-interest-center {

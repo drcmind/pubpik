@@ -6,7 +6,7 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
 >
-  <div fxFlex="50" class="mat-display-1">{{ title }}</div>
+  <div fxFlex="50" class="mat-display-1">{{ data.title }}</div>
   <button
     class="mat-elevation-z1"
     mat-icon-button
@@ -24,7 +24,7 @@
 >
   <h2>
     Veillez fournir vos logins pour accèder à votre espace
-    {{ title }}
+    {{ data.title }}
     en un clin d'oeil et en temps réel
   </h2>
 
@@ -33,18 +33,13 @@
     <input
       type="email"
       matInput
-      formControlName="emailFormControl"
+      formControlName="email"
       placeholder="Ex. drcmind@example.com"
     />
-    <mat-error
-      *ngIf="
-        emailFormControl?.hasError('email') &&
-        !emailFormControl?.hasError('required')
-      "
-    >
+    <mat-error *ngIf="email?.hasError('email') && !email?.hasError('required')">
       Email invalide
     </mat-error>
-    <mat-error *ngIf="emailFormControl?.hasError('required')">
+    <mat-error *ngIf="email?.hasError('required')">
       Email est <strong>recommandée</strong>
     </mat-error>
   </mat-form-field>
@@ -54,7 +49,7 @@
     <input
       matInput
       [type]="isHide ? 'password' : 'text'"
-      formControlName="passwordFormControl"
+      formControlName="password"
     />
     <button
       mat-icon-button
@@ -66,14 +61,11 @@
       <mat-icon>{{ isHide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
     <mat-error
-      *ngIf="
-        passwordFormControl?.hasError('pattern') &&
-        !passwordFormControl?.hasError('required')
-      "
+      *ngIf="password?.hasError('minlength') && !password?.hasError('required')"
     >
       Le mot de passe erroné
     </mat-error>
-    <mat-error *ngIf="passwordFormControl?.hasError('required')">
+    <mat-error *ngIf="password?.hasError('required')">
       Le mot de passe est <strong>indispensable pour se connecter</strong>
     </mat-error>
   </mat-form-field>
@@ -82,7 +74,12 @@
     <button class="full-width" mat-flat-button color="primary" type="submit">
       Connectez-vous
     </button>
-    <button class="forgot" (click)="openResetPasswordDialog()" mat-button>
+    <button
+      class="forgot"
+      (click)="openResetPasswordDialog()"
+      mat-button
+      [ngClass]="{ forgotDarkTheme: (data.isDarkTheme | async) }"
+    >
       Mot de passe oublié ?
     </button>
   </div>

@@ -12,11 +12,12 @@ import { map } from 'rxjs/operators';
 })
 export class CategoryService {
   categoryCollection: AngularFirestoreCollection<Category>;
-  categorie$: Observable<Category[]>;
   constructor(private afs: AngularFirestore) {
     this.categoryCollection = this.afs.collection('categories');
+  }
 
-    this.categorie$ = this.categoryCollection.snapshotChanges().pipe(
+  getCategories(): Observable<Category[]> {
+    return this.categoryCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Category;
@@ -26,6 +27,4 @@ export class CategoryService {
       )
     );
   }
-
-  getCategories = () => this.categorie$;
 }

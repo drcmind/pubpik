@@ -1,5 +1,12 @@
+import { DOCUMENT } from '@angular/common';
+import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  TextOnlySnackBar,
+} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, Observer, fromEvent, merge, BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -9,11 +16,16 @@ import { filter, map } from 'rxjs/operators';
 })
 export class UtilitiesService {
   isOpenedSidenav?: boolean;
-  isOnline?: boolean;
   isSideNavOpenned = new BehaviorSubject<boolean>(false);
-  constructor(private router: Router, private mediaObserver: MediaObserver) {
-    this.isSideNavOpenned.subscribe((value) => (this.isOpenedSidenav = value));
-    this.createOnline$().subscribe((isOnline) => (this.isOnline = isOnline));
+  observeDarkMode?: BehaviorSubject<boolean>;
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    private mediaObserver: MediaObserver,
+    private snackBar: MatSnackBar
+  ) {
+    this.isSideNavOpenned.forEach((value) => (this.isOpenedSidenav = value));
+    this.initializeAppTheme();
   }
 
   createOnline$(): Observable<boolean> {
@@ -29,6 +41,26 @@ export class UtilitiesService {
 
   toogleSidenav = () => this.isSideNavOpenned.next(!this.isOpenedSidenav);
 
+  initializeAppTheme(): void {
+    const isDarkTheme = localStorage.getItem('theme') === 'Dark';
+    this.observeDarkMode = new BehaviorSubject(isDarkTheme);
+    if (isDarkTheme) {
+      this.document.documentElement.classList.add('dark-theme');
+    }
+  }
+
+  switchTheme(): void {
+    if (this.document.documentElement.classList.contains('dark-theme')) {
+      this.document.documentElement.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'Light');
+      this.observeDarkMode?.next(false);
+    } else {
+      this.document.documentElement.classList.add('dark-theme');
+      localStorage.setItem('theme', 'Dark');
+      this.observeDarkMode?.next(true);
+    }
+  }
+
   refreshPage(pageToRefresh: string): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
@@ -40,5 +72,16 @@ export class UtilitiesService {
       filter((changes: MediaChange[]) => changes.length > 0),
       map((changes: MediaChange[]) => changes[0])
     );
+  }
+
+  showNotification(
+    msg: string,
+    btnTxt: string
+  ): MatSnackBarRef<TextOnlySnackBar> {
+    return this.snackBar.open(msg, btnTxt, {
+      duration: 10000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
   }
 }

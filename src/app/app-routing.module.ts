@@ -2,7 +2,7 @@ import { DetailPubpikComponent } from './components/home/home-page/detail-pubpik
 import { FirebaseUserResolverService } from './services/auth/firebase-user-resolver.service';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HomeComponent } from './components/home/home.component';
-import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { LandingPageComponent } from './components/auth/landing-page/landing-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NgModule } from '@angular/core';
@@ -12,15 +12,14 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 
-const redirectUnauthorizedToLandingPage = () =>
-  redirectUnauthorizedTo(['landingPage']);
+const redirectLandingPage = () => redirectUnauthorizedTo(['landingPage']);
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLandingPage },
+    data: { authGuardPipe: redirectLandingPage },
     resolve: { user: FirebaseUserResolverService },
   },
   {
@@ -44,7 +43,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
+      scrollPositionRestoration: 'enabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

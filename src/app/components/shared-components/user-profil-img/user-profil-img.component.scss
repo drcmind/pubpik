@@ -1,0 +1,29 @@
+@import "../../../../styles";
+
+.profile-img-container {
+  height: inherit;
+  width: inherit;
+  background: $primary;
+  border-radius: 50%;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-text {
+  color: $white-color;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.profileTextDark {
+  color: $black-color;
+}
+
+.profileImgDark {
+  background: $accent;
+}

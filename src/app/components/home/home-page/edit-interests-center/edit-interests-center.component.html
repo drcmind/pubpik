@@ -1,0 +1,24 @@
+<div class="categories">
+  <h1>Modifier vos centres d'interet</h1>
+  <h2 *ngIf="isNotRecommandedNumber">
+    Séléctionnez au-minimum 5 centres d'interets
+  </h2>
+  <mat-button-toggle
+    *ngFor="let categorie of interestCenters"
+    #toggle
+    [style.background]="toggle.checked ? categorie.categoryColor : 'lightgray'"
+    [value]="categorie"
+    [checked]="categorie.isMyCategory"
+    (click)="onInterestCenterselected(toggle.value, toggle.checked)"
+    [style.color]="toggle.checked ? 'black' : ''"
+    >{{ categorie.categoryName }}</mat-button-toggle
+  >
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="isNotRecommandedNumber"
+    (click)="onEditInterestCenter()"
+  >
+    Enregistrez les modifications
+  </button>
+</div>

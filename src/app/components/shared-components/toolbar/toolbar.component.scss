@@ -1,0 +1,75 @@
+@import "../../../../styles";
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;
+  animation: fade 1s ease forwards;
+
+  .menu-btn {
+    margin-right: 1em;
+  }
+
+  .search-bar {
+    padding: 0.5rem;
+    width: 60%;
+    background: $white-color;
+    border-radius: 0.5rem;
+    border: 0.02rem solid lightgrey;
+    margin: 1rem;
+
+    mat-icon {
+      margin-left: 1rem;
+    }
+
+    input {
+      width: 100%;
+      appearance: none;
+      outline: none;
+      padding: 0 1rem;
+      background: inherit;
+      border: none;
+      font-size: 1em;
+    }
+
+    .inputDark {
+      color: lightgrey;
+    }
+  }
+
+  .searchBarDark {
+    background: #303030;
+    border: 0.02rem solid darkgrey;
+  }
+
+  .toolbar-content {
+    width: 100%;
+
+    img {
+      height: calc(1.5rem + 0.5vw);
+      background: $primary;
+      border-radius: 50%;
+      border: 0.2em solid $accent;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .theme-icon {
+      margin: 0 0.5em;
+    }
+  }
+}
+
+.darkBackgroundColor {
+  background: #424242;
+}
+
+.buttonDark {
+  color: $black-color;
+}

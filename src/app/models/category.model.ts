@@ -3,4 +3,5 @@ export interface Category {
   categoryName: string;
   categoryDesc: string;
   categoryColor: string;
+  isMyCategory?: boolean;
 }

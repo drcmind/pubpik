@@ -1,120 +1,79 @@
-<mat-toolbar class="mat-elevation-z1">
-  <button
-    class="menu-btn"
-    mat-icon-button
-    *ngIf="activeViewPort === 'xs'"
-    (click)="toggleMenu()"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <div
-    class="toolbar-content"
-    fxLayout="row"
-    fxLayoutAlign="space-between center"
-  >
-    <div fxLayout="row" (click)="refreshPage()">
-      <img src="../../../../assets/logoo.png" alt="" />
-      <h1
-        *ngIf="activeViewPort !== 'xs'"
-        class="mat-display-1"
-        fxFlexAlign="center"
-      >
-        {{ title }}
-      </h1>
-    </div>
-    <div fxLayout="row">
-      <mat-menu #appMenu="matMenu" class="menu">
+<app-toolbar
+  [title]="title"
+  [activeViewPort]="activeViewPort"
+  [isDarkTheme]="isDarkTheme"
+  [interestCenters]="interestCenters"
+  [userData]="currentUserData | async"
+  (newPubpiksFilterEvent)="onFilterByCategory($event)"
+  pageName="accueil"
+></app-toolbar>
+<div class="main-page">
+  <div class="main-container" fxLayoutAlign="space-between start">
+    <mat-card
+      fxFlex="20"
+      class="right-container mat-elevation-z0"
+      *ngIf="activeViewPort === 'lg'"
+    >
+      <mat-card-title>
+        <h1>Salut {{ (currentUserData | async)?.nom }}</h1>
+        <h3>
+          Voici les catégories {{ title }}s qui composent votre page d'accueil
+          vous pouvez toutes fois les modifier en cliquant
+          <strong
+            [ngClass]="{ strongDarkTheme: (isDarkTheme | async) }"
+            (click)="editInterestsCenter()"
+            >Ici</strong
+          >
+        </h3>
+      </mat-card-title>
+      <mat-card-content>
         <div
-          class="menu-categories-btn"
+          *ngIf="isInterestCenterLoading"
           fxLayout="column"
-          gdGap="0.3rem"
-          style="margin: 0 0.3rem"
+          fxLayoutAlign="center center"
+          style="margin: 1rem"
         >
-          <button mat-flat-button color="primary" (click)="refreshPage()">
+          <mat-progress-spinner
+            mode="indeterminate"
+            strokeWidth="2.5"
+            diameter="40"
+          ></mat-progress-spinner>
+        </div>
+        <div *ngIf="!isInterestCenterLoading">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="onFilterByCategory('toutes')"
+          >
             Toutes
           </button>
           <button
+            *ngFor="let interestCenter of interestCenters | async"
             mat-flat-button
-            *ngFor="let interestCenter of interestCenters"
+            [ngClass]="{ buttonDark: (isDarkTheme | async) }"
             [style.background]="interestCenter.categoryColor"
-            (click)="onFilterCategory(interestCenter.categoryName)"
+            (click)="onFilterByCategory(interestCenter.categoryName)"
           >
             {{ interestCenter.categoryName }}
           </button>
         </div>
-      </mat-menu>
-      <button
-        *ngIf="activeViewPort !== 'lg'"
-        fxFlexAlign="center"
-        mat-icon-button
-        class="mat-elevation-z1 theme-icon"
-        matTooltip="Vos Categoteries"
-        [matMenuTriggerFor]="appMenu"
-      >
-        <mat-icon>category</mat-icon>
-      </button>
-      <button
-        fxFlexAlign="center"
-        mat-icon-button
-        class="mat-elevation-z1 theme-icon"
-        matTooltip="Changer le theme"
-      >
-        <mat-icon>dark_mode</mat-icon>
-      </button>
-      <button
-        fxFlexAlign="center"
-        mat-icon-button
-        class="mat-elevation-z1"
-        matTooltip="Ajouter un {{ title }}"
-        (click)="openAddPubPikDialog()"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-  </div>
-</mat-toolbar>
-<div class="main-page">
-  <div
-    class="main-container"
-    fxLayout="row"
-    fxLayoutAlign="space-between start"
-  >
-    <mat-card
-      fxFlex="1 1 20"
-      class="right-container mat-elevation-z1"
-      *ngIf="activeViewPort === 'lg'"
-    >
-      <mat-card-title>Salut {{ userData.nom }}</mat-card-title>
-      <mat-card-content>
-        <h2></h2>
-        <h3>
-          Voici les catégories {{ title }}s qui composent votre page d'accueil
-        </h3>
-        <button mat-flat-button color="primary" (click)="refreshPage()">
-          Toutes
-        </button>
-        <button
-          mat-flat-button
-          *ngFor="let interestCenter of interestCenters"
-          [style.background]="interestCenter.categoryColor"
-          (click)="onFilterCategory(interestCenter.categoryName)"
-        >
-          {{ interestCenter.categoryName }}
-        </button>
       </mat-card-content>
     </mat-card>
     <div
-      fxFlex="1 1 20"
+      fxFlex="20"
       *ngIf="activeViewPort === 'lg'"
       class="right-container-invisible"
     >
       contenu invisible juste pour l'adaptation
     </div>
-    <div fxFlex.lg="1 1 80" fxFlex="100" class="left-container">
+    <div fxFlex.lg="80" fxFlex="100">
       <app-pubpik-feed
-        [pubpiksResult]="pubpiksResult"
+        [interestCenters]="interestCenters"
         [activeViewPort]="activeViewPort"
-        [userID]="userData.id"
+        [isDarkTheme]="isDarkTheme"
+        [userID]="userID"
+        [filterPubpik]="filterPubpik"
+        pageName="accueil"
       ></app-pubpik-feed>
     </div>
   </div>

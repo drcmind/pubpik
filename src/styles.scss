@@ -8,24 +8,16 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-$white-color: white;
-$black-color: black;
-$accent-low-opacity: #f7be1f5e;
-$achor-tag-color: blue;
+$white-color: #fafafa;
+$black-color: #424242;
 $primary: #130634;
 $accent: #ffab00;
-$background-footer: rgb(211, 211, 211);
-$blur-glass: blur(2rem);
-$linear-gradient: linear-gradient(to right top, #743dff, #a47dff);
-$linear-gradient-glass: linear-gradient(
-  to right bottom,
-  rgba(255, 255, 255, 0.8),
-  rgba(255, 255, 255, 0.2)
-);
+$accent-low-opacity: #f7be1f5e;
+$primary-low-opacity: #1306345d;
+$achor-tag-color: darkblue;
+$achor-tag-darkTheme: lightseagreen;
 
 %button {
-  width: 100%;
-  display: block;
   border-radius: 0.5rem;
   transition: transform 250ms ease-in-out;
 
@@ -34,9 +26,21 @@ $linear-gradient-glass: linear-gradient(
   }
 }
 
-%glass-container {
-  background: $linear-gradient-glass;
-  backdrop-filter: $blur-glass;
-  border-radius: 1rem;
-  border: 0.1rem solid $white-color;
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin scrollbar($width, $border-radius) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $border-radius;
+  }
 }

@@ -1,11 +1,11 @@
+import { UtilitiesService } from './../../../services/utilities/utilities.service';
 import { ResetPasswordComponent } from './../reset-password/reset-password.component';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { desc, title } from 'src/global_variables';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,31 +15,28 @@ import { desc, title } from 'src/global_variables';
 export class LoginComponent implements OnInit {
   isHide = true;
   formValid = false;
-  title = title;
-  desc = desc;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: { title: string; isDarkTheme: BehaviorSubject<boolean> },
     private formBuilder: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private uts: UtilitiesService
   ) {}
 
   loginForm = this.formBuilder.group({
-    emailFormControl: ['', [Validators.required, Validators.email]],
-    passwordFormControl: [
-      '',
-      [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
-    ],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  get emailFormControl(): AbstractControl | null {
-    return this.loginForm.get('emailFormControl');
+  get email(): AbstractControl | null {
+    return this.loginForm.get('email');
   }
 
-  get passwordFormControl(): AbstractControl | null {
-    return this.loginForm.get('passwordFormControl');
+  get password(): AbstractControl | null {
+    return this.loginForm.get('password');
   }
 
   ngOnInit(): void {}
@@ -60,15 +57,18 @@ export class LoginComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       this.formValid = true;
-      const email = this.loginForm.get('emailFormControl')?.value;
-      const password = this.loginForm.get('passwordFormControl')?.value;
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
       try {
         await this.authService.login(email, password);
         this.dialog.closeAll();
-        this.router.navigate(['']);
+        this.uts.refreshPage('');
       } catch (error) {
         this.formValid = false;
-        this.snackBar.open(`Une erreur s'est produite, ${error}`, 'Réessayer');
+        this.uts.showNotification(
+          `Une erreur s'est produite, ${error}`,
+          'Réessayer'
+        );
       }
     }
   }

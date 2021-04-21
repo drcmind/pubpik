@@ -1,84 +1,61 @@
 @import "../../../../styles";
 
-mat-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: $white-color;
-  margin: auto;
-  width: calc(100% - 1.2vw);
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
-  .menu-btn {
-    margin-right: 1em;
-  }
-
-  .toolbar-content {
-    width: 100%;
-
-    img {
-      height: calc(2rem + 1.2vw);
-      background: $primary;
-      border-radius: 50%;
-      border: 0.2em solid $accent;
-    }
-
-    .mat-display-1 {
-      margin: 0;
-      margin-left: calc(-1rem - 0.2vw);
-      font-weight: bold;
-      font-size: calc(1.2rem + 1.2vw);
-      cursor: pointer;
-      color: $primary;
-    }
-    .theme-icon {
-      margin: 0 0.5em;
-    }
-  }
-}
-
 .main-page {
-  height: 100vh;
-  width: 100%;
+  animation: fade 1s ease forwards;
 
   .main-container {
     height: 100%;
     .right-container-invisible {
-      margin: 0 1em;
+      margin: 0 calc(0.3vw + 1px);
       min-width: 15em;
       opacity: 0;
     }
     .right-container {
-      max-height: 87%;
       border-radius: 1em;
-      margin: 1em;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin: 1em 0;
       min-width: 15em;
-      overflow-y: auto;
       position: fixed;
 
-      &::-webkit-scrollbar {
-        width: 0.4em;
+      h1 {
+        margin-bottom: 0.2rem;
       }
 
-      &::-webkit-scrollbar-thumb {
-        border-radius: 0.2em;
+      strong {
+        color: $achor-tag-color;
+        cursor: pointer;
       }
 
-      &:hover {
-        &::-webkit-scrollbar-thumb {
-          background: lightgray;
+      .strongDarkTheme {
+        color: $achor-tag-darkTheme;
+      }
+
+      mat-card-content {
+        max-height: calc(50vh + 5rem);
+        overflow-y: auto;
+        margin-right: -1rem;
+
+        @include scrollbar(0.4rem, 0.2rem);
+
+        &:hover {
+          &::-webkit-scrollbar-thumb {
+            background: lightgray;
+          }
         }
       }
 
       button {
         @extend %button;
         height: 4em;
-        margin: 0.5rem 0;
+        width: 96%;
+        margin: 0.2rem auto;
+        animation: fade 1s ease forwards;
       }
-    }
 
-    .left-container {
-      padding: 1em;
+      .buttonDark {
+        color: $black-color;
+      }
     }
   }
 }

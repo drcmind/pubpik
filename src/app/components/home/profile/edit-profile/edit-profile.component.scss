@@ -1,0 +1,18 @@
+app-user-profil-img {
+  height: 6rem;
+  width: 6rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.imageLoadingProcess {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  background: lightgray;
+}
+
+.imageLoadingProcessDark {
+  background: darkgray;
+}

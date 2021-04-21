@@ -1,99 +1,52 @@
-import { Router } from '@angular/router';
-import { FavoritePubpikService } from './../../../services/database/favorite-pubpik.service';
-import { MediaChange } from '@angular/flex-layout';
 import { UtilitiesService } from './../../../services/utilities/utilities.service';
 import { UserService } from './../../../services/database/user.service';
-import { PubpikService } from './../../../services/database/pubpik.service';
-import { PubPik } from './../../../models/pubpik.model';
-import { title } from './../../../../global_variables';
-import { MatDialog } from '@angular/material/dialog';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
 import { User } from 'src/app/models/user.model';
-import { Subscription } from 'rxjs';
-import { AddPubPikComponent } from './add-pub-pik/add-pub-pik.component';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { EditInterestsCenterComponent } from './edit-interests-center/edit-interests-center.component';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent implements OnInit, OnDestroy {
-  title = title;
-  isMyFavoritePubPik?: boolean;
-  @Input() categories: Category[] = [];
-  @Input() userData: User = {};
-  interestCenters: Category[] = [];
-  pubpiks: PubPik[] = [];
-  pubpiksResult = new Set<PubPik>();
-  activeViewPort?: string;
-  mediaSubscription?: Subscription;
+export class HomePageComponent implements OnInit {
+  isInterestCenterLoading = true;
+  interestCenters?: Promise<Category[]>;
+  filterPubpik = new BehaviorSubject('');
+  @Input() title?: string;
+  @Input() activeViewPort?: string;
+  @Input() isDarkTheme?: BehaviorSubject<boolean>;
+  @Input() userID = '';
+  @Input() currentUserData?: Observable<User | undefined>;
   constructor(
-    private dialog: MatDialog,
-    private pubpikService: PubpikService,
-    private userService: UserService,
-    private us: UtilitiesService,
-    private fps: FavoritePubpikService
+    private us: UserService,
+    private uts: UtilitiesService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    // media query state
-    /*   (change: MediaChange) => (this.activeViewPort = change.mqAlias); */
-    this.mediaSubscription = this.us
-      .mediaQueryObserver()
-      .subscribe(
-        (change: MediaChange) => (this.activeViewPort = change.mqAlias)
-      );
-
-    // récuperation de tous les pubpiks
-    this.pubpikService
-      .getPubPiks()
-      ?.subscribe((pubpiks) => (this.pubpiks = pubpiks));
-
-    // récuperation de toutes les categories de l'utilisateur connecté
-    this.userService
-      .getInterestCenter(this.userData.id)
-      .subscribe((interestCenters) => {
-        this.interestCenters = interestCenters;
-        this.interestCenters.forEach((interest) => {
-          this.pubpiks.forEach((pubpik) => {
-            // récuperation des pubpiks selon les centres d'interet de l'utilisateur
-            if (pubpik.pubpikCategory.categoryName === interest.categoryName) {
-              this.pubpiksResult.add(pubpik);
-              this.fps
-                .favoritePubpikDoc(pubpik.pubpikId, this.userData.id)
-                .subscribe((doc) =>
-                  doc.exists
-                    ? (pubpik.isFavoriteCount = true)
-                    : (pubpik.isFavoriteCount = false)
-                );
-            }
-          });
-        });
-      });
+    this.interestCenters = this.us.getInterestCenter(this.userID);
+    this.loadInterestCenters();
   }
 
-  ngOnDestroy = () => this.mediaSubscription?.unsubscribe();
+  async loadInterestCenters(): Promise<void> {
+    await this.us.getInterestCenter(this.userID);
+    this.isInterestCenterLoading = false;
+  }
 
-  toggleMenu = () => this.us.toogleSidenav();
+  refreshPage = () => this.uts.refreshPage('');
 
-  refreshPage = () => this.us.refreshPage('');
+  onFilterByCategory = (category: string) => this.filterPubpik.next(category);
 
-  openAddPubPikDialog(): void {
-    this.dialog.open(AddPubPikComponent, {
-      width: '30rem',
+  editInterestsCenter(): void {
+    this.dialog.open(EditInterestsCenterComponent, {
+      width: '40rem',
       hasBackdrop: true,
       disableClose: true,
-      data: { categoriesData: this.interestCenters, userData: this.userData },
+      data: { userID: this.userID, interestCenters: this.interestCenters },
     });
-  }
-
-  onFilterCategory(categoryName: string): void {
-    this.pubpiksResult.clear();
-    this.pubpikService
-      .getFilterPubPiks(categoryName)
-      ?.subscribe(
-        (filterPubpiks) => (this.pubpiksResult = new Set<PubPik>(filterPubpiks))
-      );
   }
 }

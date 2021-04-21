@@ -3,12 +3,11 @@
 mat-sidenav-container {
   height: 100vh;
   width: 100vw;
+  transition: 1s;
 }
 
 mat-sidenav {
   width: 4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
 
   .icons {
     overflow: hidden;
@@ -19,21 +18,19 @@ mat-sidenav {
     border-left: 0.4rem solid $primary;
   }
 
+  .activeDark {
+    background: $primary-low-opacity;
+    border-left: 0.4rem solid $accent;
+  }
+
   button {
     height: 3.85rem;
     border-radius: 0;
     transition: 0.5s;
   }
 
-  .profile-img {
-    background: $primary;
-    border-radius: 50%;
+  app-user-profil-img {
     height: 2rem;
     width: 2rem;
-    .profile-text {
-      color: $white-color;
-      font-weight: bold;
-      opacity: 0.5;
-    }
   }
 }

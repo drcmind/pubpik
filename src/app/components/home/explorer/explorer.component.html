@@ -1,1 +1,17 @@
-<p>explorer works!</p>
+<app-toolbar
+  [activeViewPort]="activeViewPort"
+  [isDarkTheme]="isDarkTheme"
+  pageName="explorer"
+></app-toolbar>
+<div fxLayout fxLayoutAlign="center">
+  <app-pubpik-feed
+    fxFlex.lg="80"
+    fxFlex.md="95"
+    fxFlex.sm="100"
+    fxFlex.xs="100"
+    [userID]="userID"
+    [isDarkTheme]="isDarkTheme"
+    [activeViewPort]="activeViewPort"
+  >
+  </app-pubpik-feed>
+</div>

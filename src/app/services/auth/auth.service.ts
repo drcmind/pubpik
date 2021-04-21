@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+type UserCredential = Promise<firebase.default.auth.UserCredential>;
 
 @Injectable({
   providedIn: 'root',
@@ -9,15 +10,12 @@ import * as firebase from 'firebase/app';
 export class AuthService {
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
-  createNewUser(
-    email: string,
-    password: string
-  ): Promise<firebase.default.auth.UserCredential> {
+  createNewUser(email: string, password: string): UserCredential {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  async login(email: string, password: string): Promise<void> {
-    await this.afAuth.signInWithEmailAndPassword(email, password);
+  login(email: string, password: string): UserCredential {
+    return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
   resetPassword(email: string): Promise<void> {

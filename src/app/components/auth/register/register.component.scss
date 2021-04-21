@@ -14,7 +14,6 @@
   }
 
   &-sidePanel {
-    overflow: auto;
     background: $accent-low-opacity;
 
     .sidePanel-content {
@@ -44,4 +43,15 @@
   h3 {
     text-align: center;
   }
+}
+
+.registerSidePanel {
+  background: #2c2c2c;
+  h3 button {
+    color: $achor-tag-darkTheme;
+  }
+}
+
+.links {
+  color: $achor-tag-darkTheme;
 }

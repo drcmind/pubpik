@@ -20,6 +20,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 
 const materials = [
@@ -45,6 +46,7 @@ const materials = [
   MatSelectModule,
   MatGridListModule,
   MatMenuModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({

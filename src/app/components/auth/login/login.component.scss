@@ -28,8 +28,8 @@ mat-progress-bar {
   }
 
   button {
-  @extend %button;
-}
+    @extend %button;
+  }
 }
 
 .full-width {
@@ -37,11 +37,15 @@ mat-progress-bar {
   overflow: hidden;
 
   button {
-  @extend %button;
-}
+    @extend %button;
+  }
 }
 
 .forgot {
   margin: 0.5rem 0;
   color: $achor-tag-color;
+}
+
+.forgotDarkTheme {
+  color: $achor-tag-darkTheme;
 }
