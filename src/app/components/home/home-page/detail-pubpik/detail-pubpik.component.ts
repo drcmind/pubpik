@@ -16,8 +16,7 @@ import { title } from 'src/app/services/utilities/global_variables';
 })
 export class DetailPubpikComponent implements OnInit {
   title = title;
-  userID?: string;
-  positinoImage = 0;
+  userID = '';
   imageIndex = 0;
   pubpikIdFromRoute?: string;
   pubpik?: Observable<PubPik | undefined>;
@@ -25,6 +24,7 @@ export class DetailPubpikComponent implements OnInit {
   mqObsever?: Observable<MediaChange>;
   isOnline$?: Observable<boolean>;
   isDarkTheme?: BehaviorSubject<boolean>;
+  isImageLoading = true;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -55,8 +55,29 @@ export class DetailPubpikComponent implements OnInit {
     });
   }
 
-  prevImg = () => (this.imageIndex -= 1);
-  nextImg = () => (this.imageIndex += 1);
+  prevImg(currentImg: string): void {
+    this.isImageLoading = true;
+    this.pubpik?.forEach((pub) => {
+      pub?.pubpikImages.forEach((img) => {
+        if (img === currentImg) {
+          this.isImageLoading = false;
+          this.imageIndex -= 1;
+        }
+      });
+    });
+  }
+
+  nextImg(currentImg: string): void {
+    this.isImageLoading = true;
+    this.pubpik?.forEach((pub) => {
+      pub?.pubpikImages.forEach((img) => {
+        if (img === currentImg) {
+          this.isImageLoading = false;
+          this.imageIndex += 1;
+        }
+      });
+    });
+  }
 
   returnHome = () => this.router.navigate(['']);
 }

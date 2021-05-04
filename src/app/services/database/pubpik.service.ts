@@ -1,4 +1,3 @@
-import { map } from 'rxjs/operators';
 import { PubPik } from './../../models/pubpik.model';
 import { Injectable } from '@angular/core';
 import {

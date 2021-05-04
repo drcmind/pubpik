@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
   openResetPasswordDialog(): void {
     this.dialog.closeAll();
     this.dialog.open(ResetPasswordComponent, {
+      width: '30rem',
       hasBackdrop: true,
       disableClose: true,
     });
@@ -65,10 +66,7 @@ export class LoginComponent implements OnInit {
         this.uts.refreshPage('');
       } catch (error) {
         this.formValid = false;
-        this.uts.showNotification(
-          `Une erreur s'est produite, ${error}`,
-          'Réessayer'
-        );
+        this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }
   }

@@ -14,49 +14,48 @@ $linear-gradient-glass: linear-gradient(
   border: 0.01rem solid $white-color;
 }
 
-.glass {
-  height: 100vh;
+.glass-bg-container {
   background: $linear-gradient;
+  padding: calc(5vw + 1rem);
 
-  &-container {
+  .glass-container {
     @extend %glass-container;
-    width: 90%;
     margin: auto;
     border-top-right-radius: calc(10vw + 0.1rem);
     border-bottom-left-radius: calc(4vw + 0.1rem);
     position: relative;
     z-index: 2;
+  }
 
-    &-items {
-      background: inherit;
-      border-radius: 1rem;
-      border-bottom-left-radius: inherit;
-      min-width: 28em;
-      padding: calc(3vw + 0.2rem) 0;
-      margin: calc(2vw + 0.1rem);
+  .glass-content {
+    background: inherit;
+    border-radius: inherit;
+    border-bottom-left-radius: inherit;
+    min-width: 28em;
+    padding: calc(3vw + 0.2rem) 0;
 
-      .big-txt,
-      h3,
-      mat-icon {
-        margin: 0;
-        font-weight: bold;
-        opacity: 0.8;
-      }
+    .big-txt,
+    h3,
+    mat-icon {
+      margin: 0;
+      font-weight: bold;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
 
-      .icon-text {
-        margin-top: 1rem;
-      }
+    .icon-text {
+      margin-top: 1rem;
+    }
 
-      mat-icon {
-        width: 1rem;
-        margin-right: 1.5rem;
-      }
+    mat-icon {
+      width: 1rem;
+      margin-right: 1.5rem;
+    }
 
-      button {
-        margin: 1rem calc(0.5vw + 1px);
-        width: 45%;
-        @extend %button;
-      }
+    button {
+      margin-top: 1rem;
+      @extend %button;
+      width: 48%;
     }
   }
 
@@ -80,14 +79,22 @@ $linear-gradient-glass: linear-gradient(
     bottom: 2%;
     left: 2%;
   }
-}
 
-@media (max-width: 37rem) {
-  .glass-container-items {
-    background: transparent;
-    .big-txt,
-    h2 {
+  @media (max-width: 60rem) {
+    .big-txt {
+      font-size: calc(4vw + 0.2rem);
+      margin-bottom: 2rem;
       text-align: center;
+    }
+
+    h3 {
+      font-size: calc(3vw + 0.2rem);
+    }
+
+    .actions-btn {
+      width: 85%;
+      margin: auto;
+      margin-top: 1rem;
     }
   }
 }
@@ -113,10 +120,8 @@ $linear-gradient-glass: linear-gradient(
       font-weight: bold;
     }
   }
-}
 
-@media (max-width: 38rem) {
-  .fonctionalite {
+  @media (max-width: 38rem) {
     h2,
     h3,
     a {
@@ -167,10 +172,8 @@ $linear-gradient-glass: linear-gradient(
       width: 30%;
     }
   }
-}
 
-@media (max-width: 38rem) {
-  .engagement {
+  @media (max-width: 38rem) {
     button {
       width: 90%;
     }
@@ -196,10 +199,8 @@ footer {
     opacity: 0.7;
     margin-top: 1rem;
   }
-}
 
-@media (max-width: 38rem) {
-  footer {
+  @media (max-width: 38rem) {
     h2,
     p {
       text-align: center;

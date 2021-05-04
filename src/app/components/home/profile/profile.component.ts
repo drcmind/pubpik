@@ -5,6 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/models/user.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,9 +16,9 @@ export class ProfileComponent implements OnInit {
   @Input() title?: string;
   @Input() userID = '';
   @Input() activeViewPort?: string;
-  @Input() isDarkTheme?: Observable<MediaChange>;
+  @Input() isDarkTheme?: BehaviorSubject<boolean>;
   @Input() currentUserData?: Observable<User | undefined>;
-  @Input() userData?: User;
+  @Input() userData?: User | null;
   constructor(private dialog: MatDialog, private authService: AuthService) {}
 
   ngOnInit(): void {}

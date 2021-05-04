@@ -1,3 +1,4 @@
+import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 import { PubPik } from './../../../models/pubpik.model';
 import { BehaviorSubject } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
@@ -26,6 +27,7 @@ export class PubpikFeedComponent implements OnInit {
 
   constructor(
     private fps: FavoritePubpikService,
+    private uts: UtilitiesService,
     private router: Router,
     private ps: PubpikService
   ) {}
@@ -119,8 +121,12 @@ export class PubpikFeedComponent implements OnInit {
     userFPs.forEach((pub) => this.fps.isFavoritePubpik(pub, userID));
   }
 
-  goToDetailPubpik(pubpikID: string): void {
-    this.router.navigate(['pubpik', pubpikID]);
+  goToDetailPubpik(pubpikID?: string): void {
+    if (this.pageName === 'detail-pubpik') {
+      this.uts.refreshPage(`pubpik/${pubpikID}`);
+    } else {
+      this.router.navigate(['pubpik', pubpikID]);
+    }
   }
 
   onAddFavoritePubik(pubpik: PubPik, userID: string): void {

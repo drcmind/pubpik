@@ -26,7 +26,7 @@ export class ProcessRegisterComponent implements OnInit {
   @Input() userID: any;
   @Input() reloadUser: any;
   @Input() isEmailVerified?: boolean;
-  @Input() currentUserData?: User;
+  @Input() currentUserData?: User | null;
   @Input() isInterestCenterChoosen?: boolean;
 
   constructor(
@@ -70,11 +70,7 @@ export class ProcessRegisterComponent implements OnInit {
     this.uts.refreshPage('');
     if (!this.isEmailVerified && this.currentUserData?.nom !== undefined) {
       this.uts.showNotification(
-        `Hey!, ${this.currentUserData?.nom}
-            ${this.currentUserData?.postNom}.
-             veillez confirmez d'abord votre adresse email,
-              et puis réessayer`,
-        'OK'
+        `Hey!, ${this.currentUserData?.nom} ${this.currentUserData?.postNom}. veillez confirmez d'abord votre adresse email, et puis réessayer`
       );
     }
   }
@@ -86,11 +82,7 @@ export class ProcessRegisterComponent implements OnInit {
       await this.userService.setInterestCenter(this.userID, categorie);
       this.isProgressBarVisible = false;
       this.uts.showNotification(
-        `Salut ${this.currentUserData?.nom}
-            ${this.currentUserData?.postNom}.
-             Inscription terminée avec succès,
-              Bienvenu sur ${this.title}`,
-        ''
+        `Salut ${this.currentUserData?.nom} ${this.currentUserData?.postNom}. Inscription terminée avec succès, Bienvenu sur ${this.title}`
       );
     });
   }

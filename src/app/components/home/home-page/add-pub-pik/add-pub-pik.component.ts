@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,12 +24,17 @@ export class AddPubPikComponent implements OnInit {
   isDarkTheme?: BehaviorSubject<boolean>;
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { categoriesData: Category[]; userData: User; title: string },
+    public data: {
+      categoriesData: Promise<Category[]>;
+      userData: User;
+      title: string;
+    },
     private formBuilder: FormBuilder,
     private pubpikService: PubpikService,
     private storage: AngularFireStorage,
     private dialog: MatDialog,
-    private uts: UtilitiesService
+    private uts: UtilitiesService,
+    private router: Router
   ) {
     this.isDarkTheme = this.uts.observeDarkMode;
   }
@@ -92,18 +98,17 @@ export class AddPubPikComponent implements OnInit {
       };
       try {
         this.dialog.closeAll();
-        await this.pubpikService.addPubPik(pubpik);
+        const docRef = await this.pubpikService.addPubPik(pubpik);
         const snackBarRef = this.uts.showNotification(
           `Album ajouté avec succès`,
           'Voir'
         );
-        snackBarRef.onAction().forEach(() => this.uts.refreshPage(''));
+        snackBarRef
+          .onAction()
+          .forEach(() => this.router.navigate(['pubpik', docRef.id]));
       } catch (error) {
         this.isImageLoading = false;
-        this.uts.showNotification(
-          `Une erreur s'est produite, ${error}`,
-          'Réessayer'
-        );
+        this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }
   }

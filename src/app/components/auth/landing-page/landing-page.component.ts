@@ -22,9 +22,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   ) {
     this.isDarkTheme = this.uts.observeDarkMode;
   }
-
   openLoginDialog(): void {
     this.dialog.open(LoginComponent, {
+      width: '30rem',
       hasBackdrop: true,
       disableClose: true,
       data: { title: this.title, isDarkTheme: this.isDarkTheme },

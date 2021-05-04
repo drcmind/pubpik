@@ -8,6 +8,6 @@ export interface PubPik {
   pubpikUserData: User;
   pubpikFavoriteCount: number;
   isMyFavorite?: boolean;
-  pubpikTimestamp: firebase.default.firestore.FieldValue;
+  pubpikTimestamp: any;
   pubpikImages: string[];
 }

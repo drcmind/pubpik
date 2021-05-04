@@ -14,6 +14,6 @@
     [style.font-size]="fontSize"
     *ngIf="!(currentUserData | async)?.imgProfil"
   >
-    {{ (currentUserData | async)?.nom[0] }}
+    {{ ((currentUserData | async)?.nom)![0] }}
   </h1>
 </div>

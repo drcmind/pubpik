@@ -76,7 +76,7 @@ export class UtilitiesService {
 
   showNotification(
     msg: string,
-    btnTxt: string
+    btnTxt?: string
   ): MatSnackBarRef<TextOnlySnackBar> {
     return this.snackBar.open(msg, btnTxt, {
       duration: 10000,

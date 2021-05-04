@@ -77,6 +77,7 @@ export class RegisterComponent implements OnInit {
 
   openLoginDialog(): void {
     this.dialog.open(LoginComponent, {
+      width: '30rem',
       hasBackdrop: true,
       disableClose: true,
       data: { title: this.title, isDarkTheme: this.isDarkTheme },
@@ -115,10 +116,7 @@ export class RegisterComponent implements OnInit {
         this.openGmail();
       } catch (error) {
         this.isValidForm = false;
-        this.uts.showNotification(
-          `Une erreur s'est produite, ${error}`,
-          'Réessayer'
-        );
+        this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }
   }

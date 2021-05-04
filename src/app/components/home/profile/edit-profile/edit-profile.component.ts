@@ -3,6 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { MediaChange } from '@angular/flex-layout';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/database/user.service';
@@ -16,11 +17,11 @@ export class EditProfileComponent implements OnInit {
   fxLayoutAlign = 'center center';
   fontSize = '4rem';
   isImageLoading = false;
-  isDarkTheme: Observable<MediaChange>;
+  isDarkTheme?: BehaviorSubject<boolean>;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      isDarkTheme: Observable<MediaChange>;
+      isDarkTheme?: BehaviorSubject<boolean>;
       userData: User;
       currentUserData?: Observable<User | undefined>;
     },

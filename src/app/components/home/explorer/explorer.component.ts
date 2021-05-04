@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ExplorerComponent implements OnInit {
   @Input() activeViewPort?: string;
-  @Input() isDarkTheme?: boolean;
+  @Input() isDarkTheme?: BehaviorSubject<boolean>;
   @Input() userID = '';
   constructor() {}
 

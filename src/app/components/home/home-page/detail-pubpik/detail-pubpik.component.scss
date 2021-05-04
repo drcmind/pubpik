@@ -11,9 +11,42 @@
 
     .img-container {
       background-color: black;
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
 
       img {
+        height: 100%;
+        width: 100%;
         animation: fade 1s ease forwards;
+        object-fit: contain;
+      }
+
+      .next-btn,
+      .prev-btn {
+        position: absolute;
+        background-color: $white-color;
+        transform: translateY(-50%);
+        top: 50%;
+      }
+
+      .prev-btn {
+        left: 1rem;
+      }
+
+      .next-btn {
+        right: 1rem;
+      }
+
+      .buttonDarkTheme {
+        background-color: $black-color;
+      }
+
+      mat-progress-spinner {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 50%;
       }
     }
 
@@ -30,18 +63,6 @@
 
       .buttonDarkTheme {
         background-color: $black-color;
-      }
-    }
-
-    .action-slider {
-      height: 100%;
-      @extend .action-icons;
-      z-index: 1;
-      opacity: 0;
-      animation: fade 1s ease forwards;
-
-      &:hover {
-        opacity: 1;
       }
     }
   }

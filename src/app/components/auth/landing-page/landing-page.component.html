@@ -1,66 +1,55 @@
 <section
-  class="glass"
+  class="glass-bg-container"
   [ngClass]="{ glassBackgroundForDark: (isDarkTheme | async) }"
-  fxLayout
 >
   <div
     class="glass-container"
     [ngClass]="{ glassContainerDark: (isDarkTheme | async) }"
-    fxFlexAlign="center"
-    fxLayout
     fxLayoutAlign="space-between center"
   >
     <div
-      class="glass-container-items"
+      class="glass-content"
       fxFlex="35"
+      fxFlex.sm="100"
       fxFlex.xs="100"
       fxLayoutAlign="center start"
     >
       <div fxFlex="80">
-        <div class="mat-display-2 big-txt">{{ title }}</div>
-        <div class="mat-display-1 big-txt">{{ desc }}</div>
-        <div
-          class="icon-text"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          fxLayoutAlign.xs="space-evenly center"
-        >
-          <mat-icon>auto_awesome</mat-icon>
-          <h3>Suivez vos centres d'intérêt</h3>
+        <h1 class="mat-display-2 big-txt">{{ title }}</h1>
+        <h2 class="mat-display-1 big-txt">{{ desc }}</h2>
+        <div fxLayoutAlign="center" fxHide.lg fxHide.md>
+          <img fxFlex="80" src="../assets/undraw_Upload_re_pasx.svg" />
         </div>
         <div
-          class="icon-text"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          fxLayoutAlign.xs="space-evenly center"
+          fxLayout="column"
+          fxLayoutAlign.sm="center center"
+          fxLayoutAlign.xs="center center"
         >
-          <mat-icon>auto_awesome_mosaic</mat-icon>
-          <h3>Gérez vos photos et albums</h3>
+          <div class="icon-text" fxLayoutAlign="start center">
+            <h3><mat-icon>auto_awesome</mat-icon></h3>
+            <h3>Suivez vos centres d'intérêt</h3>
+          </div>
+          <div class="icon-text" fxLayout="row" fxLayoutAlign="start center">
+            <h3><mat-icon>auto_awesome_mosaic</mat-icon></h3>
+            <h3>Gérez vos photos et albums</h3>
+          </div>
+          <div class="icon-text" fxLayout="row" fxLayoutAlign="start center">
+            <h3><mat-icon>photo_library</mat-icon></h3>
+            <h3>Découvrez les belles images</h3>
+          </div>
         </div>
-        <div
-          class="icon-text"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          fxLayoutAlign.xs="space-evenly center"
-        >
-          <mat-icon>photo_library</mat-icon>
-          <h3>Découvrez les belles images</h3>
+        <div class="actions-btn" fxLayoutAlign="space-between center">
+          <button mat-flat-button (click)="openLoginDialog()" color="primary">
+            Se connecter
+          </button>
+          <button mat-flat-button (click)="goToRegister()" color="accent">
+            S'inscrire
+          </button>
         </div>
-        <button mat-flat-button (click)="openLoginDialog()" color="primary">
-          Se connecter
-        </button>
-        <button mat-flat-button (click)="goToRegister()" color="accent">
-          S'inscrire
-        </button>
       </div>
     </div>
-    <div fxHide.xs fxFlex="2 3 60" fxLayout fxLayoutAlign="center">
-      <img
-        fxFlex="70"
-        fxFlex.sm="100"
-        src="../assets/undraw_Upload_re_pasx.svg"
-        alt="img-illustration"
-      />
+    <div fxFlex="2 3 60" fxLayoutAlign="center" fxHide.sm fxHide.xs>
+      <img fxFlex="80" src="../assets/undraw_Upload_re_pasx.svg" />
     </div>
   </div>
   <div class="circle1" [ngClass]="{ circleDark: (isDarkTheme | async) }"></div>

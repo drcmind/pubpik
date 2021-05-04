@@ -17,7 +17,7 @@ export class ToolbarComponent implements OnInit {
   @Input() activeViewPort?: string;
   @Input() isDarkTheme?: BehaviorSubject<boolean>;
   @Input() interestCenters?: Promise<Category[]>;
-  @Input() userData: User = {};
+  @Input() userData?: User | null;
   @Output() newPubpiksFilterEvent = new EventEmitter<string>();
 
   constructor(private uts: UtilitiesService, private dialog: MatDialog) {}
