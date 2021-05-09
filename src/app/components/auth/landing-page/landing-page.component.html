@@ -1,5 +1,5 @@
 <section
-  class="glass-bg-container"
+  class="hero-section"
   [ngClass]="{ glassBackgroundForDark: (isDarkTheme | async) }"
 >
   <div
@@ -29,11 +29,11 @@
             <h3><mat-icon>auto_awesome</mat-icon></h3>
             <h3>Suivez vos centres d'intérêt</h3>
           </div>
-          <div class="icon-text" fxLayout="row" fxLayoutAlign="start center">
+          <div class="icon-text" fxLayoutAlign="start center">
             <h3><mat-icon>auto_awesome_mosaic</mat-icon></h3>
             <h3>Gérez vos photos et albums</h3>
           </div>
-          <div class="icon-text" fxLayout="row" fxLayoutAlign="start center">
+          <div class="icon-text" fxLayoutAlign="start center">
             <h3><mat-icon>photo_library</mat-icon></h3>
             <h3>Découvrez les belles images</h3>
           </div>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div fxFlex="2 3 60" fxLayoutAlign="center" fxHide.sm fxHide.xs>
+    <div fxFlex="2 2 60" fxLayoutAlign="center" fxHide.sm fxHide.xs>
       <img fxFlex="80" src="../assets/undraw_Upload_re_pasx.svg" />
     </div>
   </div>
@@ -57,7 +57,7 @@
 </section>
 
 <section
-  class="fonctionalite"
+  class="fonctionalite-section"
   fxLayout="row wrap"
   fxLayoutAlign="space-between start"
 >
@@ -120,18 +120,18 @@
 </section>
 
 <section
-  class="engagement"
+  class="cta-section"
   [ngClass]="{ glassBackgroundForDark: (isDarkTheme | async) }"
   fxLayout="column"
   fxLayoutAlign="center center"
 >
   <div
-    class="engagement-container"
+    class="cta-section-container"
     [ngClass]="{ glassContainerDark: (isDarkTheme | async) }"
     fxLayout="column"
     fxLayoutAlign="center center"
   >
-    <div class="angularFire-logo" fxLayout="row" fxLayoutAlign="center center">
+    <div class="angularFire-logos" fxLayout="row" fxLayoutAlign="center center">
       <img
         class="angular-logo"
         [ngClass]="{ glassContainerDark: (isDarkTheme | async) }"

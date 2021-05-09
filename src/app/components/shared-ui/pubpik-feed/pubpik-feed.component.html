@@ -1,0 +1,124 @@
+<div
+  *ngIf="isPubPikLoading"
+  [style.height]="height"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <mat-progress-spinner
+    mode="indeterminate"
+    strokeWidth="5"
+    diameter="100"
+  ></mat-progress-spinner>
+</div>
+<mat-grid-list
+  *ngIf="!isPubPikLoading"
+  [cols]="
+    activeViewPort === 'lg' || activeViewPort === 'md'
+      ? 3
+      : activeViewPort === 'sm' && pageName === 'accueil'
+      ? 2
+      : activeViewPort === 'sm' && pageName !== 'accueil'
+      ? 1
+      : activeViewPort === 'xs' && pageName !== 'accueil'
+      ? 1
+      : 2
+  "
+  [rowHeight]="
+    activeViewPort === 'sm'
+      ? '30rem'
+      : activeViewPort === 'xs'
+      ? '20rem'
+      : '17rem'
+  "
+  gutterSize="1rem"
+>
+  <mat-grid-tile
+    *ngFor="let pubpik of pubpiks; let i = index"
+    [style.background]="pubpik.pubpikCategory.categoryColor"
+    [rowspan]="
+      (activeViewPort === 'lg' && i % 3 === 1 && pageName === 'accueil') ||
+      (activeViewPort === 'md' && i % 3 === 1 && pageName === 'accueil')
+        ? 2
+        : 1
+    "
+    [colspan]="
+      (activeViewPort === 'lg' && i % 2 === 0) ||
+      (activeViewPort === 'md' && i % 2 === 0)
+        ? 1
+        : pageName === 'accueil'
+        ? 2
+        : 1
+    "
+  >
+    <div fxLayout="row" class="img-count-btn-favorite">
+      <div
+        class="img-count"
+        [ngClass]="{ pubpikIconDark: (isDarkTheme | async) }"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <span style="font-weight: bold">
+          {{ pubpik.pubpikImages.length }}
+        </span>
+        <mat-icon>photo_filter</mat-icon>
+      </div>
+      <button
+        *ngIf="!pubpik.isMyFavorite"
+        mat-flat-button
+        matTooltip="Ajouter aux favoris"
+        (click)="onAddFavoritePubik(pubpik, userID)"
+      >
+        <span *ngIf="pubpik.pubpikFavoriteCount !== 0">
+          {{ pubpik.pubpikFavoriteCount }}
+        </span>
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button
+        *ngIf="pubpik.isMyFavorite"
+        mat-flat-button
+        matTooltip="Rétirer de favoris"
+        color="warn"
+        (click)="onRemoveFavoritePubik(pubpik, userID)"
+      >
+        <span>{{ pubpik.pubpikFavoriteCount }} </span>
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+    <div
+      class="bac-img"
+      [style.background-image]="'url(' + pubpik.pubpikImages[0] + ')'"
+      (click)="goToDetailPubpik(pubpik.pubpikId)"
+    >
+      <div
+        class="bac-img-hover"
+        fxLayout="column"
+        fxLayoutAlign="space-between"
+      >
+        <div fxFlexAlign="end"></div>
+        <div class="pubpik-info" fxLayout>
+          <app-user-profil-img
+            fontSize="2rem"
+            marginTop="25%"
+            fxLayoutAlign="center center"
+            [isDarkTheme]="isDarkTheme"
+            [userData]="pubpik.pubpikUserData"
+            [background]="pubpik.pubpikCategory.categoryColor"
+          ></app-user-profil-img>
+          <div class="pubpik-text">
+            <h1 [ngClass]="{ pubpikTextDark: (isDarkTheme | async) }">
+              <strong>{{ pubpik.pubpikCategory.categoryName }}: </strong>
+              {{ pubpik.pubpikTitle }}
+            </h1>
+            <h3 [ngClass]="{ pubpikTextDark: (isDarkTheme | async) }">
+              {{ pubpik.pubpikUserData.nom }}
+              {{ pubpik.pubpikUserData.postNom }}
+            </h3>
+            <h4 [ngClass]="{ pubpikTextDark: (isDarkTheme | async) }">
+              {{ pubpik.pubpikTimestamp.toDate() | date }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

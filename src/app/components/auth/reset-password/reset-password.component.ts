@@ -39,14 +39,10 @@ export class ResetPasswordComponent implements OnInit {
         await this.authService.resetPassword(email);
         this.dialog.closeAll();
         this.uts.showNotification(
-          `Un mail de reinitialisation de mot de passe a été envoyé avec succès sur ${email}`,
-          ''
+          `Un mail de reinitialisation de mot de passe a été envoyé avec succès sur ${email}`
         );
       } catch (error) {
-        this.uts.showNotification(
-          `Une erreur s'est produite, ${error}`,
-          'Réessayer'
-        );
+        this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }
   }

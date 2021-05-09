@@ -1,11 +1,7 @@
 @use "../../../../styles" as *;
 
 $linear-gradient: linear-gradient(to right top, #743dff, #a47dff);
-$linear-gradient-glass: linear-gradient(
-  to right bottom,
-  rgba(255, 255, 255, 0.8),
-  rgba(255, 255, 255, 0.2)
-);
+$linear-gradient-glass: linear-gradient(to right bottom, #ffffffcc, #ffffff33);
 
 %glass-container {
   background: $linear-gradient-glass;
@@ -14,7 +10,7 @@ $linear-gradient-glass: linear-gradient(
   border: 0.01rem solid $white-color;
 }
 
-.glass-bg-container {
+.hero-section {
   background: $linear-gradient;
   padding: calc(5vw + 1rem);
 
@@ -30,7 +26,7 @@ $linear-gradient-glass: linear-gradient(
   .glass-content {
     background: inherit;
     border-radius: inherit;
-    border-bottom-left-radius: inherit;
+    border-top-right-radius: 0;
     min-width: 28em;
     padding: calc(3vw + 0.2rem) 0;
 
@@ -81,6 +77,10 @@ $linear-gradient-glass: linear-gradient(
   }
 
   @media (max-width: 60rem) {
+    .glass-content {
+      border-top-right-radius: inherit;
+    }
+
     .big-txt {
       font-size: calc(4vw + 0.2rem);
       margin-bottom: 2rem;
@@ -97,9 +97,18 @@ $linear-gradient-glass: linear-gradient(
       margin-top: 1rem;
     }
   }
+
+  .glassContainerDark {
+    background: linear-gradient(to right bottom, #2c2c2ccc, #00000033);
+    border: 0.01rem solid $black-color;
+  }
+
+  .circleDark {
+    opacity: 0.2;
+  }
 }
 
-.fonctionalite {
+.fonctionalite-section {
   margin: 4rem;
 
   .mat-display-2 {
@@ -130,47 +139,46 @@ $linear-gradient-glass: linear-gradient(
   }
 }
 
-.engagement {
+.cta-section {
   padding: 4rem;
   background: $linear-gradient;
 
   &-container {
     @extend %glass-container;
     padding: 2rem;
+  }
 
-    .angularFire-logo {
-      margin-bottom: 1rem;
-      .angular-logo {
-        @extend %glass-container;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-      .firebase-logo {
-        @extend %glass-container;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      .glassContainerDark {
-        background: linear-gradient(
-          to right bottom,
-          rgba(44, 44, 44, 0.8),
-          rgba(0, 0, 0, 0.2)
-        );
-        border: 0.01rem solid $black-color;
-      }
-    }
+  .angularFire-logos {
+    margin-bottom: 1rem;
+  }
 
-    .mat-display-1,
-    h2 {
-      margin-bottom: 1rem;
-      text-align: center;
-      opacity: 0.8;
-    }
+  .angular-logo {
+    @extend %glass-container;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
-    button {
-      @extend %button;
-      width: 30%;
-    }
+  .firebase-logo {
+    @extend %glass-container;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .mat-display-1,
+  h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  button {
+    @extend %button;
+    width: 30%;
+  }
+
+  .glassContainerDark {
+    background: linear-gradient(to right bottom, #2c2c2ccc, #00000033);
+    border: 0.01rem solid $black-color;
   }
 
   @media (max-width: 38rem) {
@@ -184,15 +192,16 @@ footer {
   padding: 4rem;
 
   .footer-contenu {
-    div {
-      min-width: 5rem;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
     margin-bottom: 1rem;
+  }
+
+  div {
+    min-width: 5rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
   .copyright {
@@ -211,19 +220,6 @@ footer {
 // Fix the dark theme
 .glassBackgroundForDark {
   background: linear-gradient(to right top, #000000, #292929);
-}
-
-.glassContainerDark {
-  background: linear-gradient(
-    to right bottom,
-    rgba(44, 44, 44, 0.8),
-    rgba(0, 0, 0, 0.2)
-  );
-  border: 0.01rem solid $black-color;
-}
-
-.circleDark {
-  opacity: 0.2;
 }
 
 .linkInDark {

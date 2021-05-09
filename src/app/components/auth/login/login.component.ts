@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       try {
         await this.authService.login(email, password);
         this.dialog.closeAll();
-        this.uts.refreshPage('');
+        this.uts.refreshPage('accueil');
       } catch (error) {
         this.formValid = false;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);

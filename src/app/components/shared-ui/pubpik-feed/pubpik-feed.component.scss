@@ -1,0 +1,88 @@
+@import "../../../../styles";
+
+mat-grid-list {
+  height: 100%;
+  margin: 1rem;
+}
+
+mat-grid-tile {
+  min-width: 15em;
+  border-radius: 1em;
+  transition: transform 250ms ease-in-out;
+  animation: fade 1s ease forwards;
+
+  .bac-img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .img-count-btn-favorite {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: 1s;
+
+    .img-count {
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      padding: 0 0.5rem;
+      margin: 0 0.5rem;
+      background: $white-color;
+    }
+
+    .pubpikIconDark {
+      background: $black-color;
+    }
+
+    button {
+      border-bottom-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    .bac-img-hover,
+    .img-count-btn-favorite {
+      opacity: 1;
+    }
+  }
+
+  .bac-img-hover {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: 1s;
+    border-radius: 1rem;
+    background: linear-gradient(transparent, $white-color);
+
+    .pubpik-info {
+      margin: 1rem;
+
+      app-user-profil-img {
+        height: 4rem;
+        width: 4rem;
+        margin-right: 1rem;
+      }
+
+      .pubpik-text {
+        h1,
+        h3,
+        h4 {
+          margin-bottom: 0.2em;
+          font-weight: normal;
+        }
+      }
+
+      .pubpikTextDark {
+        color: $black-color;
+      }
+    }
+  }
+}

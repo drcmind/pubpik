@@ -1,0 +1,57 @@
+@import "../../../../styles";
+
+.main-container {
+  animation: fade 1s ease forwards;
+}
+
+.category-container {
+  width: 17%;
+  border-radius: 1em;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin: 1em 0;
+  position: fixed;
+
+  h1 {
+    margin-bottom: 0.2rem;
+  }
+
+  strong {
+    color: $achor-tag-color;
+    cursor: pointer;
+  }
+
+  .strongDarkTheme {
+    color: $achor-tag-darkTheme;
+  }
+
+  mat-card-content {
+    max-height: calc(50vh + 5rem);
+    overflow-y: auto;
+    margin-right: -1rem;
+
+    @include scrollbar(0.4rem, 0.2rem);
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background: lightgray;
+      }
+    }
+  }
+
+  button {
+    @extend %button;
+    height: 4em;
+    width: 96%;
+    margin: 0.2rem auto;
+    animation: fade 1s ease forwards;
+  }
+
+  .buttonDark {
+    color: $black-color;
+  }
+}
+
+.pubpik-container {
+  margin-left: auto;
+}

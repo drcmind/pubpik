@@ -8,12 +8,11 @@ body {
   font-family: "Poppins", sans-serif;
   &::-webkit-scrollbar {
     width: 0.6rem;
-    background: #130634;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 0.5rem;
-    background: lightgray;
+    background: darkgray;
   }
 }
 

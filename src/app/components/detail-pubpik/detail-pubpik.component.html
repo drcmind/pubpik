@@ -1,0 +1,142 @@
+<section
+  class="pubpik-detail-section"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-between"
+>
+  <div class="content-left" fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+    <div
+      class="action-icons"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <button
+        mat-icon-button
+        [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+        (click)="goBack()"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <button
+          mat-icon-button
+          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+        >
+          <mat-icon>download</mat-icon>
+        </button>
+        <button
+          *ngIf="userID === (pubpik | async)?.pubpikUserData?.id"
+          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+          style="margin: 0 1rem"
+          mat-icon-button
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          *ngIf="userID === (pubpik | async)?.pubpikUserData?.id"
+          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+          mat-icon-button
+          (click)="showDialog()"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div fxFlex="100" style="background: black" fxLayoutAlign="center center">
+      <h1 *ngIf="!(isOnline$ | async)" fxFlex="80" align="center">
+        Connectez-vous sur internet pour visualiser les images de ce
+        {{ title }}
+      </h1>
+      <div fxFlex="100" class="img-container" *ngIf="isOnline$ | async">
+        <mat-progress-spinner
+          *ngIf="isImageLoading"
+          mode="indeterminate"
+          strokeWidth="2.5"
+          diameter="40"
+          align="center"
+        ></mat-progress-spinner>
+        <img
+          *ngIf="!isImageLoading"
+          [src]="((pubpik | async)?.pubpikImages)![imageIndex]"
+        />
+        <input
+          #currentImg
+          [value]="((pubpik | async)?.pubpikImages)![imageIndex]"
+          type="hidden"
+        />
+        <button
+          class="prev-btn"
+          mat-icon-button
+          *ngIf="imageIndex !== 0"
+          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+          (click)="prevImg(currentImg.value)"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          class="next-btn"
+          mat-icon-button
+          *ngIf="imageIndex !== ((pubpik | async)?.pubpikImages)!.length - 1"
+          (click)="nextImg(currentImg.value)"
+          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="content-right" fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
+    <div class="user-info" fxLayout="row">
+      <div
+        class="user-profil-img"
+        [style.background]="(pubpik | async)?.pubpikCategory?.categoryColor"
+      >
+        <img
+          class="profile-img"
+          *ngIf="(pubpik | async)?.pubpikUserData?.imgProfil !== ''"
+          [src]="(pubpik | async)?.pubpikUserData?.imgProfil"
+          alt=""
+        />
+        <div
+          class="profile-img"
+          *ngIf="(pubpik | async)?.pubpikUserData?.imgProfil === ''"
+          fxLayout="column"
+        >
+          <h1 class="profile-text" fxFlexAlign="center">
+            {{ ((pubpik | async)?.pubpikUserData?.nom)![0] }}
+          </h1>
+        </div>
+      </div>
+      <div class="nom-email">
+        <h2 style="margin-bottom: 0rem">
+          {{ (pubpik | async)?.pubpikUserData?.nom }}
+          {{ (pubpik | async)?.pubpikUserData?.postNom }}
+        </h2>
+        <h3 style="margin-bottom: 0rem">
+          {{ (pubpik | async)?.pubpikUserData?.email }}
+        </h3>
+      </div>
+    </div>
+    <div style="margin: 0 1em">
+      <h1>{{ (pubpik | async)?.pubpikTitle }}</h1>
+      <h2>{{ (pubpik | async)?.pubpikDescription }}</h2>
+      <h3>Ajouté le {{ (pubpik | async)?.pubpikTimestamp.toDate() | date }}</h3>
+    </div>
+  </div>
+</section>
+<mat-divider></mat-divider>
+<section class="related-pubpik-section">
+  <div class="related-pubpik-heading">
+    <h1 class="mat-display-1">
+      {{ (pubpik | async)?.pubpikCategory?.categoryName }}
+    </h1>
+    <h1>{{ (pubpik | async)?.pubpikCategory?.categoryDesc }}</h1>
+  </div>
+  <app-pubpik-feed
+    height="40vh"
+    [pubpik]="pubpik"
+    [isDarkTheme]="isDarkTheme"
+    [activeViewPort]="(mqObsever | async)?.mqAlias"
+    [userID]="userID"
+    pageName="detail-pubpik"
+  ></app-pubpik-feed>
+</section>

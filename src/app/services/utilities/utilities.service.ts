@@ -62,8 +62,8 @@ export class UtilitiesService {
   }
 
   refreshPage(pageToRefresh: string): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => true;
+    // this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([pageToRefresh]);
   }
 

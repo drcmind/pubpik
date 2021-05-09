@@ -12,30 +12,31 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialUiModule } from './material-ui/material-ui.module';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-registerLocaleData(localeFr, 'fr');
+import { RouteReuseStrategy } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
 import { LandingPageComponent } from './components/auth/landing-page/landing-page.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { ProcessRegisterComponent } from './components/auth/process-register/process-register.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { HomeComponent } from './components/home/home.component';
-import { HomePageComponent } from './components/home/home-page/home-page.component';
-import { ExplorerComponent } from './components/home/explorer/explorer.component';
-import { ChatComponent } from './components/home/chat/chat.component';
-import { NotificationsComponent } from './components/home/notifications/notifications.component';
-import { ProfileComponent } from './components/home/profile/profile.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
-import { DetailPubpikComponent } from './components/home/home-page/detail-pubpik/detail-pubpik.component';
-import { AddPubPikComponent } from './components/home/home-page/add-pub-pik/add-pub-pik.component';
-import { ProcessRegisterComponent } from './components/auth/register/process-register/process-register.component';
-import { DeleteDialogComponent } from './components/home/home-page/detail-pubpik/delete-dialog.component';
-import { UserProfilImgComponent } from './components/shared-components/user-profil-img/user-profil-img.component';
-import { PubpikFeedComponent } from './components/shared-components/pubpik-feed/pubpik-feed.component';
-import { ToolbarComponent } from './components/shared-components/toolbar/toolbar.component';
-import { EditProfileComponent } from './components/home/profile/edit-profile/edit-profile.component';
-import { EditInterestsCenterComponent } from './components/home/home-page/edit-interests-center/edit-interests-center.component';
+import { ChatComponent } from './components/menu-components/chat/chat.component';
+import { ExplorerComponent } from './components/menu-components/explorer/explorer.component';
+import { AddPubPikComponent } from './components/menu-components/home-page/add-pub-pik/add-pub-pik.component';
+import { DeleteDialogComponent } from './components/detail-pubpik/delete-dialog.component';
+import { DetailPubpikComponent } from './components/detail-pubpik/detail-pubpik.component';
+import { EditInterestsCenterComponent } from './components/menu-components/home-page/edit-interests-center/edit-interests-center.component';
+import { HomePageComponent } from './components/menu-components/home-page/home-page.component';
+import { NotificationsComponent } from './components/menu-components/notifications/notifications.component';
+import { EditProfileComponent } from './components/menu-components/profile/edit-profile/edit-profile.component';
+import { ProfileComponent } from './components/menu-components/profile/profile.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PubpikFeedComponent } from './components/shared-ui/pubpik-feed/pubpik-feed.component';
+import { ToolbarComponent } from './components/shared-ui/toolbar/toolbar.component';
+import { UserProfilImgComponent } from './components/shared-ui/user-profil-img/user-profil-img.component';
+import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import { EditInterestsCenterComponent } from './components/home/home-page/edit-i
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,
-    HomeComponent,
     HomePageComponent,
     ExplorerComponent,
     AddPubPikComponent,
@@ -83,7 +83,12 @@ import { EditInterestsCenterComponent } from './components/home/home-page/edit-i
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

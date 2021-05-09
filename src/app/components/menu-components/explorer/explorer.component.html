@@ -1,0 +1,18 @@
+<app-toolbar
+  [activeViewPort]="(mqObsever | async)?.mqAlias"
+  [isDarkTheme]="isDarkTheme"
+  pageName="explorer"
+></app-toolbar>
+<div fxLayout fxLayoutAlign="center">
+  <app-pubpik-feed
+    fxFlex.lg="80"
+    fxFlex.md="95"
+    fxFlex.sm="100"
+    fxFlex.xs="100"
+    height="90vh"
+    [userID]="userID"
+    [isDarkTheme]="isDarkTheme"
+    [activeViewPort]="(mqObsever | async)?.mqAlias"
+  >
+  </app-pubpik-feed>
+</div>

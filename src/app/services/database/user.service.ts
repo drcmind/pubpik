@@ -19,7 +19,7 @@ export class UserService {
     this.userCollection = this.afs.collection('users');
   }
 
-  getUser = (userid: string) => this.userCollection.doc(userid).valueChanges();
+  getUser = (userid?: string) => this.userCollection.doc(userid).valueChanges();
 
   // Centre d'interet initial de l'utilisateur
   getInitialSubscription(userid: string): Observable<DocumentData[]> {

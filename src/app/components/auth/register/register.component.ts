@@ -6,7 +6,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs';
@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   desc = desc;
   isValidForm = false;
   isDarkTheme?: BehaviorSubject<boolean>;
+  isRegisterProcessDone?: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private uts: UtilitiesService,
     private authService: AuthService,
-    private userService: UserService,
+    private us: UserService,
     private passwordValidation: PasswordValidationService
   ) {
     this.isDarkTheme = this.uts.observeDarkMode;
@@ -106,13 +107,11 @@ export class RegisterComponent implements OnInit {
           dateInscription: firebase.default.firestore.FieldValue.serverTimestamp(),
           imgProfil: '',
         };
-        await this.userService.newUser(user);
+        await this.us.newUser(user);
         await authResult.user?.sendEmailVerification();
         this.uts.showNotification(
-          `${title} vous a envoyé un email de vérification à l'adresse ${authResult.user?.email}`,
-          'OK'
+          `${title} vous a envoyé un email de vérification à l'adresse ${authResult.user?.email}`
         );
-        this.router.navigate(['']);
         this.openGmail();
       } catch (error) {
         this.isValidForm = false;

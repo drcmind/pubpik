@@ -1,0 +1,71 @@
+<app-toolbar
+  [title]="title"
+  [activeViewPort]="(mqObsever | async)?.mqAlias"
+  [isDarkTheme]="isDarkTheme"
+  [interestCenters]="interestCenters"
+  [userData]="currentUserData | async"
+  (newPubpiksFilterEvent)="onFilterByCategory($event)"
+  pageName="accueil"
+></app-toolbar>
+<div class="main-container">
+  <mat-card
+    class="category-container mat-elevation-z0"
+    *ngIf="(mqObsever | async)?.mqAlias === 'lg'"
+  >
+    <mat-card-title>
+      <h1>Salut {{ (currentUserData | async)?.nom }}</h1>
+      <h3>
+        Voici les catégories {{ title }}s qui composent votre page d'accueil
+        vous pouvez toutes fois les modifier en cliquant
+        <strong
+          [ngClass]="{ strongDarkTheme: (isDarkTheme | async) }"
+          (click)="editInterestsCenter()"
+          >Ici</strong
+        >
+      </h3>
+    </mat-card-title>
+    <mat-card-content>
+      <div
+        *ngIf="isInterestCenterLoading"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        style="margin: 1rem"
+      >
+        <mat-progress-spinner
+          mode="indeterminate"
+          strokeWidth="2.5"
+          diameter="40"
+        ></mat-progress-spinner>
+      </div>
+      <div *ngIf="!isInterestCenterLoading">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="onFilterByCategory('toutes')"
+        >
+          Toutes
+        </button>
+        <button
+          *ngFor="let interestCenter of interestCenters | async"
+          mat-flat-button
+          [ngClass]="{ buttonDark: (isDarkTheme | async) }"
+          [style.background]="interestCenter.categoryColor"
+          (click)="onFilterByCategory(interestCenter.categoryName)"
+        >
+          {{ interestCenter.categoryName }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div fxFlex.lg="80" fxFlex="100" class="pubpik-container">
+    <app-pubpik-feed
+      [interestCenters]="interestCenters"
+      [activeViewPort]="(mqObsever | async)?.mqAlias"
+      [isDarkTheme]="isDarkTheme"
+      [userID]="userID"
+      [filterPubpik]="filterPubpik"
+      pageName="accueil"
+      height="90vh"
+    ></app-pubpik-feed>
+  </div>
+</div>
