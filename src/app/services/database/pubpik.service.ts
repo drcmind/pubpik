@@ -26,8 +26,7 @@ export class PubpikService {
   async getPubPiks(): Promise<PubPik[]> {
     const pubpikCollection = this.afs.firestore.collection('pubpiks');
     const orderingPub = pubpikCollection.orderBy('pubpikFavoriteCount', 'desc');
-    const querySnapshot = await orderingPub.get();
-    return querySnapshot.docs.map((doc) => {
+    return (await orderingPub.get()).docs.map((doc) => {
       const data = doc.data() as PubPik;
       const pubpikId = doc.id;
       return { pubpikId, ...data };

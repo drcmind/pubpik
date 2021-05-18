@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -13,6 +12,7 @@ export class UserProfilImgComponent implements OnInit {
   @Input() fontSize?: string;
   @Input() marginTop?: string;
   @Input() background?: string;
+  @Input() textColor?: string;
   @Input() isDarkTheme?: BehaviorSubject<boolean>;
   @Input() userData?: User | null;
   constructor() {}

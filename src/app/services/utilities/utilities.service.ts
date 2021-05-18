@@ -61,11 +61,7 @@ export class UtilitiesService {
     }
   }
 
-  refreshPage(pageToRefresh: string): void {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => true;
-    // this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([pageToRefresh]);
-  }
+  refreshPage = () => this.document.defaultView?.location.reload();
 
   mediaQueryObserver(): Observable<MediaChange> {
     return this.mediaObserver.asObservable().pipe(

@@ -85,8 +85,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  goToLandingPage = () => this.router.navigate(['/landingPage']);
-
   openGmail = () => window.open('https://mail.google.com/', '_blank');
 
   async onSubmit(): Promise<void> {
@@ -104,7 +102,8 @@ export class RegisterComponent implements OnInit {
           nom: this.registerForm.get('firstName')?.value,
           postNom: this.registerForm.get('lastName')?.value,
           email: this.registerForm.get('email')?.value,
-          dateInscription: firebase.default.firestore.FieldValue.serverTimestamp(),
+          dateInscription:
+            firebase.default.firestore.FieldValue.serverTimestamp(),
           imgProfil: '',
         };
         await this.us.newUser(user);

@@ -4,11 +4,9 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   DocumentData,
-  DocumentReference,
 } from '@angular/fire/firestore';
 import { User } from '../../models/user.model';
 import { Observable } from 'rxjs/internal/Observable';
-type DocumentDataRef = Promise<DocumentReference<DocumentData>>;
 
 @Injectable({
   providedIn: 'root',
@@ -30,9 +28,8 @@ export class UserService {
   // Tous les centres d'interet de l'utilisateur courrement connnecté
   async getInterestCenter(userid: string): Promise<Category[]> {
     const userDoc = this.afs.firestore.collection('users').doc(userid);
-    const querySnapshot = await userDoc.collection('interestCenter').get();
-    const interestCenters = querySnapshot.docs;
-    return interestCenters.map((doc) => {
+    const interestCenters = await userDoc.collection('interestCenter').get();
+    return interestCenters.docs.map((doc) => {
       const data = doc.data() as Category;
       const id = doc.id;
       return { id, ...data };

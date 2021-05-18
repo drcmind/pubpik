@@ -28,7 +28,6 @@ export class DetailPubpikComponent implements OnInit {
   isImageLoading = false;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private ps: PubpikService,
     private uts: UtilitiesService,
     private dialog: MatDialog,
@@ -59,7 +58,7 @@ export class DetailPubpikComponent implements OnInit {
 
   prevImg(currentImg: string): void {
     this.isImageLoading = true;
-    this.pubpik?.forEach((pub) => {
+    this.pubpik?.subscribe((pub) => {
       pub?.pubpikImages.forEach((img) => {
         if (img === currentImg) {
           this.isImageLoading = false;
@@ -71,7 +70,7 @@ export class DetailPubpikComponent implements OnInit {
 
   nextImg(currentImg: string): void {
     this.isImageLoading = true;
-    this.pubpik?.forEach((pub) => {
+    this.pubpik?.subscribe((pub) => {
       pub?.pubpikImages.forEach((img) => {
         if (img === currentImg) {
           this.isImageLoading = false;

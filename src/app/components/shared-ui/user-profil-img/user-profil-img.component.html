@@ -10,6 +10,7 @@
     [ngClass]="{ profileTextDark: (isDarkTheme | async) }"
     [style.font-size]="fontSize"
     [style.margin-top]="marginTop"
+    [style.color]="textColor"
     *ngIf="!userData?.imgProfil"
   >
     {{ (userData?.nom)![0] }}

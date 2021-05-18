@@ -38,7 +38,7 @@ export class HomePageComponent implements OnInit {
     this.userEmail = this.route.snapshot.data.user.email;
 
     // verification de la souscription aux centres d'interet
-    this.us.getInitialSubscription(this.userID).forEach((interestCenter) => {
+    this.us.getInitialSubscription(this.userID).subscribe((interestCenter) => {
       if (interestCenter.length <= 4 || !this.userEmail) {
         this.router.navigate(['emailAndSubscriptionVerification']);
       }
@@ -60,7 +60,7 @@ export class HomePageComponent implements OnInit {
     this.isInterestCenterLoading = false;
   }
 
-  refreshPage = () => this.uts.refreshPage('accueil');
+  refreshPage = () => this.uts.refreshPage();
 
   onFilterByCategory = (category: string) => this.filterPubpik.next(category);
 

@@ -27,7 +27,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       width: '30rem',
       hasBackdrop: true,
       disableClose: true,
-      data: { title: this.title, isDarkTheme: this.isDarkTheme },
     });
   }
 

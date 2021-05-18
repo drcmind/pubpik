@@ -29,8 +29,7 @@ export class DeleteDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { pubpikID: string },
     private ps: PubpikService,
-    private us: UtilitiesService,
-    private snackBar: MatSnackBar,
+    private uts: UtilitiesService,
     private dialog: MatDialog
   ) {}
 
@@ -39,9 +38,7 @@ export class DeleteDialogComponent implements OnInit {
   async onDeletePubpik(pubpikID: string): Promise<void> {
     this.dialog.closeAll();
     await this.ps.deletePupiks(pubpikID);
-    this.us.refreshPage('');
-    this.snackBar.open(`${this.title} supprimé avec succès`, 'OK', {
-      duration: 5000,
-    });
+    this.uts.showNotification(`${this.title} supprimé avec succès`);
+    this.uts.refreshPage();
   }
 }

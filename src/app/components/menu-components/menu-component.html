@@ -1,0 +1,67 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <div
+      class="icons"
+      fxLayout="column"
+      fxFlexFill
+      fxLayoutAlign="space-between center"
+    >
+      <div>
+        <button
+          mat-button
+          routerLink="accueil"
+          routerLinkActive="active"
+          matTooltip="Accueil"
+          matTooltipPosition="after"
+        >
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          mat-button
+          routerLink="explorer"
+          routerLinkActive="active"
+          matTooltip="Explorer"
+          matTooltipPosition="after"
+        >
+          <mat-icon>explore</mat-icon>
+        </button>
+        <button
+          mat-button
+          routerLink="chat"
+          routerLinkActive="active"
+          matTooltip="Message"
+          matTooltipPosition="after"
+        >
+          <mat-icon>chat</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button
+          mat-button
+          routerLink="notification"
+          routerLinkActive="active"
+          matTooltip="Notification"
+          matTooltipPosition="after"
+        >
+          <mat-icon>notifications_active</mat-icon>
+        </button>
+        <button
+          mat-button
+          routerLink="profile"
+          routerLinkActive="active"
+          matTooltip="Profile"
+          matTooltipPosition="after"
+        >
+          <app-user-profil-img
+            fxLayoutAlign="center"
+            [isDarkTheme]="isDarkTheme"
+            [userData]="currentUserData | async"
+          ></app-user-profil-img>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="mat-app-background">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

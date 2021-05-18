@@ -13,6 +13,5 @@ export class NotFoundComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
-
-  goToHome = () => this.router.navigate(['']);
+  goToHome = () => this.router.navigate(['pubpik/accueil']);
 }

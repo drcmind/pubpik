@@ -2,7 +2,7 @@ import { UtilitiesService } from '../../../services/utilities/utilities.service'
 import { Category } from 'src/app/models/category.model';
 import { Observable } from 'rxjs';
 import { CategoryService } from '../../../services/database/category.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/database/user.service';
@@ -26,7 +26,6 @@ export class ProcessRegisterComponent implements OnInit {
   userEmail?: string;
   userID = '';
   isEmailVerified?: BehaviorSubject<boolean>;
-  reloadUser: any;
 
   constructor(
     private us: UserService,
@@ -70,8 +69,6 @@ export class ProcessRegisterComponent implements OnInit {
     }
   }
 
-  reloadThisUser = () => this.reloadUser;
-
   async onReloadUser(): Promise<void> {
     this.isProgressBarVisible = true;
     await this.route.snapshot.data.user.reload();
@@ -84,12 +81,11 @@ export class ProcessRegisterComponent implements OnInit {
     this.isNotRecommandedNumber = false;
     this.copyCategories.forEach(async (categorie) => {
       await this.us.setInterestCenter(this.userID, categorie);
-      this.isProgressBarVisible = false;
-      this.uts.showNotification(
-        `Inscription terminée avec succès, Bienvenu sur ${this.title}`
-      );
-      this.router.navigate(['accueil']);
+      this.router.navigate(['pubpik/accueil']);
     });
+    this.uts.showNotification(
+      `Inscription terminée avec succès, Bienvenu sur ${this.title}`
+    );
   }
 
   // si l'email fournit est mauvais

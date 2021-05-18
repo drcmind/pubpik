@@ -93,7 +93,8 @@ export class AddPubPikComponent implements OnInit {
         pubpikCategory: this.addPubPikForm.get('category')?.value,
         pubpikUserData: userData,
         pubpikFavoriteCount: 0,
-        pubpikTimestamp: firebase.default.firestore.FieldValue.serverTimestamp(),
+        pubpikTimestamp:
+          firebase.default.firestore.FieldValue.serverTimestamp(),
         pubpikImages: this.imagesUrls,
       };
       try {
@@ -105,7 +106,7 @@ export class AddPubPikComponent implements OnInit {
         );
         snackBarRef
           .onAction()
-          .forEach(() => this.router.navigate(['pubpik', docRef.id]));
+          .subscribe(() => this.router.navigate(['pubpik-detail', docRef.id]));
       } catch (error) {
         this.isImageLoading = false;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);

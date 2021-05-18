@@ -1,11 +1,12 @@
 import { UtilitiesService } from './../../../services/utilities/utilities.service';
 import { ResetPasswordComponent } from './../reset-password/reset-password.component';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +16,17 @@ import { BehaviorSubject } from 'rxjs';
 export class LoginComponent implements OnInit {
   isHide = true;
   formValid = false;
-
+  title = title;
+  isDarkTheme?: BehaviorSubject<boolean>;
   constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: { title: string; isDarkTheme: BehaviorSubject<boolean> },
     private formBuilder: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
     private authService: AuthService,
     private uts: UtilitiesService
-  ) {}
+  ) {
+    this.isDarkTheme = this.uts.observeDarkMode;
+  }
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit {
       try {
         await this.authService.login(email, password);
         this.dialog.closeAll();
-        this.uts.refreshPage('accueil');
+        this.router.navigate(['pubpik/accueil']);
       } catch (error) {
         this.formValid = false;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);

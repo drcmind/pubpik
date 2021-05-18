@@ -117,14 +117,6 @@ export class PubpikFeedComponent implements OnInit {
     this.isPubPikLoading = false;
   }
 
-  goToDetailPubpik(pubpikID?: string): void {
-    if (this.pageName === 'detail-pubpik') {
-      this.uts.refreshPage(`pubpik/${pubpikID}`);
-    } else {
-      this.router.navigate(['pubpik', pubpikID]);
-    }
-  }
-
   onAddFavoritePubik(pubpik: PubPik, userID: string): void {
     const pubpikFavoriteCount = (pubpik.pubpikFavoriteCount += 1);
     pubpik.isMyFavorite = true;
@@ -135,5 +127,10 @@ export class PubpikFeedComponent implements OnInit {
     const pubpikFavoriteCount = (pubpik.pubpikFavoriteCount -= 1);
     pubpik.isMyFavorite = false;
     this.fps.removeFavorite(pubpik, userID, pubpikFavoriteCount);
+  }
+
+  goToDetailPubpik(pubpikID?: string): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.navigate(['pubpik-detail', pubpikID]);
   }
 }

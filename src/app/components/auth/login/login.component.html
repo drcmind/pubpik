@@ -6,7 +6,7 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
 >
-  <div fxFlex="50" class="mat-display-1">{{ data.title }}</div>
+  <div fxFlex="50" class="mat-display-1">{{ title }}</div>
   <button
     class="mat-elevation-z1"
     mat-icon-button
@@ -24,7 +24,7 @@
 >
   <h2>
     Veillez fournir vos logins pour accèder à votre espace
-    {{ data.title }}
+    {{ title }}
     en un clin d'oeil.
   </h2>
 
@@ -78,7 +78,7 @@
       class="forgot"
       (click)="openResetPasswordDialog()"
       mat-button
-      [ngClass]="{ forgotDarkTheme: (data.isDarkTheme | async) }"
+      [ngClass]="{ forgotDarkTheme: (isDarkTheme | async) }"
     >
       Mot de passe oublié ?
     </button>

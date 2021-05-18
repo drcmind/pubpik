@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category.model';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,13 +21,23 @@ export class ToolbarComponent implements OnInit {
   @Input() userData?: User | null;
   @Output() newPubpiksFilterEvent = new EventEmitter<string>();
 
-  constructor(private uts: UtilitiesService, private dialog: MatDialog) {}
+  constructor(
+    private uts: UtilitiesService,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
   toggleMenu = () => this.uts.toogleSidenav();
 
-  refreshPage = () => this.uts.refreshPage('');
+  refreshPage(): void {
+    if (this.pageName === 'accueil') {
+      this.uts.refreshPage();
+    } else {
+      this.router.navigate(['pubpik/accueil']);
+    }
+  }
 
   switchTheme = () => this.uts.switchTheme();
 

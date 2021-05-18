@@ -11,5 +11,5 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToHome = () => this.router.navigate(['accueil']);
+  goToHome = () => this.router.navigate(['pubpik/accueil']);
 }
