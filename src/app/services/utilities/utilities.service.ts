@@ -8,7 +8,7 @@ import {
   TextOnlySnackBar,
 } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable, Observer, fromEvent, merge, BehaviorSubject } from 'rxjs';
+import { Observer, fromEvent, merge, BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Injectable({
@@ -61,7 +61,10 @@ export class UtilitiesService {
     }
   }
 
-  refreshPage = () => this.document.defaultView?.location.reload();
+  refreshPage = (routeName: string) => {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.navigate([routeName]);
+  };
 
   mediaQueryObserver(): Observable<MediaChange> {
     return this.mediaObserver.asObservable().pipe(

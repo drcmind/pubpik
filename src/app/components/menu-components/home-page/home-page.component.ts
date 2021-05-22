@@ -60,7 +60,7 @@ export class HomePageComponent implements OnInit {
     this.isInterestCenterLoading = false;
   }
 
-  refreshPage = () => this.uts.refreshPage();
+  refreshPage = () => this.uts.refreshPage('pubpik/accueil');
 
   onFilterByCategory = (category: string) => this.filterPubpik.next(category);
 

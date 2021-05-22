@@ -5,6 +5,7 @@ import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { title } from 'src/app/services/utilities/global_variables';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -30,6 +31,7 @@ export class DeleteDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { pubpikID: string },
     private ps: PubpikService,
     private uts: UtilitiesService,
+    private location: Location,
     private dialog: MatDialog
   ) {}
 
@@ -39,6 +41,6 @@ export class DeleteDialogComponent implements OnInit {
     this.dialog.closeAll();
     await this.ps.deletePupiks(pubpikID);
     this.uts.showNotification(`${this.title} supprimé avec succès`);
-    this.uts.refreshPage();
+    this.location.back();
   }
 }

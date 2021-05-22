@@ -86,26 +86,15 @@
   </div>
   <div class="content-right" fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
     <div class="user-info" fxLayout="row">
-      <div
-        class="user-profil-img"
-        [style.background]="(pubpik | async)?.pubpikCategory?.categoryColor"
-      >
-        <img
-          class="profile-img"
-          *ngIf="(pubpik | async)?.pubpikUserData?.imgProfil !== ''"
-          [src]="(pubpik | async)?.pubpikUserData?.imgProfil"
-          alt=""
-        />
-        <div
-          class="profile-img"
-          *ngIf="(pubpik | async)?.pubpikUserData?.imgProfil === ''"
-          fxLayout="column"
-        >
-          <h1 class="profile-text" fxFlexAlign="center">
-            {{ ((pubpik | async)?.pubpikUserData?.nom)![0] }}
-          </h1>
-        </div>
-      </div>
+      <app-user-profil-img
+        fontSize="2rem"
+        marginTop="25%"
+        fxLayoutAlign="center center"
+        textColor="black"
+        [isDarkTheme]="isDarkTheme"
+        [userData]="(pubpik | async)?.pubpikUserData"
+        [background]="(pubpik | async)?.pubpikCategory?.categoryColor"
+      ></app-user-profil-img>
       <div class="nom-email">
         <h2 style="margin-bottom: 0rem">
           {{ (pubpik | async)?.pubpikUserData?.nom }}

@@ -1,0 +1,50 @@
+Les categories predefinies
+---------------------------
+
+1. Nature
+	color: #f08080
+	desc: Célébrons la magie de la Terre Mère - avec des images de tout ce que notre planète a à offrir, des superbes paysages marins, des cieux étoilés et tout ce qui se trouve entre les deux.
+
+2. Affaires et travail
+	color: #87cefa
+	desc: Refléter les réalités du lieu de travail moderne sous leurs nombreuses formes - des images de travail à distance et de start-ups aux photos d'ingénieurs et d'artistes au travail.
+
+3. Santé
+	color: #ddffc9
+	desc: Célébrez un esprit, un corps et une âme sains avec des photographies qui présentent tout, des nouvelles découvertes médicales et des médecines alternatives, à une alimentation saine et à la méditation.
+
+4. Evenements actuels
+	color: #90ee90
+	desc: Couvrir les derniers événements importants et les moments d'actualité du monde entier - y compris les manifestations contre le climat, les défilés de la fierté, les célébrations de vacances, et plus encore.
+
+5. Athletisme
+	color: #fff55c
+	desc: Prêt, prêt, snap. Capturez l'action au quotidien - des entraînements difficiles à la salle de sport aux matchs de basket-ball tendus sur le terrain.
+
+6. La mode
+	color: #fafad2
+	desc: Des photos de style urbain à la photographie éditoriale - découvrez les dernières tendances en matière de beauté et de mode.
+
+7. Personnes
+	color: #add8e6
+	desc: De vraies personnes, capturées. La photographie a le pouvoir de refléter le monde qui nous entoure, de donner la parole aux individus et aux groupes au sein de nos communautés - et surtout - de raconter leur histoire.
+
+8. Nourriture & boisson
+	color: #20b2aa
+	desc: Il est temps de se faire plaisir et de vous plonger dans le monde de la photographie culinaire - avec des photos de dîners élaborés, de pâtisseries décadentes et plus encore.
+
+9. Animaux
+	color: #ffa07a
+	desc: Faune exotique, chatons de compagnie - et tout le reste. Découvrez la beauté du règne animal à travers votre écran.
+
+10. La technologie
+	color: #ffb6c1
+	desc: Explorer notre relation compliquée avec la technologie - des téléphones, nous sommes collés au matin au soir, en passant par les caméras prisées que nous avons exposées dans la maison.
+
+11. Voyage
+	color: # 48d1cc
+	desc: Découvrez des merveilles cachées et des destinations inspirantes à travers le monde dans le confort de votre foyer.
+
+12. Architecture
+	color: #fafad2
+	desc: Explorez les extérieurs du monde entier - des bâtiments brutalistes aux structures minimalistes qui vous donneront une nouvelle appréciation de l'art de l'architecture.

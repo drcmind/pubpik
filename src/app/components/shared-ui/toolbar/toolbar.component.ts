@@ -31,13 +31,7 @@ export class ToolbarComponent implements OnInit {
 
   toggleMenu = () => this.uts.toogleSidenav();
 
-  refreshPage(): void {
-    if (this.pageName === 'accueil') {
-      this.uts.refreshPage();
-    } else {
-      this.router.navigate(['pubpik/accueil']);
-    }
-  }
+  refreshPage = () => this.uts.refreshPage('pubpik/accueil');
 
   switchTheme = () => this.uts.switchTheme();
 

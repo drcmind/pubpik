@@ -60,7 +60,7 @@ export class EditInterestsCenterComponent implements OnInit {
 
   onEditInterestCenter(): void {
     this.dialog.closeAll();
-    this.uts.refreshPage();
+    this.uts.refreshPage('pubpik/accueil');
   }
 
   ngOnInit(): void {}
