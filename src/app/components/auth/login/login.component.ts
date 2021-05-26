@@ -43,17 +43,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToRegister(): void {
-    this.dialog.closeAll();
-    this.router.navigate(['/register']);
-  }
-
   openResetPasswordDialog(): void {
-    this.dialog.closeAll();
     this.dialog.open(ResetPasswordComponent, {
       width: '30rem',
-      hasBackdrop: true,
-      disableClose: true,
     });
   }
 

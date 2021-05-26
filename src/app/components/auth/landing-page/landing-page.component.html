@@ -42,7 +42,7 @@
           <button mat-flat-button (click)="openLoginDialog()" color="primary">
             Se connecter
           </button>
-          <button mat-flat-button (click)="goToRegister()" color="accent">
+          <button mat-flat-button routerLink="/register" color="accent">
             S'inscrire
           </button>
         </div>
@@ -149,7 +149,7 @@
     </div>
     <div class="mat-display-1">Essayez PubPik aujourd'hui</div>
     <h2>Un cours sur Angular et Firebase bien expliqué et structuré</h2>
-    <button mat-raised-button color="primary" (click)="goToRegister()">
+    <button mat-raised-button color="primary" routerLink="/register">
       Commencer
     </button>
   </div>

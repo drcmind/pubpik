@@ -77,6 +77,7 @@
     <button
       class="forgot"
       (click)="openResetPasswordDialog()"
+      mat-dialog-close
       mat-button
       [ngClass]="{ forgotDarkTheme: (isDarkTheme | async) }"
     >
@@ -93,7 +94,12 @@
 >
   <p>Besoin d'un nouveau compte ?</p>
   <p>
-    <button mat-flat-button color="accent" (click)="goToRegister()">
+    <button
+      mat-flat-button
+      color="accent"
+      mat-dialog-close
+      routerLink="/register"
+    >
       Créez-en un
     </button>
   </p>
