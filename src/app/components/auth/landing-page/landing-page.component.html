@@ -57,16 +57,16 @@
 </section>
 
 <section
-  class="fonctionalite-section"
+  class="features-section"
   fxLayout="row wrap"
-  fxLayoutAlign="space-between start"
+  fxLayoutAlign="space-between center"
 >
-  <div class="mat-display-2" fxFlex="100">
-    PubPik est une meilleure illustration pour bien apprendre Angular et
+  <h1 class="mat-display-2" fxFlex="100">
+    {{ title }} est une meilleure illustration pour bien apprendre Angular et
     Firebase
-  </div>
+  </h1>
   <article fxFlex="28" fxFlex.xs="100" fxLayout="column">
-    <img fxFlex="30" src="../../../assets/auth.png" alt="angularfireAuth" />
+    <img src="../../../assets/auth.png" alt="angularfireAuth" />
     <h2>AngularFire Auth</h2>
     <h3>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
@@ -76,7 +76,7 @@
       beatae, assumenda alias. Dolores soluta doloremque suscipit vitae?
     </h3>
     <a
-      href="https://google.firebase.com/docs"
+      href="https://github.com/angular/angularfire/blob/master/docs/auth/getting-started.md"
       target="_blank"
       rel="noreferrer"
       [ngClass]="{ linkInDark: (isDarkTheme | async) }"
@@ -93,7 +93,7 @@
       adipisicing elit.
     </h3>
     <a
-      href="https://google.firebase.com/docs"
+      href="https://github.com/angular/angularfire/tree/master/docs/firestore"
       target="_blank"
       rel="noreferrer"
       [ngClass]="{ linkInDark: (isDarkTheme | async) }"
@@ -110,7 +110,7 @@
       Praesentium asperiores quo eveniet sunt!
     </h3>
     <a
-      href="https://google.firebase.com/docs"
+      href="https://github.com/angular/angularfire/blob/master/docs/storage/storage.md"
       target="_blank"
       rel="noreferrer"
       [ngClass]="{ linkInDark: (isDarkTheme | async) }"
@@ -155,97 +155,87 @@
   </div>
 </section>
 
-<footer>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <div
-      class="footer-contenu"
-      fxFlex="100"
-      fxLayout="row wrap"
-      fxLayoutAlign="space-between start"
-    >
-      <div fxFlex="17" fxFlex.xs="100">
-        <h2>Contactez-nous</h2>
-        <p>
-          <a
-            href="https://twitter.com/@drcmin2"
-            target="_blank"
-            rel="noreferrer"
-            >Twitter</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://facebook.com/drcmind"
-            target="_blank"
-            rel="noreferrer"
-            >Facebook</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://drcmindfrench@gmail.com"
-            target="_blank"
-            rel="noreferrer"
-            >Gmail</a
-          >
-        </p>
-        <p>
-          <a href="https://github.com/drcmind" target="_blank" rel="noreferrer"
-            >Github</a
-          >
-        </p>
-        <p>
-          <a href="https://youtube.com/drcmind" target="_blank" rel="noreferrer"
-            >YouTube</a
-          >
-        </p>
-      </div>
-      <div fxFlex="17" fxFlex.xs="100" fxLayout="column">
-        <h2>Tutoriels</h2>
-        <p>
-          <a href="https://angular.io" target="_blank" rel="noreferrer"
-            >Angular</a
-          >
-        </p>
-        <p>
-          <a href="https://google.firebase.com" target="_blank" rel="noreferrer"
-            >Firebase</a
-          >
-        </p>
-        <p>
-          <a
-            href="https://github.com/AngularFire"
-            target="_blank"
-            rel="noreferrer"
-            >AngularFire</a
-          >
-        </p>
-        <p>
-          <a href="https://material.angular.io" target="_blank" rel="noreferrer"
-            >Angular material</a
-          >
-        </p>
-      </div>
-      <div fxFlex="15" fxFlex.xs="100" fxLayout="column">
-        <h2>Entreprise</h2>
-        <p><a href="https://#" target="_blank" rel="noreferrer">A propos</a></p>
-        <p>
-          <a href="https://#" target="_blank" rel="noreferrer"
-            >Offre d'emploi</a
-          >
-        </p>
-        <p><a href="https://#" target="_blank" rel="noreferrer">API</a></p>
-        <p>
-          <a href="https://#" target="_blank" rel="noreferrer"
-            >Condition d'utilisation</a
-          >
-        </p>
-        <p>
-          <a href="https://#" target="_blank" rel="noreferrer"
-            >Politique de confidentialité</a
-          >
-        </p>
-      </div>
+<footer fxLayout="column">
+  <div
+    class="footer-contenu"
+    fxFlex="100"
+    fxLayout="row wrap"
+    fxLayoutAlign="space-between start"
+  >
+    <div fxFlex="17" fxFlex.xs="100">
+      <h2>Contactez-nous</h2>
+      <p>
+        <a href="https://twitter.com/@drcmin2" target="_blank" rel="noreferrer"
+          >Twitter</a
+        >
+      </p>
+      <p>
+        <a href="https://facebook.com/drcmind" target="_blank" rel="noreferrer"
+          >Facebook</a
+        >
+      </p>
+      <p>
+        <a
+          href="https://drcmindfrench@gmail.com"
+          target="_blank"
+          rel="noreferrer"
+          >Gmail</a
+        >
+      </p>
+      <p>
+        <a href="https://github.com/drcmind" target="_blank" rel="noreferrer"
+          >Github</a
+        >
+      </p>
+      <p>
+        <a href="https://youtube.com/drcmind" target="_blank" rel="noreferrer"
+          >YouTube</a
+        >
+      </p>
+    </div>
+    <div fxFlex="17" fxFlex.xs="100" fxLayout="column">
+      <h2>Tutoriels</h2>
+      <p>
+        <a href="https://angular.io" target="_blank" rel="noreferrer"
+          >Angular</a
+        >
+      </p>
+      <p>
+        <a href="https://google.firebase.com" target="_blank" rel="noreferrer"
+          >Firebase</a
+        >
+      </p>
+      <p>
+        <a
+          href="https://github.com/AngularFire"
+          target="_blank"
+          rel="noreferrer"
+          >AngularFire</a
+        >
+      </p>
+      <p>
+        <a href="https://material.angular.io" target="_blank" rel="noreferrer"
+          >Angular material</a
+        >
+      </p>
+    </div>
+    <div fxFlex="15" fxFlex.xs="100" fxLayout="column">
+      <h2>Entreprise</h2>
+      <p><a href="https://#" target="_blank" rel="noreferrer">A propos</a></p>
+      <p>
+        <a href="https://#" target="_blank" rel="noreferrer">Offre d'emploi</a>
+      </p>
+      <p><a href="https://#" target="_blank" rel="noreferrer">API</a></p>
+      <p>
+        <a href="https://#" target="_blank" rel="noreferrer"
+          >Condition d'utilisation</a
+        >
+      </p>
+      <p>
+        <a href="https://#" target="_blank" rel="noreferrer"
+          >Politique de confidentialité</a
+        >
+      </p>
     </div>
   </div>
   <mat-divider></mat-divider>
