@@ -1,63 +1,41 @@
 @use "../../../../styles" as *;
 
-mat-horizontal-stepper {
+.email-verification {
+  height: 100vh;
   padding: 4rem;
-  button {
-    @extend %button;
-    width: inherit;
-    display: inline-block;
-    margin: 0 1rem;
+
+  h1 {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  span {
+    text-decoration: underline;
+    color: $achor-tag-color;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .categories-container {
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding: 1rem;
   }
 
   mat-button-toggle {
-    margin: 0.3rem;
-    border-radius: 1rem;
-    height: 3rem;
+    margin: 0.2rem;
   }
 
-  img {
-    width: 20%;
-    margin: 1rem;
-  }
-
-  .reload {
-    text-decoration: underline;
-    cursor: pointer;
-    color: $achor-tag-color;
-  }
-
-  // for dark theme
-  .darkLink {
-    color: $achor-tag-darkTheme;
-  }
-
-  .btn-interest-center {
-    margin-top: 1rem;
-  }
-
-  .btn-lancez-vous {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 1rem;
-
-    button {
-      width: initial;
-    }
-  }
-  .categories {
-    border-radius: 1rem;
-    width: 100%;
-    padding: 1rem 0;
-    border: 0.1rem solid $black-color;
+  button {
+    margin: 0.5rem;
+    @extend %button;
   }
 }
-
-@media (max-width: 55rem) {
-  mat-horizontal-stepper {
-    padding: 0;
-    button {
-      margin: 1rem;
-    }
-  }
+// for dark theme
+.darkLink {
+  color: $achor-tag-darkTheme;
 }
