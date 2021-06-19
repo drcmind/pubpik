@@ -13,6 +13,6 @@
     [style.color]="textColor"
     *ngIf="!userData?.imgProfil"
   >
-    {{ (userData?.nom)![0] }}
+    {{ userData?.nom?.substring(0, 1)?.toUpperCase() }}
   </h1>
 </div>

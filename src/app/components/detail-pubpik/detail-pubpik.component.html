@@ -56,11 +56,15 @@
         ></mat-progress-spinner>
         <img
           *ngIf="!isImageLoading"
-          [src]="((pubpik | async)?.pubpikImages)![imageIndex]"
+          [src]="
+            (pubpik | async)?.pubpikImages?.slice(imageIndex, imageIndex + 1)
+          "
         />
         <input
           #currentImg
-          [value]="((pubpik | async)?.pubpikImages)![imageIndex]"
+          [value]="
+            (pubpik | async)?.pubpikImages?.slice(imageIndex, imageIndex + 1)
+          "
           type="hidden"
         />
         <button
@@ -75,7 +79,7 @@
         <button
           class="next-btn"
           mat-icon-button
-          *ngIf="imageIndex !== ((pubpik | async)?.pubpikImages)!.length - 1"
+          *ngIf="imageIndex !== 4 - 1"
           (click)="nextImg(currentImg.value)"
           [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
         >
@@ -124,7 +128,6 @@
     height="40vh"
     [pubpik]="pubpik"
     [isDarkTheme]="isDarkTheme"
-    [activeViewPort]="(mqObsever | async)?.mqAlias"
     [userID]="userID"
     pageName="detail-pubpik"
   ></app-pubpik-feed>

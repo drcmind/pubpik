@@ -19,6 +19,7 @@
   strong {
     color: $achor-tag-color;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .strongDarkTheme {
@@ -30,11 +31,11 @@
     overflow-y: auto;
     margin-right: -1rem;
 
-    @include scrollbar(0.4rem, 0.2rem);
+    @include scrollbar(0.4rem, 0.3rem);
 
     &:hover {
       &::-webkit-scrollbar-thumb {
-        background: lightgray;
+        background: darkgray;
       }
     }
   }
@@ -52,6 +53,6 @@
   }
 }
 
-.pubpik-container {
+app-pubpik-feed {
   margin-left: auto;
 }

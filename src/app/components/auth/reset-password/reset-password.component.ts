@@ -1,9 +1,8 @@
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,7 +10,7 @@ import { title } from 'src/app/services/utilities/global_variables';
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  title = title;
+  title: string;
   isValidForm = false;
 
   constructor(
@@ -19,7 +18,9 @@ export class ResetPasswordComponent implements OnInit {
     private authService: AuthService,
     private uts: UtilitiesService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   resetPasswordForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -42,6 +43,7 @@ export class ResetPasswordComponent implements OnInit {
           `Un mail de reinitialisation de mot de passe a été envoyé avec succès sur ${email}`
         );
       } catch (error) {
+        this.isValidForm = true;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }

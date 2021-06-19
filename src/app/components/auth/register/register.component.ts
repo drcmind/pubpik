@@ -1,4 +1,4 @@
-import { UtilitiesService } from './../../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../../services/utilities.service';
 import { PasswordValidationService } from '../../../services/auth/password-validation.service';
 import { User } from './../../../models/user.model';
 import { UserService } from '../../../services/database/user.service';
@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs';
-import { desc, title } from 'src/app/services/utilities/global_variables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +18,8 @@ import { desc, title } from 'src/app/services/utilities/global_variables';
 })
 export class RegisterComponent implements OnInit {
   isHide = true;
-  title = title;
-  desc = desc;
+  title: string;
+  desc: string;
   isValidForm = false;
   isDarkTheme?: BehaviorSubject<boolean>;
 
@@ -29,8 +29,11 @@ export class RegisterComponent implements OnInit {
     private uts: UtilitiesService,
     private as: AuthService,
     private us: UserService,
-    private pvs: PasswordValidationService
+    private pvs: PasswordValidationService,
+    private router: Router
   ) {
+    this.title = this.uts.title;
+    this.desc = this.uts.desc;
     this.isDarkTheme = this.uts.observeDarkMode;
   }
 
@@ -92,9 +95,10 @@ export class RegisterComponent implements OnInit {
         await this.us.newUser(user);
         await authResult.user?.sendEmailVerification();
         this.uts.showNotification(
-          `${title} vous a envoyé un email de vérification à l'adresse ${authResult.user?.email}`
+          `${this.title} vous a envoyé un email de vérification à l'adresse ${authResult.user?.email}`
         );
         this.openGmail();
+        this.router.navigate(['emailAndSubscriptionVerification']);
       } catch (error) {
         this.isValidForm = false;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);

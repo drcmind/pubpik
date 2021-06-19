@@ -1,10 +1,7 @@
 import { MenuComponentsComponent } from './components/menu-components/menu-component';
 import { DetailPubpikComponent } from './components/detail-pubpik/detail-pubpik.component';
 import { ProfileComponent } from './components/menu-components/profile/profile.component';
-import { NotificationsComponent } from './components/menu-components/notifications/notifications.component';
-import { ChatComponent } from './components/menu-components/chat/chat.component';
 import { ExplorerComponent } from './components/menu-components/explorer/explorer.component';
-import { ProcessRegisterComponent } from './components/auth/process-register/process-register.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LandingPageComponent } from './components/auth/landing-page/landing-page.component';
 import { FirebaseUserResolverService } from './services/auth/firebase-user-resolver.service';
@@ -17,6 +14,7 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { HomePageComponent } from './components/menu-components/home-page/home-page.component';
+import { EmailAndSubscriptionVerificationComponent } from './components/auth/email-and-subscription-verification/email-and-subscription-verification.component';
 
 const redirectLandingPage = () => redirectUnauthorizedTo(['landingPage']);
 
@@ -43,18 +41,6 @@ const routes: Routes = [
         resolve: { user: FirebaseUserResolverService },
       },
       {
-        path: 'chat',
-        component: ChatComponent,
-        canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectLandingPage },
-      },
-      {
-        path: 'notification',
-        component: NotificationsComponent,
-        canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectLandingPage },
-      },
-      {
         path: 'profile',
         component: ProfileComponent,
         canActivate: [AngularFireAuthGuard],
@@ -75,7 +61,7 @@ const routes: Routes = [
   },
   {
     path: 'emailAndSubscriptionVerification',
-    component: ProcessRegisterComponent,
+    component: EmailAndSubscriptionVerificationComponent,
     resolve: { user: FirebaseUserResolverService },
   },
   {

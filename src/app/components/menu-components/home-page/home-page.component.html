@@ -1,16 +1,9 @@
-<app-toolbar
-  [title]="title"
-  [activeViewPort]="(mqObsever | async)?.mqAlias"
-  [isDarkTheme]="isDarkTheme"
-  [interestCenters]="interestCenters"
-  [userData]="currentUserData | async"
-  (newPubpiksFilterEvent)="onFilterByCategory($event)"
-  pageName="accueil"
-></app-toolbar>
 <div class="main-container">
   <mat-card
     class="category-container mat-elevation-z0"
-    *ngIf="(mqObsever | async)?.mqAlias === 'lg'"
+    fxHide.md
+    fxHide.sm
+    fxHide.xs
   >
     <mat-card-title>
       <h1>Salut {{ (currentUserData | async)?.nom }}</h1>
@@ -57,15 +50,13 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <div fxFlex.lg="80" fxFlex="100" class="pubpik-container">
-    <app-pubpik-feed
-      [interestCenters]="interestCenters"
-      [activeViewPort]="(mqObsever | async)?.mqAlias"
-      [isDarkTheme]="isDarkTheme"
-      [userID]="userID"
-      [filterPubpik]="filterPubpik"
-      pageName="accueil"
-      height="90vh"
-    ></app-pubpik-feed>
-  </div>
+  <app-pubpik-feed
+    fxFlex.lg="80"
+    fxFlex="100"
+    [interestCenters]="interestCenters"
+    [isDarkTheme]="isDarkTheme"
+    [userID]="userID"
+    pageName="accueil"
+    height="90vh"
+  ></app-pubpik-feed>
 </div>

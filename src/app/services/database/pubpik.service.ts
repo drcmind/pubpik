@@ -4,13 +4,14 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PubpikService {
   pubpikCollection: AngularFirestoreCollection<PubPik>;
+  filterPubpik = new BehaviorSubject('');
   constructor(private readonly afs: AngularFirestore) {
     this.pubpikCollection = this.afs.collection('pubpiks', (ref) =>
       ref.orderBy('pubpikFavoriteCount', 'desc')
@@ -22,6 +23,9 @@ export class PubpikService {
   deletePupiks(pubpikID: string): Promise<void> {
     return this.pubpikCollection.doc(pubpikID).delete();
   }
+
+  onFilterPubpiks = (interestCenter: string) =>
+    this.filterPubpik.next(interestCenter);
 
   async getPubPiks(): Promise<PubPik[]> {
     const pubpikCollection = this.afs.firestore.collection('pubpiks');

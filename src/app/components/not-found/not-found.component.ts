@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { title } from 'src/app/services/utilities/global_variables';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-not-found',
@@ -8,10 +7,11 @@ import { title } from 'src/app/services/utilities/global_variables';
   styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent implements OnInit {
-  title = title;
+  title: string;
 
-  constructor(private router: Router) {}
+  constructor(private uts: UtilitiesService) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {}
-  goToHome = () => this.router.navigate(['pubpik/accueil']);
 }

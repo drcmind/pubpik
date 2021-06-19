@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/database/user.service';
 
 @Component({
   selector: 'app-user-profil-img',
@@ -14,8 +15,9 @@ export class UserProfilImgComponent implements OnInit {
   @Input() background?: string;
   @Input() textColor?: string;
   @Input() isDarkTheme?: BehaviorSubject<boolean>;
+  @Input() userID?: string;
   @Input() userData?: User | null;
-  constructor() {}
+  constructor(private us: UserService) {}
 
   ngOnInit(): void {}
 }

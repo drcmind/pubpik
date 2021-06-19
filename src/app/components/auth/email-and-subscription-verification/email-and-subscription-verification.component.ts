@@ -1,22 +1,20 @@
-import { UtilitiesService } from '../../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../../services/utilities.service';
 import { Category } from 'src/app/models/category.model';
 import { Observable } from 'rxjs';
 import { CategoryService } from '../../../services/database/category.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/database/user.service';
 import { BehaviorSubject } from 'rxjs';
-import { title } from 'src/app/services/utilities/global_variables';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-process-register',
-  templateUrl: './process-register.component.html',
-  styleUrls: ['./process-register.component.scss'],
+  selector: 'app-email-and-subscription-verification',
+  templateUrl: './email-and-subscription-verification.component.html',
+  styleUrls: ['./email-and-subscription-verification.component.scss'],
 })
-export class ProcessRegisterComponent implements OnInit {
-  title = title;
+export class EmailAndSubscriptionVerificationComponent implements OnInit {
+  title: string;
   selectedItemCount = 0;
   isProgressBarVisible = false;
   isNotRecommandedNumber = true;
@@ -34,7 +32,9 @@ export class ProcessRegisterComponent implements OnInit {
     private categoriesService: CategoryService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {
     this.interestCenter$ = this.categoriesService.getCategories();

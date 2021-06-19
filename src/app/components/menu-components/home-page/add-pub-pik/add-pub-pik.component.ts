@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { PubPik } from 'src/app/models/pubpik.model';
 import { PubpikService } from 'src/app/services/database/pubpik.service';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-add-pub-pik',
@@ -101,7 +101,7 @@ export class AddPubPikComponent implements OnInit {
         this.dialog.closeAll();
         const docRef = await this.pubpikService.addPubPik(pubpik);
         const snackBarRef = this.uts.showNotification(
-          `Album ajouté avec succès`,
+          `${this.data.title} ajouté avec succès`,
           'Voir'
         );
         snackBarRef

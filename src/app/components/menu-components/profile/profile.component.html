@@ -1,8 +1,3 @@
-<app-toolbar
-  [activeViewPort]="(mqObsever | async)?.mqAlias"
-  [isDarkTheme]="isDarkTheme"
-  pageName="profile"
-></app-toolbar>
 <div class="profile-container">
   <div class="cover-container"></div>
   <div fxLayoutAlign="center center">
@@ -49,7 +44,6 @@
       <mat-tab-group>
         <mat-tab label="Pubpiks"
           ><app-pubpik-feed
-            [activeViewPort]="(mqObsever | async)?.mqAlias"
             [isDarkTheme]="isDarkTheme"
             [userID]="userID"
             pageName="profile"
@@ -59,7 +53,6 @@
         ></mat-tab>
         <mat-tab label="Favoris">
           <app-pubpik-feed
-            [activeViewPort]="(mqObsever | async)?.mqAlias"
             [isDarkTheme]="isDarkTheme"
             [userID]="userID"
             pageName="profile"

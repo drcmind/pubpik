@@ -15,8 +15,9 @@ import { filter, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UtilitiesService {
-  isOpenedSidenav?: boolean;
-  isSideNavOpenned = new BehaviorSubject<boolean>(false);
+  title = 'PubPik';
+  desc =
+    'Sauvegarder vos images sur le cloud en les partageant avec le reste du monde';
   observeDarkMode?: BehaviorSubject<boolean>;
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -24,7 +25,6 @@ export class UtilitiesService {
     private mediaObserver: MediaObserver,
     private snackBar: MatSnackBar
   ) {
-    this.isSideNavOpenned.forEach((value) => (this.isOpenedSidenav = value));
     this.initializeAppTheme();
   }
 
@@ -38,8 +38,6 @@ export class UtilitiesService {
       })
     );
   }
-
-  toogleSidenav = () => this.isSideNavOpenned.next(!this.isOpenedSidenav);
 
   initializeAppTheme(): void {
     const isDarkTheme = localStorage.getItem('theme') === 'Dark';

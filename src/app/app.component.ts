@@ -1,5 +1,5 @@
 import { AuthService } from './services/auth/auth.service';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from './models/user.model';

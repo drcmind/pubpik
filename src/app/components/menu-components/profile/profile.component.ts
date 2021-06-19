@@ -6,10 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/models/user.model';
 import { BehaviorSubject } from 'rxjs';
-import { title } from 'src/app/services/utilities/global_variables';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/database/user.service';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +16,7 @@ import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  title = title;
+  title: string;
   userID = '';
   mqObsever?: Observable<MediaChange>;
   isDarkTheme?: BehaviorSubject<boolean>;
@@ -29,7 +28,9 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private us: UserService,
     private uts: UtilitiesService
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.data.user.uid;

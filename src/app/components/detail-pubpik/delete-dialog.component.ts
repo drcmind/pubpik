@@ -1,9 +1,8 @@
-import { UtilitiesService } from '../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../services/utilities.service';
 import { PubpikService } from 'src/app/services/database/pubpik.service';
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { title } from 'src/app/services/utilities/global_variables';
 import { Location } from '@angular/common';
 
 @Component({
@@ -25,14 +24,16 @@ import { Location } from '@angular/common';
   styles: [],
 })
 export class DeleteDialogComponent implements OnInit {
-  title = title;
+  title: string;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { pubpikID: string },
     private ps: PubpikService,
     private uts: UtilitiesService,
     private location: Location,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {}
 

@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MediaChange } from '@angular/flex-layout';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

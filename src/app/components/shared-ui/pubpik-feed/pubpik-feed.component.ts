@@ -1,5 +1,4 @@
 import { PubPik } from './../../../models/pubpik.model';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
 import { BehaviorSubject } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { FavoritePubpikService } from 'src/app/services/database/favorite-pubpik.service';
@@ -7,6 +6,8 @@ import { Category } from 'src/app/models/category.model';
 import { Router } from '@angular/router';
 import { PubpikService } from 'src/app/services/database/pubpik.service';
 import { Observable } from 'rxjs';
+import { MediaChange } from '@angular/flex-layout';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-pubpik-feed',
@@ -14,26 +15,27 @@ import { Observable } from 'rxjs';
   styleUrls: ['./pubpik-feed.component.scss'],
 })
 export class PubpikFeedComponent implements OnInit {
-  isPubPikLoading = true;
   @Input() height?: string;
   @Input() pageName = '';
   @Input() userID = '';
   @Input() userPubpikStatus = '';
-  @Input() activeViewPort?: string;
   @Input() pubpik?: Observable<PubPik | undefined>;
   @Input() interestCenters?: Promise<Category[]>;
   @Input() isDarkTheme?: BehaviorSubject<boolean>;
-  @Input() filterPubpik?: BehaviorSubject<string>;
+  isPubPikLoading = true;
   pubpiks = new Array<PubPik>();
+  mqObsever?: Observable<MediaChange>;
 
   constructor(
     private fps: FavoritePubpikService,
-    private uts: UtilitiesService,
     private router: Router,
-    private ps: PubpikService
+    private ps: PubpikService,
+    private uts: UtilitiesService
   ) {}
 
   ngOnInit(): void {
+    this.mqObsever = this.uts.mediaQueryObserver();
+
     if (this.pageName === 'accueil') {
       this.getPubpiksByCategories(this.userID);
     } else if (this.pubpik !== undefined) {
@@ -76,7 +78,7 @@ export class PubpikFeedComponent implements OnInit {
   }
 
   getFilterPubpiks(pubpiks: PubPik[]): void {
-    this.filterPubpik?.forEach(async (filter) => {
+    this.ps.filterPubpik.subscribe(async (filter) => {
       if (filter && filter !== 'toutes') {
         this.pubpiks = pubpiks.filter((pub) => {
           return pub.pubpikCategory.categoryName === filter;

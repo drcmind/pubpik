@@ -1,4 +1,4 @@
-import { UtilitiesService } from '../../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../../services/utilities.service';
 import { UserService } from '../../../services/database/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
@@ -6,9 +6,8 @@ import { User } from 'src/app/models/user.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EditInterestsCenterComponent } from './edit-interests-center/edit-interests-center.component';
-import { title } from 'src/app/services/utilities/global_variables';
-import { MediaChange } from '@angular/flex-layout';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PubpikService } from 'src/app/services/database/pubpik.service';
 
 @Component({
   selector: 'app-home-page',
@@ -17,12 +16,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   userID = '';
-  title = title;
+  title: string;
   isInterestCenterLoading = true;
   userEmail?: string;
   interestCenters?: Promise<Category[]>;
   filterPubpik = new BehaviorSubject('');
-  mqObsever?: Observable<MediaChange>;
   isDarkTheme?: BehaviorSubject<boolean>;
   currentUserData?: Observable<User | undefined>;
   constructor(
@@ -30,8 +28,11 @@ export class HomePageComponent implements OnInit {
     private uts: UtilitiesService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
+    private ps: PubpikService,
     private router: Router
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.data.user.uid;
@@ -45,8 +46,6 @@ export class HomePageComponent implements OnInit {
     });
 
     this.interestCenters = this.us.getInterestCenter(this.userID);
-
-    this.mqObsever = this.uts.mediaQueryObserver();
 
     this.isDarkTheme = this.uts.observeDarkMode;
 
@@ -62,7 +61,7 @@ export class HomePageComponent implements OnInit {
 
   refreshPage = () => this.uts.refreshPage('pubpik/accueil');
 
-  onFilterByCategory = (category: string) => this.filterPubpik.next(category);
+  onFilterByCategory = (category: string) => this.ps.onFilterPubpiks(category);
 
   editInterestsCenter(): void {
     this.dialog.open(EditInterestsCenterComponent, {

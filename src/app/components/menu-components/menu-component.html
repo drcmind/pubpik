@@ -1,67 +1,127 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" [(opened)]="opened">
+<div class="menu-container">
+  <mat-toolbar class="mat-card-background" fxLayoutAlign="space-between center">
     <div
-      class="icons"
-      fxLayout="column"
-      fxFlexFill
-      fxLayoutAlign="space-between center"
+      class="left-container"
+      fxFlex="30"
+      fxFlex.xs="10"
+      fxLayoutAlign="start center"
     >
-      <div>
-        <button
-          mat-button
-          routerLink="accueil"
-          routerLinkActive="active"
-          matTooltip="Accueil"
-          matTooltipPosition="after"
-        >
-          <mat-icon>home</mat-icon>
+      <img src="../../../assets/logoo.png" (click)="refreshPage()" alt="" />
+      <mat-form-field appearance="outline" fxHide.sm fxHide.xs>
+        <button mat-icon-button matTooltip="Rechercher" matSuffix>
+          <mat-icon>search</mat-icon>
         </button>
-        <button
-          mat-button
-          routerLink="explorer"
-          routerLinkActive="active"
-          matTooltip="Explorer"
-          matTooltipPosition="after"
-        >
-          <mat-icon>explore</mat-icon>
-        </button>
-        <button
-          mat-button
-          routerLink="chat"
-          routerLinkActive="active"
-          matTooltip="Message"
-          matTooltipPosition="after"
-        >
-          <mat-icon>chat</mat-icon>
-        </button>
-      </div>
-      <div>
-        <button
-          mat-button
-          routerLink="notification"
-          routerLinkActive="active"
-          matTooltip="Notification"
-          matTooltipPosition="after"
-        >
-          <mat-icon>notifications_active</mat-icon>
-        </button>
-        <button
-          mat-button
-          routerLink="profile"
-          routerLinkActive="active"
-          matTooltip="Profile"
-          matTooltipPosition="after"
-        >
-          <app-user-profil-img
-            fxLayoutAlign="center"
-            [isDarkTheme]="isDarkTheme"
-            [userData]="currentUserData | async"
-          ></app-user-profil-img>
-        </button>
-      </div>
+        <input type="type" matInput placeholder="Rechercher..." />
+      </mat-form-field>
+      <button
+        class="mat-elevation-z1"
+        fxHide.lg
+        fxHide.md
+        mat-icon-button
+        matTooltip="Rechercher"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
     </div>
-  </mat-sidenav>
-  <mat-sidenav-content class="mat-app-background">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <div
+      fxFlex="30"
+      class="center-container"
+      fxFlex.xs="100"
+      fxLayoutAlign="center center"
+    >
+      <button mat-button routerLink="accueil" routerLinkActive="active">
+        Accueil
+      </button>
+      <button mat-button routerLink="explorer" routerLinkActive="active">
+        Explorer
+      </button>
+    </div>
+    <div
+      class="right-container"
+      fxFlex="30"
+      fxFlex.xs="10"
+      fxLayoutAlign="end center"
+    >
+      <mat-menu #appMenuCcategories="matMenu">
+        <div fxLayout="column" gdGap="0.3rem" style="margin: 0 0.3rem">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="onFilterByCategory('toutes')"
+          >
+            Toutes
+          </button>
+          <button
+            mat-flat-button
+            [ngClass]="{ buttonDark: (isDarkTheme | async) }"
+            *ngFor="let interestCenter of interestCenters | async"
+            [style.background]="interestCenter.categoryColor"
+            (click)="onFilterByCategory(interestCenter.categoryName)"
+          >
+            {{ interestCenter.categoryName }}
+          </button>
+        </div>
+      </mat-menu>
+
+      <button
+        mat-icon-button
+        matTooltip="Filtrer par categorie"
+        fxHide.lg
+        fxHide.xs
+        *ngIf="currentRoute ==='/pubpik/accueil'"
+        [matMenuTriggerFor]="appMenuCcategories"
+      >
+        <mat-icon>category</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Nouveau {{title}}"
+        fxHide.xs
+        (click)="openAddPubPikDialog()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button fxHide.xs (click)="switchTheme()">
+        <mat-icon matTooltip="Theme claire" *ngIf="isDarkTheme | async"
+          >light_mode</mat-icon
+        >
+        <mat-icon matTooltip="Theme sombre" *ngIf="!(isDarkTheme | async)"
+          >dark_mode</mat-icon
+        >
+      </button>
+      <button mat-icon-button routerLink="profile" matTooltip="Profile">
+        <app-user-profil-img
+          fxLayoutAlign="center"
+          [isDarkTheme]="isDarkTheme"
+          [userData]="currentUserData | async"
+        ></app-user-profil-img>
+      </button>
+
+      <mat-menu #appMenuOptions="matMenu">
+        <div fxLayout="column" gdGap="0.2rem" style="margin: 0 0.3rem">
+          <button mat-menu-item [matMenuTriggerFor]="appMenuCcategories">
+            Filter par
+          </button>
+          <button mat-menu-item (click)="openAddPubPikDialog()">
+            Nouveau {{title}}
+          </button>
+          <button mat-menu-item (click)="switchTheme()">
+            Changer le theme
+          </button>
+        </div>
+      </mat-menu>
+
+      <button
+        mat-icon-button
+        matTooltip="Plus d'options"
+        fxHide.lg
+        fxHide.md
+        fxHide.sm
+        [matMenuTriggerFor]="appMenuOptions"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>

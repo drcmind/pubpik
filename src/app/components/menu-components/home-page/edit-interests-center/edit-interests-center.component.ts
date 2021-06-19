@@ -1,4 +1,4 @@
-import { UtilitiesService } from '../../../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../../../services/utilities.service';
 import { UserService } from '../../../../services/database/user.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';

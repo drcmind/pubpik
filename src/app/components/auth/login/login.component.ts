@@ -1,4 +1,4 @@
-import { UtilitiesService } from './../../../services/utilities/utilities.service';
+import { UtilitiesService } from '../../../services/utilities.service';
 import { ResetPasswordComponent } from './../reset-password/reset-password.component';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,7 +6,6 @@ import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ import { title } from 'src/app/services/utilities/global_variables';
 export class LoginComponent implements OnInit {
   isHide = true;
   formValid = false;
-  title = title;
+  title: string;
   isDarkTheme?: BehaviorSubject<boolean>;
   constructor(
     private formBuilder: FormBuilder,
@@ -26,6 +25,7 @@ export class LoginComponent implements OnInit {
     private uts: UtilitiesService
   ) {
     this.isDarkTheme = this.uts.observeDarkMode;
+    this.title = this.uts.title;
   }
 
   loginForm = this.formBuilder.group({

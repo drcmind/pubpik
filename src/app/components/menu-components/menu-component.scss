@@ -1,36 +1,84 @@
 @use "../../../styles" as *;
 
-mat-sidenav-container {
+.menu-container {
   height: 100vh;
-  width: 100vw;
   transition: 1s;
+  overflow: auto;
+
+  @include scrollbar(0.6rem, 0.5rem);
+
+  &::-webkit-scrollbar-thumb {
+    background: darkgray;
+  }
 }
 
-mat-sidenav {
-  width: 4rem;
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  animation: fade 1s ease forwards;
 
-  .icons {
-    overflow: hidden;
+  .left-container {
+    img {
+      height: 2rem;
+      background: $primary;
+      border-radius: 50%;
+      border: 0.2rem solid $accent;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    mat-form-field {
+      font-size: 1rem;
+      width: 60%;
+      ::ng-deep {
+        .mat-form-field-wrapper {
+          margin: 0;
+          padding: 0;
+        }
+        .mat-form-field-infix {
+          border-top: 0;
+          padding: 0.5rem;
+        }
+      }
+    }
   }
 
-  .active {
-    background: $accent-low-opacity;
-    border-left: 0.4rem solid $primary;
+  .center-container {
+    button {
+      @extend %button;
+      margin: 0 0.2rem;
+    }
+
+    .active {
+      background: darkgray;
+    }
   }
 
-  .activeDark {
-    background: $primary-low-opacity;
-    border-left: 0.4rem solid $accent;
+  .right-container {
+    button {
+      margin-left: 1rem;
+    }
+
+    app-user-profil-img {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 
-  button {
-    height: 4rem;
-    border-radius: 0;
-    transition: 0.5s;
+  @media (max-width: 60rem) {
+    .right-container {
+      button {
+        margin-left: 0rem;
+      }
+    }
   }
+}
 
-  app-user-profil-img {
-    height: 2rem;
-    width: 2rem;
-  }
+.darkBackgroundColor {
+  background: #424242;
+}
+
+.buttonDark {
+  color: $black-color;
 }

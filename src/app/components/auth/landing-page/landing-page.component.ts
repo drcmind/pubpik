@@ -1,9 +1,8 @@
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 import { LoginComponent } from '../login/login.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { desc, title } from 'src/app/services/utilities/global_variables';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,11 +10,13 @@ import { desc, title } from 'src/app/services/utilities/global_variables';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
-  title = title;
-  desc = desc;
+  title: string;
+  desc: string;
   isDarkTheme?: BehaviorSubject<boolean>;
   constructor(private dialog: MatDialog, private uts: UtilitiesService) {
     this.isDarkTheme = this.uts.observeDarkMode;
+    this.title = this.uts.title;
+    this.desc = this.uts.desc;
   }
 
   openLoginDialog = () => this.dialog.open(LoginComponent, { width: '30rem' });

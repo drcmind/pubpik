@@ -5,9 +5,8 @@ import { PubpikService } from '../../services/database/pubpik.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UtilitiesService } from 'src/app/services/utilities/utilities.service';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 import { MediaChange } from '@angular/flex-layout';
-import { title } from 'src/app/services/utilities/global_variables';
 import { Location } from '@angular/common';
 
 @Component({
@@ -16,7 +15,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./detail-pubpik.component.scss'],
 })
 export class DetailPubpikComponent implements OnInit {
-  title = title;
+  title: string;
   userID = '';
   imageIndex = 0;
   pubpikIdFromRoute?: string;
@@ -32,7 +31,9 @@ export class DetailPubpikComponent implements OnInit {
     private uts: UtilitiesService,
     private dialog: MatDialog,
     private location: Location
-  ) {}
+  ) {
+    this.title = this.uts.title;
+  }
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.data.user.uid;
@@ -43,6 +44,10 @@ export class DetailPubpikComponent implements OnInit {
     this.pubpikIdFromRoute = String(routeParams.get('pubpikId'));
 
     this.pubpik = this.ps.getSinglePubpik(this.pubpikIdFromRoute);
+    this.pubpik.subscribe((pubpik) => {
+      let p = pubpik?.pubpikImages?.slice(this.imageIndex, this.imageIndex + 1);
+      console.log(p);
+    });
 
     this.mqObsever = this.uts.mediaQueryObserver();
 

@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
   constructor(private afAuth: AngularFireAuth, private router: Router) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.afAuth.onAuthStateChanged((user) => {
         if (user) {
           this.router.navigate(['']);

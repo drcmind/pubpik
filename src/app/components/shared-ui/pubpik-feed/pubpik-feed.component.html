@@ -13,20 +13,21 @@
 <mat-grid-list
   *ngIf="!isPubPikLoading"
   [cols]="
-    activeViewPort === 'lg' || activeViewPort === 'md'
+    (mqObsever | async)?.mqAlias === 'lg' ||
+    (mqObsever | async)?.mqAlias === 'md'
       ? 3
-      : activeViewPort === 'sm' && pageName === 'accueil'
+      : (mqObsever | async)?.mqAlias === 'sm' && pageName === 'accueil'
       ? 2
-      : activeViewPort === 'sm' && pageName !== 'accueil'
+      : (mqObsever | async)?.mqAlias === 'sm' && pageName !== 'accueil'
       ? 1
-      : activeViewPort === 'xs' && pageName !== 'accueil'
+      : (mqObsever | async)?.mqAlias === 'xs' && pageName !== 'accueil'
       ? 1
       : 2
   "
   [rowHeight]="
-    activeViewPort === 'sm'
+    (mqObsever | async)?.mqAlias === 'sm'
       ? '30rem'
-      : activeViewPort === 'xs'
+      : (mqObsever | async)?.mqAlias === 'xs'
       ? '20rem'
       : '17rem'
   "
@@ -36,14 +37,18 @@
     *ngFor="let pubpik of pubpiks; let i = index"
     [style.background]="pubpik.pubpikCategory.categoryColor"
     [rowspan]="
-      (activeViewPort === 'lg' && i % 3 === 1 && pageName === 'accueil') ||
-      (activeViewPort === 'md' && i % 3 === 1 && pageName === 'accueil')
+      ((mqObsever | async)?.mqAlias === 'lg' &&
+        i % 3 === 1 &&
+        pageName === 'accueil') ||
+      ((mqObsever | async)?.mqAlias === 'md' &&
+        i % 3 === 1 &&
+        pageName === 'accueil')
         ? 2
         : 1
     "
     [colspan]="
-      (activeViewPort === 'lg' && i % 2 === 0) ||
-      (activeViewPort === 'md' && i % 2 === 0)
+      ((mqObsever | async)?.mqAlias === 'lg' && i % 2 === 0) ||
+      ((mqObsever | async)?.mqAlias === 'md' && i % 2 === 0)
         ? 1
         : pageName === 'accueil'
         ? 2
