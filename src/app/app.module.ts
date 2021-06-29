@@ -20,7 +20,7 @@ import { LandingPageComponent } from './components/auth/landing-page/landing-pag
 import { LoginComponent } from './components/auth/login/login.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { ExplorerComponent } from './components/menu-components/explorer/explorer.component';
-import { AddPubPikComponent } from './components/menu-components/home-page/add-pub-pik/add-pub-pik.component';
+import { AddPubPikComponent } from './components/menu-components/add-pub-pik/add-pub-pik.component';
 import { DeleteDialogComponent } from './components/detail-pubpik/delete-dialog.component';
 import { DetailPubpikComponent } from './components/detail-pubpik/detail-pubpik.component';
 import { HomePageComponent } from './components/menu-components/home-page/home-page.component';

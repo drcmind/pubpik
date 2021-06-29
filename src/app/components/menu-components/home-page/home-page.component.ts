@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   userID = '';
   title: string;
   isInterestCenterLoading = true;
-  userEmail?: string;
+  emailVerified?: boolean;
   interestCenters?: Promise<Category[]>;
   filterPubpik = new BehaviorSubject('');
   isDarkTheme?: BehaviorSubject<boolean>;
@@ -36,11 +36,11 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userID = this.route.snapshot.data.user.uid;
-    this.userEmail = this.route.snapshot.data.user.email;
+    this.emailVerified = this.route.snapshot.data.user.emailVerified;
 
     // verification de la souscription aux centres d'interet
     this.us.getInitialSubscription(this.userID).subscribe((interestCenter) => {
-      if (interestCenter.length <= 4 || !this.userEmail) {
+      if (interestCenter.length <= 4 || !this.emailVerified) {
         this.router.navigate(['emailAndSubscriptionVerification']);
       }
     });
@@ -61,7 +61,7 @@ export class HomePageComponent implements OnInit {
 
   refreshPage = () => this.uts.refreshPage('pubpik/accueil');
 
-  onFilterByCategory = (category: string) => this.ps.onFilterPubpiks(category);
+  onFilterByCategory = (category: string) => this.ps.filterPubpiks(category);
 
   editInterestsCenter(): void {
     this.dialog.open(EditInterestsCenterComponent, {

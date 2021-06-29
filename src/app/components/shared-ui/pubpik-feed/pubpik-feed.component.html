@@ -90,15 +90,11 @@
       </button>
     </div>
     <div
-      class="bac-img"
+      class="bg-img"
       [style.background-image]="'url(' + pubpik.pubpikImages[0] + ')'"
       (click)="goToDetailPubpik(pubpik.pubpikId)"
     >
-      <div
-        class="bac-img-hover"
-        fxLayout="column"
-        fxLayoutAlign="space-between"
-      >
+      <div class="bg-img-hover" fxLayout="column" fxLayoutAlign="space-between">
         <div fxFlexAlign="end"></div>
         <div class="pubpik-info" fxLayout>
           <app-user-profil-img
@@ -116,8 +112,8 @@
               {{ pubpik.pubpikTitle }}
             </h1>
             <h3 [ngClass]="{ pubpikTextDark: (isDarkTheme | async) }">
-              {{ pubpik.pubpikUserData.nom }}
-              {{ pubpik.pubpikUserData.postNom }}
+              {{ pubpik.pubpikUserData?.nom }}
+              {{ pubpik.pubpikUserData?.postNom }}
             </h3>
             <h4 [ngClass]="{ pubpikTextDark: (isDarkTheme | async) }">
               {{ pubpik.pubpikTimestamp.toDate() | date }}

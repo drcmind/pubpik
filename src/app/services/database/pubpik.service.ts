@@ -24,8 +24,7 @@ export class PubpikService {
     return this.pubpikCollection.doc(pubpikID).delete();
   }
 
-  onFilterPubpiks = (interestCenter: string) =>
-    this.filterPubpik.next(interestCenter);
+  filterPubpiks = (ic: string) => this.filterPubpik.next(ic);
 
   async getPubPiks(): Promise<PubPik[]> {
     const pubpikCollection = this.afs.firestore.collection('pubpiks');

@@ -22,7 +22,7 @@ export class EditInterestsCenterComponent implements OnInit {
     private dialog: MatDialog,
     private uts: UtilitiesService
   ) {
-    this.cs.getCategories().forEach((interestCenters) => {
+    this.cs.getCategories().subscribe((interestCenters) => {
       this.interestCenters = interestCenters;
       this.interestCenters.forEach(async (icGlobal) => {
         this.userInterestCenters = await this.data.interestCenters;

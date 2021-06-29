@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/database/user.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
 import { Category } from 'src/app/models/category.model';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPubPikComponent } from './home-page/add-pub-pik/add-pub-pik.component';
+import { AddPubPikComponent } from './add-pub-pik/add-pub-pik.component';
 import { PubpikService } from 'src/app/services/database/pubpik.service';
 
 @Component({
@@ -41,9 +41,7 @@ export class MenuComponentsComponent implements OnInit {
     // données de l'utilisateur courrement connecté
     this.currentUserData = this.us.getUser(this.userID);
 
-    this.interestCenters = this.interestCenters = this.us.getInterestCenter(
-      this.userID
-    );
+    this.interestCenters = this.us.getInterestCenter(this.userID);
   }
 
   ngOnInit(): void {}
@@ -52,7 +50,7 @@ export class MenuComponentsComponent implements OnInit {
 
   refreshPage = () => this.uts.refreshPage('pubpik/accueil');
 
-  onFilterByCategory = (category: string) => this.ps.onFilterPubpiks(category);
+  onFilterByCategory = (category: string) => this.ps.filterPubpiks(category);
 
   openAddPubPikDialog(): void {
     this.dialog.open(AddPubPikComponent, {

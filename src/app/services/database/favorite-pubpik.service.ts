@@ -18,6 +18,13 @@ export class FavoritePubpikService {
     this.userCollection = this.afs.collection('users');
   }
 
+  async isFavoritePubpik(pubpik: PubPik, userID: string): Promise<void> {
+    const userDoc = this.afs.firestore.collection('users').doc(userID);
+    const userFavoritePubPiks = userDoc.collection('favorites');
+    const fpDoc = await userFavoritePubPiks.doc(pubpik.pubpikId).get();
+    pubpik.isMyFavorite = fpDoc.exists;
+  }
+
   addFavorite(pubpik: PubPik, userID: string, pubpikFC: number): void {
     const pubpikDoc = this.pubpikCollection.doc(pubpik.pubpikId);
     pubpikDoc.update({ pubpikFavoriteCount: pubpikFC });
@@ -32,13 +39,6 @@ export class FavoritePubpikService {
     const userDoc = this.userCollection.doc(userID);
     const userFavoritePubPiks = userDoc.collection('favorites');
     userFavoritePubPiks.doc(pubpik.pubpikId).delete();
-  }
-
-  async isFavoritePubpik(pubpik: PubPik, userID: string): Promise<void> {
-    const userDoc = this.afs.firestore.collection('users').doc(userID);
-    const userFavoritePubPiks = userDoc.collection('favorites');
-    const fpDoc = await userFavoritePubPiks.doc(pubpik.pubpikId).get();
-    pubpik.isMyFavorite = fpDoc.exists;
   }
 
   async getUserFavoritePubpiks(userID: string): Promise<PubPik[]> {

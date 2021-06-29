@@ -5,7 +5,7 @@ export interface PubPik {
   pubpikTitle: string;
   pubpikDescription?: string;
   pubpikCategory: Category;
-  pubpikUserData: User;
+  pubpikUserData?: User;
   pubpikFavoriteCount: number;
   isMyFavorite?: boolean;
   pubpikTimestamp: any;

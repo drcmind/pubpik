@@ -11,7 +11,7 @@ mat-grid-tile {
   transition: transform 250ms ease-in-out;
   animation: fade 1s ease forwards;
 
-  .bac-img {
+  .bg-img {
     height: 100%;
     width: 100%;
     background-size: cover;
@@ -48,13 +48,13 @@ mat-grid-tile {
 
   &:hover {
     transform: scale(1.02);
-    .bac-img-hover,
+    .bg-img-hover,
     .img-count-btn-favorite {
       opacity: 1;
     }
   }
 
-  .bac-img-hover {
+  .bg-img-hover {
     height: 100%;
     width: 100%;
     opacity: 0;

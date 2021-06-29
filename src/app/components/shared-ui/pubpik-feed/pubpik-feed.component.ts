@@ -107,7 +107,7 @@ export class PubpikFeedComponent implements OnInit {
     const queryPubPiks = await this.ps.getPubPiks();
     const notUserPubpiks = (pub: PubPik) => {
       this.fps.isFavoritePubpik(pub, userID);
-      return pub.pubpikUserData.id === userID;
+      return pub.pubpikUserData?.id === userID;
     };
     this.pubpiks = queryPubPiks.filter(notUserPubpiks);
     this.isPubPikLoading = false;

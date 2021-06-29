@@ -18,15 +18,15 @@ import { UtilitiesService } from 'src/app/services/utilities.service';
 })
 export class AddPubPikComponent implements OnInit {
   isInvalidForm = true;
-  downloadURL?: Observable<string>;
   imagesUrls: string[] = [];
   isImageLoading = false;
   isDarkTheme?: BehaviorSubject<boolean>;
+  userData?: User;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
       categoriesData: Promise<Category[]>;
-      userData: User;
+      userData: Observable<User | undefined>;
       title: string;
     },
     private formBuilder: FormBuilder,
@@ -37,6 +37,7 @@ export class AddPubPikComponent implements OnInit {
     private router: Router
   ) {
     this.isDarkTheme = this.uts.observeDarkMode;
+    this.data.userData.subscribe((userData) => (this.userData = userData));
   }
 
   addPubPikForm = this.formBuilder.group({
@@ -85,13 +86,13 @@ export class AddPubPikComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async onSubmit(userData: User): Promise<void> {
+  async onSubmit(): Promise<void> {
     if (this.addPubPikForm.valid) {
       const pubpik: PubPik = {
         pubpikTitle: this.addPubPikForm.get('title')?.value,
         pubpikDescription: this.addPubPikForm.get('description')?.value,
         pubpikCategory: this.addPubPikForm.get('category')?.value,
-        pubpikUserData: userData,
+        pubpikUserData: this.userData,
         pubpikFavoriteCount: 0,
         pubpikTimestamp:
           firebase.default.firestore.FieldValue.serverTimestamp(),
@@ -108,7 +109,6 @@ export class AddPubPikComponent implements OnInit {
           .onAction()
           .subscribe(() => this.router.navigate(['pubpik-detail', docRef.id]));
       } catch (error) {
-        this.isImageLoading = false;
         this.uts.showNotification(`Une erreur s'est produite, ${error}`);
       }
     }
