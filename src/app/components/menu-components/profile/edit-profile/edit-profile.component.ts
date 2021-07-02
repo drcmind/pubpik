@@ -21,7 +21,6 @@ export class EditProfileComponent implements OnInit {
     public data: {
       isDarkTheme?: BehaviorSubject<boolean>;
       userData: User;
-      currentUserData?: Observable<User | undefined>;
     },
     private formBuilder: FormBuilder,
     private storage: AngularFireStorage,

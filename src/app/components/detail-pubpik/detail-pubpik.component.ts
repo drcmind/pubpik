@@ -21,10 +21,10 @@ export class DetailPubpikComponent implements OnInit {
   pubpikIdFromRoute?: string;
   pubpik?: Observable<PubPik | undefined>;
   relatedPubpik$?: Observable<PubPik[]>;
-  mqObsever?: Observable<MediaChange>;
   isOnline$?: Observable<boolean>;
   isDarkTheme?: BehaviorSubject<boolean>;
-  isImageLoading = false;
+  isImageLoading = true;
+  currentImg?: string;
   constructor(
     private route: ActivatedRoute,
     private ps: PubpikService,
@@ -42,14 +42,12 @@ export class DetailPubpikComponent implements OnInit {
 
     const routeParams = this.route.snapshot.paramMap;
     this.pubpikIdFromRoute = String(routeParams.get('pubpikId'));
-
     this.pubpik = this.ps.getSinglePubpik(this.pubpikIdFromRoute);
-    this.pubpik.subscribe((pubpik) => {
-      let p = pubpik?.pubpikImages?.slice(this.imageIndex, this.imageIndex + 1);
-      console.log(p);
-    });
 
-    this.mqObsever = this.uts.mediaQueryObserver();
+    this.pubpik.subscribe((pubpik) => {
+      this.currentImg = pubpik?.pubpikImages[0];
+      this.isImageLoading = false;
+    });
 
     this.isOnline$ = this.uts.createOnline$();
   }
@@ -61,27 +59,21 @@ export class DetailPubpikComponent implements OnInit {
     });
   }
 
-  prevImg(currentImg: string): void {
+  prevImg(): void {
     this.isImageLoading = true;
     this.pubpik?.subscribe((pub) => {
-      pub?.pubpikImages.forEach((img) => {
-        if (img === currentImg) {
-          this.isImageLoading = false;
-          this.imageIndex -= 1;
-        }
-      });
+      this.currentImg = pub?.pubpikImages[(this.imageIndex -= 1)];
+      this.isImageLoading = false;
     });
   }
 
-  nextImg(currentImg: string): void {
+  nextImg(): void {
     this.isImageLoading = true;
     this.pubpik?.subscribe((pub) => {
-      pub?.pubpikImages.forEach((img) => {
-        if (img === currentImg) {
-          this.isImageLoading = false;
-          this.imageIndex += 1;
-        }
-      });
+      if (!(this.imageIndex === pub?.pubpikImages?.length! - 1)) {
+        this.currentImg = pub?.pubpikImages[(this.imageIndex += 1)];
+        this.isImageLoading = false;
+      }
     });
   }
 

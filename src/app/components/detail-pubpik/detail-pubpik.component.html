@@ -16,30 +16,14 @@
       >
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <div>
-        <button
-          mat-icon-button
-          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
-        >
-          <mat-icon>download</mat-icon>
-        </button>
-        <button
-          *ngIf="userID === (pubpik | async)?.pubpikUserData?.id"
-          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
-          style="margin: 0 1rem"
-          mat-icon-button
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          *ngIf="userID === (pubpik | async)?.pubpikUserData?.id"
-          [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
-          mat-icon-button
-          (click)="showDialog()"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
+      <button
+        *ngIf="userID === (pubpik | async)?.pubpikUserData?.id"
+        [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
+        mat-icon-button
+        (click)="showDialog()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
     <div fxFlex="100" style="background: black" fxLayoutAlign="center center">
       <h1 *ngIf="!(isOnline$ | async)" fxFlex="80" align="center">
@@ -54,33 +38,21 @@
           diameter="40"
           align="center"
         ></mat-progress-spinner>
-        <img
-          *ngIf="!isImageLoading"
-          [src]="
-            (pubpik | async)?.pubpikImages?.slice(imageIndex, imageIndex + 1)
-          "
-        />
-        <input
-          #currentImg
-          [value]="
-            (pubpik | async)?.pubpikImages?.slice(imageIndex, imageIndex + 1)
-          "
-          type="hidden"
-        />
+        <img *ngIf="!isImageLoading" [src]="currentImg" />
         <button
           class="prev-btn"
           mat-icon-button
           *ngIf="imageIndex !== 0"
           [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
-          (click)="prevImg(currentImg.value)"
+          (click)="prevImg()"
         >
           <mat-icon>navigate_before</mat-icon>
         </button>
         <button
           class="next-btn"
           mat-icon-button
-          *ngIf="imageIndex !== 4 - 1"
-          (click)="nextImg(currentImg.value)"
+          *ngIf="!(imageIndex === (pubpik | async)?.pubpikImages?.length! - 1)"
+          (click)="nextImg()"
           [ngClass]="{ buttonDarkTheme: (isDarkTheme | async) }"
         >
           <mat-icon>navigate_next</mat-icon>

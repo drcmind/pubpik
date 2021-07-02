@@ -17,7 +17,7 @@ export class UserProfilImgComponent implements OnInit {
   @Input() isDarkTheme?: BehaviorSubject<boolean>;
   @Input() userID?: string;
   @Input() userData?: User | null;
-  constructor(private us: UserService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

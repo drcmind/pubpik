@@ -15,6 +15,13 @@
       overflow: hidden;
       height: 100vh;
 
+      &:hover {
+        .next-btn,
+        .prev-btn {
+          opacity: 1;
+        }
+      }
+
       img {
         height: 100%;
         width: 100%;
@@ -28,6 +35,8 @@
         background-color: $white-color;
         transform: translateY(-50%);
         top: 50%;
+        opacity: 0;
+        transition: 250ms ease-in-out;
       }
 
       .prev-btn {

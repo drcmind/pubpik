@@ -25,7 +25,7 @@
     fxLayoutAlign="center center"
     marginTop="15%"
     [isDarkTheme]="data.isDarkTheme"
-    [userData]="data.currentUserData | async"
+    [userData]="data.userData"
     (click)="selectImage.click()"
   ></app-user-profil-img>
   <form fxLayout="row wrap" [formGroup]="editUserForm" (ngSubmit)="onSubmit()">

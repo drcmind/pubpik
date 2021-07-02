@@ -18,7 +18,6 @@ import { UtilitiesService } from 'src/app/services/utilities.service';
 export class ProfileComponent implements OnInit {
   title: string;
   userID = '';
-  mqObsever?: Observable<MediaChange>;
   isDarkTheme?: BehaviorSubject<boolean>;
   currentUserData?: Observable<User | undefined>;
   userData?: User | null;
@@ -35,8 +34,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userID = this.route.snapshot.data.user.uid;
 
-    this.mqObsever = this.uts.mediaQueryObserver();
-
     this.isDarkTheme = this.uts.observeDarkMode;
 
     this.currentUserData = this.us.getUser(this.userID);
@@ -50,7 +47,6 @@ export class ProfileComponent implements OnInit {
       data: {
         isDarkTheme: this.isDarkTheme,
         userData: this.userData,
-        currentUserData: this.currentUserData,
       },
     });
   }
